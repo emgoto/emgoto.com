@@ -10,7 +10,7 @@ export const Container = styled.div`
     max-width: 400px;
     margin: 0 auto;
     margin-top: 32px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
 
     h4 {
         margin-top: 0;

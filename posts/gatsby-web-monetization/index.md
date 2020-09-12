@@ -5,11 +5,12 @@ tags: ["gatsby"]
 category: "blog"
 emoji: 📰
 coverImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 344504
 ---
 
 In this post we'll be adding web monetization to your Gatsby blog, allowing you to create content that is only visible to users that are sending you micropayments. We'll also be hiding this monetized content from your RSS feed, and (optionally) setting up a separate secret feed that contains your monetized content.
 
-> If you're only interested in monetizing your site, and aren't planning on hiding any content, you can jump down to the "Add a monetization meta tag to the head of every page" section.
+> If you're only interested in monetizing your site, and aren't planning on hiding any content, you can jump down to [Add a monetization meta tag to the head of every page](#add-a-monetization-meta-tag-to-the-head-of-every-page).
 
 ## Getting started with Gatsby and MDX
 

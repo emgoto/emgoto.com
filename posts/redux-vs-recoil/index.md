@@ -5,6 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 🐍
 coverImage: 'https://images.unsplash.com/photo-1498855926480-d98e83099315?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 391961
 --- 
 
 Facebook recently announced a new state management library for React called [Recoil](https://github.com/facebookexperimental/Recoil). Even though it’s still at an early, experimental phase it has received a lot of hype with 8000+ stars on Github.

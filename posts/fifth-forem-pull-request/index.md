@@ -5,6 +5,7 @@ tags: ["opensource"]
 category: "blog"
 emoji: 🌻
 coverImage: 'https://images.unsplash.com/photo-1535222830855-fd60aca7e065?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'
+devArticleId: 422738
 ---
 
 This week, I worked on my fifth pull request to [Forem](https://github.com/forem/forem) (the repository used to power [DEV](https://dev.to)). The feature I decided to tackle was adding a “copy to clipboard” feature to code examples on blog posts.

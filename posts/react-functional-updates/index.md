@@ -5,6 +5,7 @@ category: "snippets"
 tags: ["react"]
 emoji: 🎣
 coverImage: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
+devArticleId: 301207
 --- 
 
 The functional updates pattern can be used whenever you need to **update state using the previous state.**

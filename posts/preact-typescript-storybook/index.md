@@ -5,6 +5,7 @@ category: "snippets"
 tags: ["preact"]
 emoji: 📖
 coverImage: 'https://images.unsplash.com/photo-1517770413964-df8ca61194a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 294275
 --- 
 
 [Storybook](https://storybook.js.org/) is a useful tool for visualising what your app's front-end components will look like across different scenarios. 

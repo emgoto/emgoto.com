@@ -5,6 +5,7 @@ category: "blog"
 tags: ["career"]
 emoji: 📝
 coverImage: 'https://images.unsplash.com/flagged/photo-1554757388-5982229b9ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 303266
 --- 
 
 For 2020, one of my goals was to step outside of my comfort zone and write **one blog post per week**.

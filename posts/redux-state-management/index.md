@@ -5,6 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 🦆
 coverImage: 'https://images.unsplash.com/photo-1525538182201-02cd1909effb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80'
+devArticleId: 358316
 --- 
 
 Among the many libraries available to manage state in React, Redux is the most popular. But with this popularity has also come a reputation for having a steep learning curve.

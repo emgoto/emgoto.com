@@ -5,7 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 💉
 coverImage: 'https://images.unsplash.com/photo-1584384624796-55e84bfcbd56?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
-
+devArticleId: 296336
 --- 
 
 When using hooks in React you may have used or seen this sort of pattern where you use data from a hook to render your component:

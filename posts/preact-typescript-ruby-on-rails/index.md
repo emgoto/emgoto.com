@@ -5,6 +5,7 @@ category: "blog"
 tags: ["preact"]
 emoji: 🥞
 coverImage: 'https://images.unsplash.com/photo-1541288097308-7b8e3f58c4c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 292293
 --- 
 
 After following this guide, you will have created a "Hello world" application that uses Preact, TypeScript and Ruby on Rails. We'll also be installing ESLint! 

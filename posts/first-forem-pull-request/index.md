@@ -5,6 +5,7 @@ tags: ["opensource"]
 category: "blog"
 emoji: 🌱
 coverImage: 'https://images.unsplash.com/photo-1551970634-747846a548cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
+devArticleId: 402776
 --- 
 
 This week I decided to do something I had been eyeing for a while - contributing to DEV’s [Forem repository](https://github.com/forem/forem).

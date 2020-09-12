@@ -5,6 +5,7 @@ tags: ["gatsby", "blog", "opensource"]
 category: "blog"
 emoji: 🍸
 coverImage: 'https://images.unsplash.com/photo-1571130962048-e9c4ff17a387?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'
+devArticleId: 451782
 ---
 
 I recently [open-sourced my blog](https://github.com/emgoto/emgoto.com) built using [Gatsby](https://www.gatsbyjs.com/)! This post will walk you through why I chose Gatsby, the Gatsby plugins I used, as well as highlight some features that I have included in my blog.
@@ -40,7 +41,7 @@ There are a couple of plugins that will generate social cards for you, however t
 ## Newsletter sign-up prompt
 Everyone recommends that you should have a newsletter, so I’ve added a component to the bottom of each blog post that gives readers the option to subscribe. I decided to go with [buttondown.email](https://buttondown.email/) as it was the cheapest option I could find, compared with some of their competitors. 
 I’m yet to release my first newsletter, but I am thinking of making it a monthly roundup of my posts and what I’ve been up to. Feel free to [subscribe](https://buttondown.email/emgoto) if you are interested!
-## Web monetisation with Gatsby
+## Web monetization with Gatsby
 During DEV’s web monetization hackathon a couple of months back, I wrote a post on how to set up [web monetization with Gatsby](/gatsby-web-monetization/). Essentially, web monetization means that if people visit my site, and they’re subscribed to a service like [Coil](https://coil.com/), I will receive a small amount of money (fractions of a cent) depending on the amount of time they visit my site.
 It’s super simple to set up. I’ve only made $5 so far, but I think the idea behind it is pretty cool.
 ## Each post links to its Markdown file

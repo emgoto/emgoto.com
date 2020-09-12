@@ -5,6 +5,7 @@ tags: ["productivity"]
 category: "blog"
 emoji: 🌴
 coverImage: 'https://images.unsplash.com/photo-1594878462445-84cdf4a789d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80'
+devArticleId: 415752
 --- 
 
 Last Friday, I published my blog post on [doing a digital declutter](/digital-declutter), then disconnected (mostly) from the internet.

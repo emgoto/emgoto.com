@@ -5,6 +5,7 @@ category: "blog"
 tags: ["preact"]
 emoji: 🛣️
 coverImage: 'https://images.unsplash.com/photo-1588877793456-c1e438fd31ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'
+devArticleId: 330276
 --- 
 
 In the [previous post in this series](/preact-typescript-ruby-on-rails/), we created a Rails app that renders a Preact frontend. In this post we'll be taking a deeper look at how routing works in Ruby on Rails, and how we can simplify it using `preact-router`.

@@ -5,6 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 🔨
 coverImage: 'https://images.unsplash.com/photo-1592157874621-0a8033a473b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80'
+devArticleId: 368025
 --- 
 
 [Redux Toolkit](https://redux-toolkit.js.org/) is a library that provides helper functions to simplify how you use Redux. It was created in response to criticisms that Redux required a lot of boilerplate code and was confusing to get set up. 

@@ -33,13 +33,16 @@ export const Interpunct = styled.div`
 
 export const IconContainer = styled.div`
     svg {
-        vertical-align: middle;
         display: inline-block;
         margin-right: 8px;
     }
 
     a {
         color: ${colors.lightGrey};
+    }
+
+    div {
+        display: flex;
     }
 
     &:hover {

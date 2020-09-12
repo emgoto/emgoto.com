@@ -5,6 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 🔄
 coverImage: 'https://images.unsplash.com/photo-1591199611141-cf661190c589?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 353425
 --- 
 
 Choosing a state management library for your React app can be tricky. Some of your options include:

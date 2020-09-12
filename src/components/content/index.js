@@ -10,6 +10,7 @@ import {
     DateAndTags,
     IconContainer,
 } from './styled';
+import Comments from './comments';
 
 const getGithubUrl = slug =>
     `https://github.com/emgoto/emgoto.com/tree/master/posts/${slug}index.md`;
@@ -32,14 +33,14 @@ const GithubLink = ({ slug }) => (
             >
                 <div>
                     <GithubIcon />
-                    <span>Edit this post</span>
+                    <div>Edit this post</div>
                 </div>
             </a>
         </IconContainer>
     </>
 );
 
-const Content = ({ title, date, tags, body, slug }) => (
+const Content = ({ title, date, tags, body, slug, devArticleId }) => (
     <div>
         <h1>{title}</h1>
         <Container>
@@ -50,6 +51,7 @@ const Content = ({ title, date, tags, body, slug }) => (
                     <Tag tag={tag} key={tag} />
                 ))}
                 <GithubLink slug={slug} />
+                <Comments devArticleId={devArticleId} />
             </DateAndTags>
         </Container>
         <MDXRenderer>{body}</MDXRenderer>

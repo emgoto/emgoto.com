@@ -5,6 +5,7 @@ category: "blog"
 tags: ["react"]
 emoji: 🍭
 coverImage: 'https://images.unsplash.com/photo-1563262924-641a8b3d397f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 380451
 --- 
 
 Compared to other state management libraries, [react-sweet-state](https://github.com/atlassian/react-sweet-state) is a relatively obscure one. However it is what I use day-to-day in my job at Atlassian - and I think it's pretty cool! Similar to my previous posts in this series, I will be covering some of the basics you need to get started with state management using sweet-state.

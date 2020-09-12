@@ -7,7 +7,7 @@ import Newsletter from '../components/newsletter';
 export default ({ data }) => {
     const {
         mdx: {
-            frontmatter: { title, date, tags },
+            frontmatter: { title, date, tags, devArticleId },
             slug,
             body,
             excerpt,
@@ -23,6 +23,7 @@ export default ({ data }) => {
                 date={date}
                 tags={tags}
                 slug={slug}
+                devArticleId={devArticleId}
             />
             <Newsletter />
         </>
@@ -38,6 +39,7 @@ export const pageQuery = graphql`
                 date(formatString: "DD MMMM YYYY")
                 title
                 emoji
+                devArticleId
             }
             slug
             body

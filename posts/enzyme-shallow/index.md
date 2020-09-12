@@ -5,6 +5,7 @@ category: "blog"
 tags: ["enzyme"]
 emoji: 🐬
 coverImage: 'https://images.unsplash.com/photo-1576156406191-1b5b90467d9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80'
+devArticleId: 323131
 --- 
 
 As an alternative to mounting React components during unit tests, you can use Enzyme's `shallow()` to render your component only "one level deep". Essentially this will render only the code that is defined inside of that component - anything that is imported from elsewhere will not be included. 

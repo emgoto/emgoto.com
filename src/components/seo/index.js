@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 import favicon from '../../images/favicon.png';
 
-function SEO({ description, title, keywords, slug }) {
+function SEO({ description, title, slug }) {
     const { site } = useStaticQuery(
         graphql`
             query {
@@ -26,7 +26,9 @@ function SEO({ description, title, keywords, slug }) {
     const slugWithoutSlashes = () => slug.replace(/\//g, '');
 
     const socialCard = slug
-        ? `${site.siteMetadata.siteUrl}/${slugWithoutSlashes()}-twitter.png`
+        ? `${
+              site.siteMetadata.siteUrl
+          }/${slugWithoutSlashes()}-twitter.png`
         : `${site.siteMetadata.siteUrl}/square-social-card.png`;
 
     const twitterCard = slug ? 'summary_large_image' : 'summary';
@@ -60,7 +62,9 @@ function SEO({ description, title, keywords, slug }) {
                 ogDescription,
                 {
                     name: `twitter:description`,
-                    content: description ? description : metaDescription,
+                    content: description
+                        ? description
+                        : metaDescription,
                 },
                 {
                     property: `og:title`,
@@ -94,15 +98,7 @@ function SEO({ description, title, keywords, slug }) {
                     name: `monetization`,
                     content: '$ilp.uphold.com/yhXKK7rBEAyw',
                 },
-            ]
-                .concat(
-                    keywords.length > 0
-                        ? {
-                              name: `keywords`,
-                              content: keywords.join(`, `),
-                          }
-                        : [],
-                )}
+            ]}
             link={[
                 {
                     rel: 'shortcut icon',
@@ -115,13 +111,11 @@ function SEO({ description, title, keywords, slug }) {
 }
 
 SEO.defaultProps = {
-    keywords: [],
     description: ``,
 };
 
 SEO.propTypes = {
     description: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
     title: PropTypes.string,
 };
 
