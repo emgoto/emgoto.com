@@ -5,6 +5,7 @@ tags: ["blog", "dev"]
 category: "blog"
 emoji: 💬
 coverImage: 'https://images.unsplash.com/photo-1597563146687-ffbb906b394e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80'
+devArticleId: 457561
 ---
 
 Currently my personal blog site doesn’t support comments. Since I cross-post all of my posts to DEV, I got the idea to show how many comments my blog post has received on DEV:
@@ -62,7 +63,7 @@ I needed to add this `devArticleId` value to all of my Markdown posts. I ended u
 https://dev.to/api/articles?username=emma
 ```
 
-And then cross-referencing the DEV articles with my blog post.
+And then cross-referencing the DEV articles with my blog posts.
 
 Alternatively, if I wanted to grab the ID for a specific article I can also find that by inspecting the article's source code on DEV and looking for `data-article-id`:
 
