@@ -3,6 +3,7 @@ import TerminalBar from '../terminal-bar';
 import { GlobalStyle } from '../../common';
 import { Container, SquareContainer, TextContainer } from './styled';
 import Header from './header';
+import Footer from './footer';
 import './theme.css';
 
 require('typeface-open-sans');
@@ -26,6 +27,7 @@ const Layout = ({ children, pageContext }) => {
                     <TerminalBar />
                     <TextContainer>{children}</TextContainer>
                 </SquareContainer>
+                <Footer />
             </Container>
         </>
     );

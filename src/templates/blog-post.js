@@ -2,18 +2,19 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Content from '../components/content';
 import Seo from '../components/seo';
-import Newsletter from '../components/newsletter';
+import PrevAndNext from '../components/prev-and-next';
 
-export default ({ data }) => {
-    const {
+export default ({
+    data: {
         mdx: {
             frontmatter: { title, date, tags, devArticleId },
             slug,
             body,
             excerpt,
         },
-    } = data;
-
+    },
+    pageContext: { prev, next },
+}) => {
     return (
         <>
             <Seo title={title} slug={slug} description={excerpt} />
@@ -25,7 +26,7 @@ export default ({ data }) => {
                 slug={slug}
                 devArticleId={devArticleId}
             />
-            <Newsletter />
+            <PrevAndNext prev={prev} next={next} />
         </>
     );
 };

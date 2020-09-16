@@ -36,7 +36,7 @@ exports.createPages = ({ graphql, actions }) => {
   `).then(result => {
     const posts = result.data.allMdx.edges;
     // Blog pages
-    posts.forEach(({ node }) => {
+    posts.forEach(({ node }, index) => {
       // Only blogs have a category
       if (node.frontmatter && node.frontmatter.category) {
         createPage({
@@ -44,6 +44,8 @@ exports.createPages = ({ graphql, actions }) => {
           component: path.resolve(`./src/templates/blog-post.js`),
           context: {
             slug: node.slug,
+            prev: index === 0 ? null : posts[index - 1].node,
+            next: index === (posts.length - 1) ? null : posts[index + 1].node
           },
         });
       }
