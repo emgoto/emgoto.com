@@ -136,5 +136,13 @@ export const GlobalStyle = createGlobalStyle`
   .gatsby-highlight-code-line {
     margin: 0 -14px;
     padding: 0 14px;
-}
+  }
+
+  .gatsby-resp-image-background-image {
+    border-radius: 8px;
+  }
+
+  hr {
+    color: ${lightGrey};
+  }
 `;

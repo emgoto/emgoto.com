@@ -3,15 +3,14 @@
 /**
  * I write my blog posts in the Ulysses text editor. 
  * 
- * Once I'm done, I export it as a `.textpack` file (which is a zip file containing both markdown and images).
+ * Once I'm done, I export it as a `.textbundle` file (which contains the markdown and the images in a separate folder)..
  * 
  * I use this script to move it to the correct place, change file names/location as required, and also add frontmatter to the top of the page!
  */
 
-const { createReadStream, createWriteStream, rename, unlink, rmdir } = require('fs')
-const { join, dirname } = require('path')
+const { rename, unlink, rmdir } = require('fs')
+const { join } = require('path')
 const glob = require('glob')
-const YAML = require('yaml')
 const replace = require('replace-in-file');
 
 function formatDate(date) {
@@ -44,28 +43,26 @@ const ulysses = () => {
     const slug = file.match(/\/([^\/]+).textbundle/)[1];
     const extractToDirectory = join(process.cwd(), 'posts');
     const newFolder = `${extractToDirectory}/${slug}`;
-    rename(file, newFolder, () => {});
-
-    const images = glob.sync(join(newFolder, 'assets', '*'));
-    images.forEach(image => {
-        let imageName = image.match(/assets\/([^\/]+)/)[1];
-        rename(image, `${newFolder}/${imageName}`, () => {
-            rmdir(`${newFolder}/assets`, () => {});
-            unlink(`${newFolder}/info.json`, () => {});
-        
-            rename(`${newFolder}/text.md`, `${newFolder}/index.md`, () => {
-                const options = {
-                    files: `${newFolder}/index.md`,
-                    from: [/\[\]\(assets/g, /^# .*/g],
-                    to: ['[](.', title => frontMatter(title)],
-                };
+    rename(file, newFolder, () => {
+        const images = glob.sync(join(newFolder, 'assets', '*'));
+        images.forEach(image => {
+            let imageName = image.match(/assets\/([^\/]+)/)[1];
+            rename(image, `${newFolder}/${imageName}`, () => {
+                rmdir(`${newFolder}/assets`, () => {});
+                unlink(`${newFolder}/info.json`, () => {});
             
-                replace.sync(options);
+                rename(`${newFolder}/text.md`, `${newFolder}/index.md`, () => {
+                    const options = {
+                        files: `${newFolder}/index.md`,
+                        from: [/\[\]\(assets/g, /^# .*/g],
+                        to: ['[](.', title => frontMatter(title)],
+                    };
+                
+                    replace.sync(options);
+                });
             });
-        });
+        });    
     });
-
-
 }
 
 ulysses();
