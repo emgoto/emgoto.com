@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 import favicon from '../../images/favicon.png';
 
-function SEO({ description, title, slug }) {
+const SEO = ({ description, title, slug }) => {
     const { site } = useStaticQuery(
         graphql`
             query {

@@ -114,4 +114,27 @@ export const GlobalStyle = createGlobalStyle`
       visibility: hidden;
     }
   }
+
+  .gatsby-remark-code-title {
+    color: ${black};
+    background: -webkit-linear-gradient(top,#ebebeb,#d5d5d5);
+    font-size: 12px;
+    padding: 2px 14px;
+    margin-top: 24px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    font-family: "Fira Code", Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace !important;
+  }
+
+  .gatsby-remark-code-title + .gatsby-highlight > pre {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-top: 0 !important;
+  }
+
+  .gatsby-highlight-code-line {
+    margin: 0 -14px;
+    padding: 0 14px;
+}
 `;

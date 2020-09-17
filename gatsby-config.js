@@ -86,6 +86,12 @@ const config = {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
           {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: 'gatsby-remark-code-title',
+            },
+          },
+          {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               isIconAfterHeader: true,
