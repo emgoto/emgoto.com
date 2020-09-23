@@ -11,7 +11,9 @@ const useDevArticleComments = devArticleId => {
             fetch(`https://dev.to/api/articles/${devArticleId}`)
                 .then(response => response.json())
                 .then(response => {
-                    setData(response);
+                    if (response && !response.error) {
+                        setData(response);
+                    }
                     setLoading(false);
                 })
                 .catch(error => setLoading(false));

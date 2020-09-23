@@ -5,6 +5,7 @@ tags: ["gatsby"]
 category: "blog"
 emoji: 🦋
 coverImage: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 463626
 ---
 
 Code blocks are a great way to explain concepts to your readers, and you'll want to make them as easy to understand as possible. In this post I'll be covering some of the ways you can improve the code blocks on your Gatsby blog.
@@ -83,7 +84,7 @@ This will render the title above your code block. You can then add some custom C
 
 ---
 
-With its massive ecosystem of plugins, Gatsby makes it simple to add these improvements to your code block. 
+With its massive ecosystem of plugins, Gatsby makes it simple to add these improvements to your code blocks. 
 
 Thanks for reading!
 
