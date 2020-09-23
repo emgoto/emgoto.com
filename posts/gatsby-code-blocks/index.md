@@ -1,19 +1,19 @@
 ---
-title: "5 ways to improve your Gatsby code snippets"
-date: 2020-09-18
+title: "5 ways to improve your Gatsby code blocks"
+date: 2020-09-23
 tags: ["gatsby"]
 category: "blog"
-emoji:
-coverImage: ''
+emoji: 🦋
+coverImage: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 ---
 
-Code snippets are a great way to explain concepts to your readers, and you'll want to make them as easy to understand as possible. In this post I'll be covering some of the ways you can improve the code snippets on your Gatsby blog.
+Code blocks are a great way to explain concepts to your readers, and you'll want to make them as easy to understand as possible. In this post I'll be covering some of the ways you can improve the code blocks on your Gatsby blog.
 ## Use syntax highlighting with gatsby-remark-prismjs
-Syntax highlighting changes the colour of parts of your code to make it more readable. It’s something you’re used to having in your code editor, but you can have it in your code snippets too!
+Syntax highlighting changes the colour of parts of your code to make it more readable. It’s something you’re used to having in your code editor, but you can have it in your code blocks too!
 
 Syntax highlighting is available with the [gatsby-remark-prismjs](https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/) plugin. You may already have it installed if you started your blog using one of Gatsby’s default templates.
 
-To use syntax highlighting, you’ll need to specify the language of your code snippet: 
+To use syntax highlighting, you’ll need to specify the language of your code block: 
 ````
 ```javascript
 const App = () => {
@@ -70,20 +70,20 @@ With some CSS, you’ll be able to make the “+” line green, and the “-“ 
 I personally haven't needed to use this one yet, but I could see it being useful in some scenarios.
 
 ## Add code headings with gatsby-remark-code-titles
-Sometimes you’ll want to show code snippets from different files. In this scenario, it’s helpful to your reader if you show the title of the current file. [gatsby-remark-code-titles](https://www.gatsbyjs.com/plugins/gatsby-remark-code-titles/) is a plugin that will handle this for you.
+Sometimes you’ll want to show code blocks from different files. In this scenario, it’s helpful to your reader if you show the title of the current file. [gatsby-remark-code-titles](https://www.gatsbyjs.com/plugins/gatsby-remark-code-titles/) is a plugin that will handle this for you.
 
-You can specify the title on the first line of your code snippet like this:
+You can specify the title on the first line of your code block like this:
 ````
 ```js:title=example-file.js
 alert('how cool is this!');
 ```
 ````
-This will render the title above your code snippet. You can then add some custom CSS to it, and you can end up with something like this:
+This will render the title above your code block. You can then add some custom CSS to it, and you can end up with something like this:
 ![](./code-title.png)
 
 ---
 
-With its massive ecosystem of plugins, Gatsby makes it simple to add these improvements to your code snippets. 
+With its massive ecosystem of plugins, Gatsby makes it simple to add these improvements to your code block. 
 
 Thanks for reading!
 
