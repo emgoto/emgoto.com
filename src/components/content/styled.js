@@ -35,6 +35,8 @@ export const IconContainer = styled.div`
     svg {
         display: inline-block;
         margin-right: 8px;
+        width: 22px;
+        height: 22px;
     }
 
     a {
