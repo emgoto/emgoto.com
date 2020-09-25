@@ -45,7 +45,7 @@ const SEO = ({ description, title, slug }) => {
                 },
                 {
                     property: `og:title`,
-                    content: title ? title : 'Emma Goto',
+                    content: title || site.siteMetadata.title,
                 },
                 {
                     property: 'og:description',
@@ -62,14 +62,6 @@ const SEO = ({ description, title, slug }) => {
                 {
                     property: `og:type`,
                     content: `website`,
-                },
-                {
-                    name: `twitter:creator`,
-                    content: '@emma_goto',
-                },
-                {
-                    name: `twitter:site`,
-                    content: '@emma_goto',
                 },
                 {
                     name: `monetization`,
