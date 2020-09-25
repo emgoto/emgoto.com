@@ -44,7 +44,7 @@ describe('Comments component', () => {
 
     test('should display nothing if DEV API returns error due to wrong ID', async () => {
         json.mockReturnValue(
-            Promise.resolve({ error: "not found", status: 404 }),
+            Promise.resolve({ error: 'not found', status: 404 }),
         );
 
         render(<Comments devArticleId={123} />);

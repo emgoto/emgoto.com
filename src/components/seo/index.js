@@ -41,7 +41,8 @@ const SEO = ({ description, title, slug }) => {
             meta={[
                 {
                     name: 'description',
-                    content: description || site.siteMetadata.description,
+                    content:
+                        description || site.siteMetadata.description,
                 },
                 {
                     property: `og:title`,
@@ -49,7 +50,8 @@ const SEO = ({ description, title, slug }) => {
                 },
                 {
                     property: 'og:description',
-                    content: description || site.siteMetadata.description,
+                    content:
+                        description || site.siteMetadata.description,
                 },
                 {
                     name: 'twitter:card',

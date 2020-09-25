@@ -14,22 +14,20 @@ export default ({
         },
     },
     pageContext: { prev, next },
-}) => {
-    return (
-        <>
-            <Seo title={title} slug={slug} description={excerpt} />
-            <Content
-                title={title}
-                body={body}
-                date={date}
-                tags={tags}
-                slug={slug}
-                devArticleId={devArticleId}
-            />
-            <PrevAndNext prev={prev} next={next} />
-        </>
-    );
-};
+}) => (
+    <>
+        <Seo title={title} slug={slug} description={excerpt} />
+        <Content
+            title={title}
+            body={body}
+            date={date}
+            tags={tags}
+            slug={slug}
+            devArticleId={devArticleId}
+        />
+        <PrevAndNext prev={prev} next={next} />
+    </>
+);
 
 export const pageQuery = graphql`
     query($slug: String!) {

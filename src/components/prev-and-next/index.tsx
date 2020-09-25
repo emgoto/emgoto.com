@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { Page } from '../../common/types';
 
 import { Container, PostContainer } from './styled';
+
+type Props = {
+    prev?: Page;
+    next?: Page;
+};
 
 const Post = ({ title, post }) => {
     if (!post || !post.frontmatter.category) {
@@ -16,7 +22,7 @@ const Post = ({ title, post }) => {
     );
 };
 
-const PrevAndNext = ({ prev, next }) => (
+const PrevAndNext = ({ prev, next }: Props) => (
     <Container>
         <Post title="⇠ Next post" post={prev} />
         <Post title="Previous post ⇢" post={next} />
