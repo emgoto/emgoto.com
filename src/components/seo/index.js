@@ -20,9 +20,6 @@ const SEO = ({ description, title, slug }) => {
         `,
     );
 
-    const metaDescription =
-        description || site.siteMetadata.description;
-
     const slugWithoutSlashes = () => slug.replace(/\//g, '');
 
     const socialCard = slug
@@ -33,22 +30,6 @@ const SEO = ({ description, title, slug }) => {
 
     const twitterCard = slug ? 'summary_large_image' : 'summary';
 
-    const mDescription = slug
-        ? {}
-        : {
-              name: `description`,
-              content: metaDescription,
-          };
-
-    const ogDescription = slug
-        ? {}
-        : {
-              property: `og:description`,
-              content: metaDescription,
-          };
-
-    const ogTitle = title ? title : 'Emma Goto';
-
     return (
         <Helmet
             htmlAttributes={{
@@ -58,21 +39,17 @@ const SEO = ({ description, title, slug }) => {
             titleTemplate={`%s · ${site.siteMetadata.title}`}
             defaultTitle={site.siteMetadata.title}
             meta={[
-                mDescription,
-                ogDescription,
                 {
-                    name: `twitter:description`,
-                    content: description
-                        ? description
-                        : metaDescription,
+                    name: 'description',
+                    content: description || site.siteMetadata.description,
                 },
                 {
                     property: `og:title`,
-                    content: ogTitle,
+                    content: title ? title : 'Emma Goto',
                 },
                 {
-                    property: `og:type`,
-                    content: `website`,
+                    property: 'og:description',
+                    content: description || site.siteMetadata.description,
                 },
                 {
                     name: 'twitter:card',
@@ -83,16 +60,16 @@ const SEO = ({ description, title, slug }) => {
                     content: socialCard,
                 },
                 {
-                    name: 'twitter:image',
-                    content: socialCard,
+                    property: `og:type`,
+                    content: `website`,
                 },
                 {
                     name: `twitter:creator`,
-                    content: site.siteMetadata.author,
+                    content: '@emma_goto',
                 },
                 {
-                    name: `twitter:title`,
-                    content: ogTitle,
+                    name: `twitter:site`,
+                    content: '@emma_goto',
                 },
                 {
                     name: `monetization`,
@@ -108,7 +85,7 @@ const SEO = ({ description, title, slug }) => {
             ]}
         />
     );
-}
+};
 
 SEO.defaultProps = {
     description: ``,
