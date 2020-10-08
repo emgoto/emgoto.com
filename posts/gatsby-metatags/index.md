@@ -5,6 +5,7 @@ tags: ["gatsby"]
 category: "blog"
 emoji: 🏷️
 coverImage: 'https://images.unsplash.com/photo-1598809344252-7f4c5ab9a55c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 481217
 ---
 
 When you share your Gatsby blog to the world, you’ll want to make sure you give a good first impression. With [react-helmet](https://github.com/nfl/react-helmet) and meta tags, we can make sure your posts show up in Google like this:
