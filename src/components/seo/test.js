@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { useStaticQuery } from 'gatsby';
 import Helmet from 'react-helmet';
 
 import SEO from './index';
@@ -10,19 +9,6 @@ const siteDescription = 'Front-end development and side projects.';
 const siteUrl = 'https://www.emgoto.com';
 
 describe('SEO component', () => {
-    beforeAll(() => {
-        useStaticQuery.mockReturnValue({
-            site: {
-                siteMetadata: {
-                    title: siteTitle,
-                    description: siteDescription,
-                    author: siteTitle,
-                    siteUrl: siteUrl,
-                },
-            },
-        });
-    });
-
     const nonBlogPostMetaTags = [
         {
             name: 'description',

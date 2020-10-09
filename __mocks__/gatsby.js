@@ -1,5 +1,11 @@
 const React = require("react")
 const gatsby = jest.requireActual("gatsby")
+export * from "gatsby-plugin-testing/__mocks__/gatsby"
+
+const siteTitle = 'Emma Goto';
+const siteDescription = 'Front-end development and side projects.';
+const siteUrl = 'https://www.emgoto.com';
+
 module.exports = {
   ...gatsby,
   graphql: jest.fn(),
@@ -22,5 +28,14 @@ module.exports = {
       })
   ),
   StaticQuery: jest.fn(),
-  useStaticQuery: jest.fn(),
+  useStaticQuery: jest.fn().mockReturnValue({
+    site: {
+        siteMetadata: {
+            title: siteTitle,
+            description: siteDescription,
+            author: siteTitle,
+            siteUrl: siteUrl,
+        },
+    },
+  })
 }

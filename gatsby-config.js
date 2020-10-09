@@ -46,15 +46,13 @@ const config = {
                   sort: { order: DESC, fields: [frontmatter___date] },
                   filter: { frontmatter: { category: { ne: null } } }
                 ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      slug
-                      frontmatter {
-                        title
-                        date
-                      }
+                  nodes {
+                    excerpt
+                    html
+                    slug
+                    frontmatter {
+                      title
+                      date
                     }
                   }
                 }
@@ -130,6 +128,7 @@ const config = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-testing',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

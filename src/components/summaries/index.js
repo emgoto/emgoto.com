@@ -8,7 +8,7 @@ const renderDateWithoutCurrentYear = dateWithYear =>
     dateWithYear.split(` ${CURRENT_YEAR}`)[0];
 
 const Summary = ({ slug, frontmatter: { title, emoji, date } }) => (
-    <Link to={`/${slug}`}>
+    <Link data-testid="summary" to={`/${slug}`}>
         <Button>
             <Emoji>{emoji}</Emoji>
             <div>
@@ -19,9 +19,9 @@ const Summary = ({ slug, frontmatter: { title, emoji, date } }) => (
     </Link>
 );
 
-export default ({ edges }) =>
-    edges.map((edge, i) => {
-        const { frontmatter, slug } = edge.node;
+export default ({ posts }) =>
+    posts.map((post, i) => {
+        const { frontmatter, slug } = post;
         return (
             <Summary slug={slug} key={i} frontmatter={frontmatter} />
         );

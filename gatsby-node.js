@@ -18,25 +18,24 @@ exports.createPages = ({ graphql, actions }) => {
       sort: { order: DESC, fields: [frontmatter___date] }
       limit: 2000
     ) {
-      edges {
-        node {
-          frontmatter {
-            tags
-            category
-            date
-            title
-            emoji
-            coverImage
-          }
-          slug
+      nodes {
+        frontmatter {
+          tags
+          category
+          date
+          title
+          emoji
+          coverImage
         }
+        slug
       }
     }
   }
   `).then(result => {
-    const posts = result.data.allMdx.edges;
+    const posts = result.data.allMdx.nodes;
+    let tags = [];
     // Blog pages
-    posts.forEach(({ node }, index) => {
+    posts.forEach((node, index) => {
       // Only blogs have a category
       if (node.frontmatter && node.frontmatter.category) {
         createPage({
@@ -47,6 +46,14 @@ exports.createPages = ({ graphql, actions }) => {
             prev: index === 0 ? null : posts[index - 1].node,
             next: index === (posts.length - 1) ? null : posts[index + 1].node
           },
+        });
+      }
+
+      if (node.frontmatter && node.frontmatter.tags) {
+        node.frontmatter.tags.forEach((tag) => {
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+          }
         });
       }
       
@@ -79,20 +86,6 @@ exports.createPages = ({ graphql, actions }) => {
           },  
         });
       }  
-    });
-
-    // Make tag pages
-
-    let tags = [];
-
-    _.each(posts, edge => {
-      if (_.get(edge, "node.frontmatter.tags")) {
-        edge.node.frontmatter.tags.forEach((tag) => {
-          if (!tags.includes(tag)) {
-            tags.push(tag);
-          }
-        });
-      }
     });
 
     tags = _.uniq(tags)

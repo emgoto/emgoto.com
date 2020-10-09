@@ -7,7 +7,7 @@ export default ({ data }) => (
     <>
         <h1>blog</h1>
         <Seo />
-        <Summaries edges={data.allMdx.edges} />
+        <Summaries posts={data.allMdx.nodes} />
     </>
 );
 
@@ -19,17 +19,15 @@ export const pageQuery = graphql`
             filter: { frontmatter: { category: { ne: null } } }
         ) {
             totalCount
-            edges {
-                node {
-                    frontmatter {
-                        title
-                        category
-                        tags
-                        emoji
-                        date(formatString: "DD MMMM YYYY")
-                    }
-                    slug
+            nodes {
+                frontmatter {
+                    title
+                    category
+                    tags
+                    emoji
+                    date(formatString: "DD MMMM YYYY")
                 }
+                slug
             }
         }
     }

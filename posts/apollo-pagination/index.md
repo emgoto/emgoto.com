@@ -5,6 +5,7 @@ category: "blog"
 tags: ["apollo", "graphql", "react"]
 emoji: 🚀
 coverImage: 'https://images.unsplash.com/photo-1598103586325-59f81770b82c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80'
+devArticleId: 470511
 --- 
 
 When you need to fetch large amounts of data from your GraphQL server with Apollo, you may need to make use of its pagination feature. Pagination allows you fetch multiple "pages" of data (e.g. 100 at a time).

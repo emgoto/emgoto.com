@@ -9,7 +9,7 @@ export default ({ pageContext, data }) => {
         <>
             <h1>{`#${tag}`}</h1>
             <Seo title={`Posts tagged #${tag}`} />
-            <Summaries edges={data.allMdx.edges} />
+            <Summaries posts={data.allMdx.nodes} />
         </>
     );
 };
@@ -22,17 +22,15 @@ export const pageQuery = graphql`
             filter: { frontmatter: { tags: { in: [$tag] } } }
         ) {
             totalCount
-            edges {
-                node {
-                    frontmatter {
-                        title
-                        category
-                        tags
-                        emoji
-                        date(formatString: "DD MMMM YYYY")
-                    }
-                    slug
+            nodes {
+                frontmatter {
+                    title
+                    category
+                    tags
+                    emoji
+                    date(formatString: "DD MMMM YYYY")
                 }
+                slug
             }
         }
     }

@@ -74,7 +74,7 @@ const IndexPage = ({ data }) => (
         </Project>
 
         <h2>Recent posts</h2>
-        <Summaries edges={data.allMdx.edges} />
+        <Summaries posts={data.allMdx.nodes} />
 
         <Link to="blog">
             <ViewMore>View all posts</ViewMore>
@@ -92,17 +92,15 @@ export const query = graphql`
             filter: { frontmatter: { category: { eq: "blog" } } }
             limit: 3
         ) {
-            edges {
-                node {
-                    frontmatter {
-                        title
-                        date(formatString: "DD MMMM YYYY")
-                        tags
-                        category
-                        emoji
-                    }
-                    slug
+            nodes {
+                frontmatter {
+                    title
+                    date(formatString: "DD MMMM YYYY")
+                    tags
+                    category
+                    emoji
                 }
+                slug
             }
         }
     }

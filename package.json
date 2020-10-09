@@ -48,6 +48,8 @@
     "typeface-open-sans": "^0.0.75"
   },
   "devDependencies": {
+    "gatsby-plugin-testing": "^0.3.1",
+    "husky": "^4.3.0",
     "prettier": "^1.16.4",
     "puppeteer": "^2.1.1",
     "replace-in-file": "^6.1.0"
@@ -60,10 +62,15 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.*s*",
+    "format": "prettier --write 'src/**/*.[jt]s*'",
     "coverImage": "./scripts/coverImage.js",
     "uly": "./scripts/ulysses.js",
     "test": "jest",
     "devto": "./scripts/devto.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn test"
+    }
   }
 }

@@ -33,3 +33,5 @@ node_modules
 public/
 
 .env
+
+.testing-static-queries.json
