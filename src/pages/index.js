@@ -82,7 +82,7 @@ const IndexPage = ({ data }) => (
     </>
 );
 
-export const query = graphql`
+export const pageQuery = graphql`
     query {
         allMdx(
             sort: {

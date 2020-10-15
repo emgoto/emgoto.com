@@ -27,8 +27,8 @@ describe('Comments component', () => {
         // Since our component renders async, we need to wait to make sure it doesn't pop in
         await waitFor(() => {}, { timeout: 100 });
 
-        const submitButton = screen.queryByRole('link');
-        expect(submitButton).toBeNull();
+        const commentsLink = screen.queryByRole('link');
+        expect(commentsLink).toBeNull();
     });
 
     test('should display nothing if DEV API fails to return data', async () => {
@@ -38,8 +38,8 @@ describe('Comments component', () => {
         // Since our component renders async, we need to wait to make sure it doesn't pop in
         await waitFor(() => {}, { timeout: 100 });
 
-        const submitButton = screen.queryByRole('link');
-        expect(submitButton).toBeNull();
+        const commentsLink = screen.queryByRole('link');
+        expect(commentsLink).toBeNull();
     });
 
     test('should display nothing if DEV API returns error due to wrong ID', async () => {
@@ -52,8 +52,8 @@ describe('Comments component', () => {
         // Since our component renders async, we need to wait to make sure it doesn't pop in
         await waitFor(() => {}, { timeout: 100 });
 
-        const submitButton = screen.queryByRole('link');
-        expect(submitButton).toBeNull();
+        const commentsLink = screen.queryByRole('link');
+        expect(commentsLink).toBeNull();
     });
 
     test('should display number of comments with link to article', async () => {
@@ -63,9 +63,9 @@ describe('Comments component', () => {
             expect(json).toHaveBeenCalledTimes(1);
         });
 
-        const link = await screen.findByRole('link');
-        expect(link).toHaveTextContent('5 comments');
-        expect(link.href).toBe(COMMENTS_URL);
+        const commentsLink = await screen.findByRole('link');
+        expect(commentsLink).toHaveTextContent('5 comments');
+        expect(commentsLink.href).toBe(COMMENTS_URL);
     });
 
     test('should display prompt to leave a comment if there are no comments', async () => {
@@ -79,8 +79,8 @@ describe('Comments component', () => {
             expect(json).toHaveBeenCalledTimes(1);
         });
 
-        const link = await screen.findByRole('link');
-        expect(link).toHaveTextContent('Comment on DEV');
-        expect(link.href).toBe(COMMENTS_URL);
+        const commentsLink = await screen.findByRole('link');
+        expect(commentsLink).toHaveTextContent('Comment on DEV');
+        expect(commentsLink.href).toBe(COMMENTS_URL);
     });
 });
