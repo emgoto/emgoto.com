@@ -5,6 +5,7 @@ tags: ["gatsby", "react-testing-library" ]
 category: "blog"
 emoji: 🔬
 coverImage: 'https://images.unsplash.com/photo-1599636597137-e55f646e65a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+devArticleId: 488301
 ---
 
 Writing unit tests will keep your Gatsby blog bug-free, and leads to more maintainable code. This post covers how you can use Jest and React Testing Library to cover some of your Gatsby blog’s most essential features.
@@ -32,18 +33,20 @@ Next, you’ll also need to follow Gatsby’s instructions on [testing React com
 
 Jest lets you do things like describe your suite of tests with `describe` and `test`, as well as make assertions using `expect`:
 ```js
-describe('Test name', () => {test('should be true', () => {
-		expect(true).toBe(true);
+describe('Test name', () => {
+    test('should be true', () => {
+        expect(true).toBe(true);
 	});
 });
 ```
 Where [React Testing Library](https://testing-library.com/) comes into play is that it allows you to render your React apps and components, and then select certain parts of them to assert on:
 ```js
-describe('Test name', () => {test('should be true', () => {
-		render(<Component />); // highlight-line
-		const text = screen.findByText('hello'); // highlight-line 
-		expect(text).toBeTruthy();
-	});
+describe('Test name', () => {
+    test('should be true', () => {
+	    render(<Component />); // highlight-line
+	    const text = screen.findByText('hello'); // highlight-line 
+	    expect(text).toBeTruthy();
+    });
 });
 ```
 ## Testing that my dates are rendered correctly
