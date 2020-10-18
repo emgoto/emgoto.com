@@ -1,7 +1,6 @@
 ---
 title: "Apollo pagination tutorial: using fetchMore()"
 date: 2020-09-30
-category: "blog"
 tags: ["apollo", "graphql", "react"]
 emoji: 🚀
 coverImage: 'https://images.unsplash.com/photo-1598103586325-59f81770b82c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80'

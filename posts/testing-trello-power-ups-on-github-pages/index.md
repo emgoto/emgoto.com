@@ -2,7 +2,6 @@
 title: "Testing your Trello Power-Up hosted on GitHub Pages"
 date: 2019-04-25
 tags: ["Trello Power-Ups"]
-category: "blog"
 emoji: 🧪
 coverImage: ''
 --- 

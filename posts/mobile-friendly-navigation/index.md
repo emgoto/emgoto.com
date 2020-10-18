@@ -2,7 +2,6 @@
 title: "Creating a mobile-friendly navigation component in under 100 lines of code "
 date: 2020-06-04
 tags: ["preact"]
-category: "blog"
 emoji: 💯
 coverImage: 'https://images.unsplash.com/photo-1591256936776-5b4abed4299d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
 devArticleId: 349365

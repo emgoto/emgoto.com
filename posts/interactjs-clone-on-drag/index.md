@@ -2,7 +2,6 @@
 title: "Cloning an item on drag using interact.js"
 date: 2020-03-17
 tags: ["interactjs"]
-category: "snippets"
 emoji: 🐉
 coverImage: 'https://images.unsplash.com/photo-1524679118078-6eeab91fabc4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
 --- 

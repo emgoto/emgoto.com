@@ -2,7 +2,6 @@
 title: "Setting up Steam Authentication using OpenID"
 date: 2020-01-03
 tags: ["steam"]
-category: "blog"
 emoji: ♨️
 coverImage: ''
 --- 

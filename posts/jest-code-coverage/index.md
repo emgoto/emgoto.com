@@ -2,7 +2,6 @@
 title: "Understanding code coverage with Jest"
 date: 2020-04-18
 tags: ["jest"]
-category: "blog"
 emoji: ☔
 coverImage: 'https://images.unsplash.com/photo-1519692933481-e162a57d6721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
 devArticleId: 312180

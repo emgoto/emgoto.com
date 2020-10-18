@@ -1,7 +1,6 @@
 ---
 title: "How to set up your Rails + Preact app's routing"
 date: 2020-05-08
-category: "blog"
 tags: ["preact"]
 emoji: 🛣️
 coverImage: 'https://images.unsplash.com/photo-1588877793456-c1e438fd31ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80'

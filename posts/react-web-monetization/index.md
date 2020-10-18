@@ -1,7 +1,6 @@
 ---
 title: "Getting started with web monetization in React"
 date: 2020-05-09
-category: "blog"
 tags: ["web-monetization"]
 emoji: 💵
 coverImage: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

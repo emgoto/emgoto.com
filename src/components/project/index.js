@@ -17,15 +17,7 @@ const MaybeLink = ({ slug, url, children }) => {
     return { children };
 };
 
-export default ({
-    image,
-    slug,
-    url,
-    children,
-    title,
-    category,
-    data,
-}) => (
+export default ({ image, slug, url, children, title, data }) => (
     <MaybeLink slug={slug} url={url}>
         <Button>
             <MinWidth>

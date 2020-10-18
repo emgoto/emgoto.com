@@ -2,7 +2,6 @@
 title: "Raising my first pull request to Forem"
 date: 2020-07-18
 tags: ["opensource"]
-category: "blog"
 emoji: 🌱
 coverImage: 'https://images.unsplash.com/photo-1551970634-747846a548cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
 devArticleId: 402776

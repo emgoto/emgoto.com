@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { mockPage, mockBlogPost } from '../../common/mocks';
+import { mockBlogPost } from '../../common/mocks';
 import PrevAndNext from './index';
 
 describe('PrevAndNext component', () => {
@@ -12,7 +12,7 @@ describe('PrevAndNext component', () => {
     });
 
     test('should only render next post link if available', () => {
-        render(<PrevAndNext prev={mockPage} next={mockBlogPost} />);
+        render(<PrevAndNext prev={undefined} next={mockBlogPost} />);
         const link = screen.queryByRole('link');
 
         expect(link.textContent).toEqual(
@@ -21,7 +21,7 @@ describe('PrevAndNext component', () => {
     });
 
     test('should only render previous post link if available', () => {
-        render(<PrevAndNext prev={mockBlogPost} next={mockPage} />);
+        render(<PrevAndNext prev={mockBlogPost} next={undefined} />);
         const link = screen.queryByRole('link');
 
         expect(link.textContent).toEqual(

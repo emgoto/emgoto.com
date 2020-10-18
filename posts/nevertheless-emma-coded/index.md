@@ -2,7 +2,6 @@
 title: "Nevertheless, Emma coded"
 date: 2020-03-06
 tags: ["career"]
-category: "blog"
 emoji: 👩‍💻
 coverImage: ''
 --- 

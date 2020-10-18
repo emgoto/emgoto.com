@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Post = ({ title, post }) => {
-    if (!post || !post.frontmatter.category) {
+    if (!post) {
         return <div />;
     }
 

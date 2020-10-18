@@ -30,7 +30,6 @@ const frontMatter = title =>
 title: "${title.replace('# ', '').trim()}"
 date: ${formatDate(new Date())}
 tags: []
-category: "blog"
 emoji:
 coverImage: ''
 ---

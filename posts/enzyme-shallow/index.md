@@ -1,7 +1,6 @@
 ---
 title: "Understanding the shallow function in Enzyme"
 date: 2020-05-01
-category: "blog"
 tags: ["enzyme"]
 emoji: 🐬
 coverImage: 'https://images.unsplash.com/photo-1576156406191-1b5b90467d9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80'

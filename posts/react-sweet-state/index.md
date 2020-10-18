@@ -1,7 +1,6 @@
 ---
 title: "Getting started with state management using react-sweet-state"
 date: 2020-07-03
-category: "blog"
 tags: ["react"]
 emoji: 🍭
 coverImage: 'https://images.unsplash.com/photo-1563262924-641a8b3d397f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

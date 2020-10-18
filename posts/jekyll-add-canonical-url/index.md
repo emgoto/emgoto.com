@@ -2,7 +2,6 @@
 title: "How to add a canonical URL to Jekyll posts"
 date: 2020-05-30
 tags: ["jekyll"]
-category: "snippets"
 emoji: ⚗️
 coverImage: 'https://images.unsplash.com/photo-1590517785334-cc5851a8b864?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 ---

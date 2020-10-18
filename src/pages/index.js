@@ -16,23 +16,19 @@ const ViewMore = styled.div`
     font-size: 12px;
 `;
 
-const IndexPage = ({ data }) => (
+const IndexPage = ({
+    data: {
+        allMdx: { nodes, totalCount },
+    },
+}) => (
     <>
         <Seo />
         <h1>Hello world!</h1>
         <p>
-            I'm Emma, a front-end developer at Atlassian. In my free
-            time, I study Japanese, create Trello Power-Ups like{' '}
-            <a
-                href="https://trello.com/power-ups/5c02759abbb4b58f5d5d2526/streak-habit-tracker"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Streak
-            </a>
-            , and try to learn as much as I can about the front-end.
+            I'm Emma, a front-end developer at Atlassian. I'm on a
+            journey to improve myself as a developer and writer.
+            Welcome to my corner of the internet! ✨
         </p>
-
         <h2>Projects</h2>
         <p />
         <Project
@@ -50,34 +46,15 @@ const IndexPage = ({ data }) => (
             Track your habits using Trello cards. Installed on{' '}
             <b>12000+</b> Trello boards.
         </Project>
-        <Project
-            image={HourglassImage}
-            slug="sla"
-            title="SLAs for Trello"
-        >
-            See at a glance whether your Trello cards are meeting
-            their SLAs. Installed on <b>600+</b> Trello boards.
-        </Project>
-        <Project
-            image={GamingImage}
-            slug="gaming-backlog"
-            title="Gaming Backlog"
-        >
-            Integrate with Steam to add your games as cards to Trello.
-        </Project>
-        <Project
-            image={GftwImage}
-            url="https://dev.to/emma/discover-content-creators-using-monetized-rss-40n1"
-            title="Discover content creators using monetized-rss"
-        >
-            Runner up in the DEV x Grant For The Web hackathon.
-        </Project>
+        <Link to="projects">
+            <ViewMore>View all projects</ViewMore>
+        </Link>
 
-        <h2>Recent posts</h2>
-        <Summaries posts={data.allMdx.nodes} />
+        <h2>Posts</h2>
+        <Summaries posts={nodes} />
 
         <Link to="blog">
-            <ViewMore>View all posts</ViewMore>
+            <ViewMore>View all {totalCount} posts</ViewMore>
         </Link>
     </>
 );
@@ -89,7 +66,7 @@ export const pageQuery = graphql`
                 fields: [frontmatter___date, frontmatter___title]
                 order: [DESC, DESC]
             }
-            filter: { frontmatter: { category: { eq: "blog" } } }
+            filter: { fields: { collection: { eq: "posts" } } }
             limit: 3
         ) {
             nodes {
@@ -97,11 +74,11 @@ export const pageQuery = graphql`
                     title
                     date(formatString: "DD MMMM YYYY")
                     tags
-                    category
                     emoji
                 }
                 slug
             }
+            totalCount
         }
     }
 `;

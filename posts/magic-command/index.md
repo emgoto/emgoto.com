@@ -2,7 +2,6 @@
 title: "Linting, committing and pushing your code in one magic command"
 date: 2019-10-20
 tags: ["productivity"]
-category: "blog"
 emoji: 🧙‍♀️
 coverImage: ''
 --- 

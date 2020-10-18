@@ -2,7 +2,6 @@
 title: "I made my Gatsby blog open source: a feature walkthrough"
 date: 2020-09-09
 tags: ["gatsby", "blog", "opensource"]
-category: "blog"
 emoji: 🍸
 coverImage: 'https://images.unsplash.com/photo-1571130962048-e9c4ff17a387?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'
 devArticleId: 451782

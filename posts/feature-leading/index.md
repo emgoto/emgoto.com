@@ -2,7 +2,6 @@
 title: "3 Things I Learnt Feature Leading for the First Time"
 date: 2019-07-07
 tags: ["career"]
-category: "blog"
 emoji: ✏️
 coverImage: ''
 --- 

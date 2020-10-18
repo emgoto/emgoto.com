@@ -2,7 +2,6 @@
 title: "Using the DEV API to add DEV.to comment counts to my blog"
 date: 2020-09-16
 tags: ["blog", "dev"]
-category: "blog"
 emoji: 💬
 coverImage: 'https://images.unsplash.com/photo-1597563146687-ffbb906b394e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80'
 devArticleId: 457561
@@ -47,7 +46,6 @@ Each of my posts are written in Markdown, with a bunch of metadata known as the 
 title: "Using the DEV API to add DEV.to comment counts to my blog"
 date: 2020-09-17
 tags: ["blog", "dev"]
-category: "blog"
 emoji: 💬
 devArticleId: 12345
 ---

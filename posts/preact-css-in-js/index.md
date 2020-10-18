@@ -2,7 +2,6 @@
 title: "Using CSS-in-JS with Preact"
 date: 2020-08-16
 tags: ["preact"]
-category: "snippets"
 emoji: 👘
 coverImage: 'https://images.unsplash.com/photo-1596206494156-2ef1898d58a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 428993

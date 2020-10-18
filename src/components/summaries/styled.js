@@ -13,23 +13,23 @@ export const Emoji = styled.div`
 `;
 
 export const Button = styled.div`
-  margin: 8px 0px;
-  padding: 8px 0;
-  display: flex;
-	align-items: center
-  height: 32px;
-  color: ${colors.white};
-  border-radius: 4px;
+    margin: 8px 0px;
+    padding: 8px 0;
+    display: flex;
+    align-items: center
+    height: 32px;
+    color: ${colors.white};
+    border-radius: 4px;
  
 	&:hover {
-    cursor: pointer;
-    opacity: 0.7;
-    background-color: ${colors.darkGrey};
-  }
+        cursor: pointer;
+        opacity: 0.9;
+        background-color: ${colors.darkGrey};
+    }
 
-  li {
-    list-style: none;
-  }
+    li {
+        list-style: none;
+    }
 }
 `;
 

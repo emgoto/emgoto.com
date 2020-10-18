@@ -2,7 +2,6 @@
 title: "Exploring how a new model and UI is created in Rails using `rails generate scaffold`"
 date: 2020-05-16
 tags: ["rails"]
-category: "blog"
 emoji: 🚅
 coverImage: 'https://images.unsplash.com/photo-1543237390-edca99e0f683?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
 devArticleId:  336567

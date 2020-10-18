@@ -1,7 +1,6 @@
 ---
 title: "My 2019 in books"
 date: 2019-12-27
-category: "blog"
 tags: ["books"]
 emoji: 📚
 coverImage: ''

@@ -25,7 +25,6 @@ export const pageQuery = graphql`
             nodes {
                 frontmatter {
                     title
-                    category
                     tags
                     emoji
                     date(formatString: "DD MMMM YYYY")

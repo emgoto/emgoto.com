@@ -5,7 +5,7 @@ import Seo from '../components/seo';
 
 export default ({ data }) => (
     <>
-        <h1>blog</h1>
+        <h1>Blog</h1>
         <Seo />
         <Summaries posts={data.allMdx.nodes} />
     </>
@@ -16,13 +16,12 @@ export const pageQuery = graphql`
         allMdx(
             limit: 2000
             sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { category: { ne: null } } }
+            filter: { fields: { collection: { eq: "posts" } } }
         ) {
             totalCount
             nodes {
                 frontmatter {
                     title
-                    category
                     tags
                     emoji
                     date(formatString: "DD MMMM YYYY")

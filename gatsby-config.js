@@ -62,7 +62,7 @@ const config = {
               {
                 allMdx(
                   sort: { order: DESC, fields: [frontmatter___date] },
-                  filter: { frontmatter: { category: { ne: null } } }
+                  filter: { fields: { collection: { eq: "posts" } } }
                 ) {
                   nodes {
                     excerpt

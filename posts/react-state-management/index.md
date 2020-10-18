@@ -1,7 +1,6 @@
 ---
 title: "Getting started with state management using useReducer and Context"
 date: 2020-06-12
-category: "blog"
 tags: ["react"]
 emoji: 🔄
 coverImage: 'https://images.unsplash.com/photo-1591199611141-cf661190c589?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

@@ -2,7 +2,6 @@
 title: "Storing values with the useRef hook"
 date: 2020-02-20
 tags: ["react"]
-category: "blog"
 emoji: 💾
 coverImage: ''
 --- 

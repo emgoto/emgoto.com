@@ -1,7 +1,6 @@
 ---
 title: "A quick start guide to creating an app with Preact, TypeScript and Ruby on Rails"
 date: 2020-03-25
-category: "blog"
 tags: ["preact"]
 emoji: 🥞
 coverImage: 'https://images.unsplash.com/photo-1541288097308-7b8e3f58c4c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

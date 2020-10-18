@@ -2,7 +2,6 @@
 title: "How to restart your Ruby on Rails database"
 date: 2020-06-01
 tags: ["rails"]
-category: "snippets"
 emoji: 🚞
 coverImage: ''
 --- 

@@ -2,7 +2,6 @@
 title: "Attempts at my fifth pull request to Forem"
 date: 2020-08-09
 tags: ["opensource"]
-category: "blog"
 emoji: 🌻
 coverImage: 'https://images.unsplash.com/photo-1535222830855-fd60aca7e065?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'
 devArticleId: 422738

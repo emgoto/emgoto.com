@@ -2,7 +2,6 @@
 title: "My 5 key takeaways from reading the Pragmatic Programmer"
 date: 2020-02-07
 tags: ["books"]
-category: "blog"
 emoji: 📖
 coverImage: ''
 --- 

@@ -2,7 +2,6 @@
 title: "Mocking fetch requests in Storybook"
 date: 2020-06-01
 tags: ["storybook"]
-category: "snippets"
 emoji: 🐕
 coverImage: ''
 --- 

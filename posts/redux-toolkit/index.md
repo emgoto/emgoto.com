@@ -1,7 +1,6 @@
 ---
 title: "Getting started with state management using Redux Toolkit"
 date: 2020-06-26
-category: "blog"
 tags: ["react"]
 emoji: 🔨
 coverImage: 'https://images.unsplash.com/photo-1592157874621-0a8033a473b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80'

@@ -1,7 +1,6 @@
 ---
 title: "What I learned from achieving a 16 week writing streak"
 date: 2020-04-09
-category: "blog"
 tags: ["career"]
 emoji: 📝
 coverImage: 'https://images.unsplash.com/flagged/photo-1554757388-5982229b9ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

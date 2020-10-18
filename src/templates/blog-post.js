@@ -34,7 +34,6 @@ export const pageQuery = graphql`
         mdx(slug: { eq: $slug }) {
             frontmatter {
                 tags
-                category
                 date(formatString: "DD MMMM YYYY")
                 title
                 emoji

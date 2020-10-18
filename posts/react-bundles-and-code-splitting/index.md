@@ -1,7 +1,6 @@
 ---
 title: "Analyze your React app’s bundle size and cut it down using code-splitting"
 date: 2020-01-10
-category: "blog"
 tags: ["react"]
 emoji: ✂️
 coverImage: ''

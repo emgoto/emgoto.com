@@ -2,7 +2,6 @@
 title: "Building a web-monetized RSS reader using Blitz.js"
 date: 2020-05-22
 tags: ["blitz"]
-category: "blog"
 emoji: 📃
 coverImage: 'https://images.unsplash.com/photo-1526721940322-10fb6e3ae94a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80'
 devArticleId: 341565

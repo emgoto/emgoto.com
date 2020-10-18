@@ -2,7 +2,6 @@
 title: "How to unit test your Gatsby blog with React Testing Library"
 date: 2020-10-16
 tags: ["gatsby", "react-testing-library" ]
-category: "blog"
 emoji: 🔬
 coverImage: 'https://images.unsplash.com/photo-1599636597137-e55f646e65a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 488301

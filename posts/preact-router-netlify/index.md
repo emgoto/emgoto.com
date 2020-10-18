@@ -1,7 +1,6 @@
 ---
 title: "How to get preact-router working with Netlify"
 date: 2020-03-21
-category: "snippets"
 tags: ["preact"]
 emoji: 🧬
 coverImage: ''

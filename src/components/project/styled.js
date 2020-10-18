@@ -13,7 +13,7 @@ export const Button = styled.div`
 
     &:hover {
         cursor: pointer;
-        opacity: 0.7;
+        opacity: 0.9;
         background-color: ${colors.darkGrey};
     }
 `;

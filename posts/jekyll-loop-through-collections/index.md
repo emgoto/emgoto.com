@@ -2,7 +2,6 @@
 title: "How to loop through and render collections in Jekyll"
 date: 2020-05-30
 tags: ["jekyll"]
-category: "snippets"
 emoji: 🧪
 coverImage: 'https://images.unsplash.com/photo-1589163809021-966e3ced4f2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1952&q=80'
 ---

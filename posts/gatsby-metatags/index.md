@@ -2,7 +2,6 @@
 title: "Meta tags: All you need to know for your Gatsby blog"
 date: 2020-10-08
 tags: ["gatsby"]
-category: "blog"
 emoji: 🏷️
 coverImage: 'https://images.unsplash.com/photo-1598809344252-7f4c5ab9a55c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 481217

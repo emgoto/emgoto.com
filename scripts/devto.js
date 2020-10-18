@@ -17,7 +17,6 @@ require('dotenv').config();
 
 const updateFrontMatter = (content, slug) => {
     content = content.replace(/date: .*\n/, 'published: false\n');
-    content = content.replace(/category: .*\n/, '');
     content = content.replace(/devArticleId: .*\n/, '');
     content = content.replace(
         /emoji: .*\n/,

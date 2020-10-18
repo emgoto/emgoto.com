@@ -1,7 +1,6 @@
 ---
 title: "Using the functional updates pattern with React hooks"
 date: 2020-04-07
-category: "snippets"
 tags: ["react"]
 emoji: 🎣
 coverImage: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'

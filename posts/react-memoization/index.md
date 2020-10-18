@@ -1,7 +1,6 @@
 ---
 title: "Use memoization in your code to reduce unnecessary re-renders"
 date: 2020-01-17
-category: "blog"
 tags: ["react"]
 emoji: 🔥
 coverImage: ''

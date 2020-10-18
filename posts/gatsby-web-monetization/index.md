@@ -2,7 +2,6 @@
 title: "Setting up web monetization on your Gatsby blog (with RSS)"
 date: 2020-05-27
 tags: ["gatsby"]
-category: "blog"
 emoji: 📰
 coverImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 344504
