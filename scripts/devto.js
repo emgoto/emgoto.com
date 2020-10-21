@@ -87,6 +87,10 @@ const main = () => {
                     console.log('Got unpublished title:', draftTitle);
                     if (draftTitle === title) {
                         const devArticleId = response[0].id;
+                        console.log(
+                            'Got devArticleId: ',
+                            devArticleId,
+                        );
                         updateArticle(devArticleId, content);
                     }
                 }

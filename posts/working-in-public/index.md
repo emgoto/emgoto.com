@@ -4,9 +4,10 @@ date: 2020-10-21
 tags: ["books", "opensource"]
 emoji: 💻
 coverImage: 'https://images.unsplash.com/photo-1582322384982-92cf41ed4dbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80'
+devArticleId: 493818
 ---
 
-Nadia Eghbal’s recent book _Working in Public: The Making and Maintenance of Open Source Software_, covers what the open source experience is like for maintainers today. 
+[Nadia Eghbal](https://nadiaeghbal.com/)’s recent book _Working in Public: The Making and Maintenance of Open Source Software_, covers what the open source experience is like for maintainers today. 
 
 It ends with the following sentence:
 
@@ -48,7 +49,7 @@ To some extent, we can mitigate some of the busywork maintainers have to do by u
 
 Maintainers could also employ curators who could maintain a similar role to what moderators do on Twitch - weed out any low-value issues or pull requests, and surface to the maintainers only the issues and pull requests that are worth the attention.
 
-As Github is the platform of choice for open source, maintainers are also reliant on Github to provide the features they need to work effectively. For example, users can now vote on issues by using the “thumbs up” emoji, but for a long time this feature was not available, and so maintainers had to deal with receiving notifications by users leaving “+1” comments.
+As Github is the platform of choice for open source, maintainers are also reliant on Github to provide the features they need to work effectively. For example, users can now vote on issues by using the “thumbs up” emoji, but for a long time this feature was not available, and so maintainers had to deal with receiving notifications from users leaving “+1” comments.
 
 ## Conclusion
 As someone who has dabbled a little bit in the open source community, [Working in Public](https://www.amazon.com/Working-Public-Making-Maintenance-Software-ebook/dp/B08BDGXVK9) has provided me with a lot of food for thought, and definitely makes me more sympathetic towards maintainers!
