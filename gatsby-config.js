@@ -167,6 +167,44 @@ const config = {
                 ),
             },
         },
+        {
+            resolve: 'gatsby-plugin-local-search',
+            options: {
+                name: 'pages',
+                engine: 'flexsearch',
+                query: `
+                {
+                    allMdx(
+                        limit: 2000
+                        sort: { fields: [frontmatter___date], order: DESC }
+                        filter: { fields: { collection: { eq: "posts" } } }
+                    ) {
+                        nodes {
+                            frontmatter {
+                                title
+                                tags
+                                emoji
+                                date(formatString: "DD MMMM YYYY")
+                            }
+                            slug
+                        }
+                    }
+                }
+              `,
+                ref: 'slug',
+                index: ['title', 'tags', 'slug'],
+                store: ['title', 'tags', 'emoji', 'date', 'slug'],
+
+                normalizer: ({ data }) =>
+                    data.allMdx.nodes.map(node => ({
+                        slug: node.slug,
+                        title: node.frontmatter.title,
+                        tags: node.frontmatter.tags,
+                        emoji: node.frontmatter.emoji,
+                        date: node.frontmatter.date,
+                    })),
+            },
+        },
     ],
 };
 

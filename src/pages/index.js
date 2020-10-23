@@ -7,10 +7,7 @@ import Project from '../components/project';
 import Seo from '../components/seo';
 
 import CometImage from '../images/comet.png';
-import HourglassImage from '../images/hourglass.png';
-import GamingImage from '../images/gaming.png';
 import TwilioImage from '../images/twilio.png';
-import GftwImage from '../images/gftw.png';
 
 const ViewMore = styled.div`
     font-size: 12px;
@@ -27,7 +24,10 @@ const IndexPage = ({
         <p>
             I'm Emma, a front-end developer at Atlassian. I'm on a
             journey to improve myself as a developer and writer.
-            Welcome to my corner of the internet! ✨
+            Welcome to my corner of the internet!{' '}
+            <span role="img" aria-label="sparkle emoji">
+                ✨
+            </span>
         </p>
         <h2>Projects</h2>
         <p />
