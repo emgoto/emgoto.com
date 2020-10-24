@@ -111,6 +111,7 @@ const config = {
                         resolve: `gatsby-remark-autolink-headers`,
                         options: {
                             isIconAfterHeader: true,
+                            elements: ['h2'],
                         },
                     },
                     {

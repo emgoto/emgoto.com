@@ -1,5 +1,4 @@
 import React from 'react';
-import TerminalBar from '../terminal-bar';
 import { GlobalStyle } from '../../common';
 import { Container, SquareContainer, TextContainer } from './styled';
 import Header from './header';
@@ -24,7 +23,6 @@ const Layout = ({ children, pageContext }) => {
             <Container>
                 <Header />
                 <SquareContainer>
-                    <TerminalBar />
                     <TextContainer>{children}</TextContainer>
                 </SquareContainer>
                 <Footer />

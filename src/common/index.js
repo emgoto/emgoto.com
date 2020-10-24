@@ -30,6 +30,10 @@ export default {
 };
 
 export const GlobalStyle = createGlobalStyle`
+  :root {
+    --headerHeight: 112px;
+  }
+
   body {
     background-color: ${darkGrey};
     color: ${white};
@@ -74,7 +78,8 @@ export const GlobalStyle = createGlobalStyle`
 
   h2 {
     font-weight: normal;
-    margin-top: 24px;
+    margin-top: calc(var(headerHeight) - 24px);
+    padding-top: var(headerHeight);
     margin-bottom: 8px;
     color: ${green};
     letter-spacing: 1px;
@@ -103,7 +108,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 14px;
   }
 
-  h2, h3, h4 {
+  h2 {
     &:hover > .anchor.after > svg {
       visibility: visible;
       fill: ${offWhite};

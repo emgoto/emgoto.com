@@ -8,7 +8,15 @@ export const Container = styled.div`
     align-items: center;
 `;
 
-export const HeaderContainer = styled.h1`
+export const StickyHeader = styled.div`
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1; // To make sure sticky header sits on top of images/headers
+    background-color: ${colors.darkGrey};
+`;
+
+export const LogoContainer = styled.h1`
     padding: 0px;
     color: ${colors.purple};
     letter-spacing: 2px;
