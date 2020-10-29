@@ -4,6 +4,7 @@ date: 2020-02-07
 tags: ["books", "career"]
 emoji: 📖
 coverImage: ''
+devArticleId: 256892
 bookInfo:
     title: The Pragmatic Programmer
     author: Andy Hunt and Dave Thomas

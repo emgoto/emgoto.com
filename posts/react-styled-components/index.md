@@ -4,6 +4,7 @@ date: 2020-03-13
 tags: ["react"]
 emoji: 💅
 coverImage: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+devArticleId: 278354
 --- 
 
 If you’re looking for a way to write easily maintainable and portable CSS in React, you may be interested in using the [styled-components](https://github.com/styled-components/styled-components) library. It’s one of a number of **CSS in JS** libraries that let you skip some of the pains that you may otherwise experience dealing with large and unwieldy `.css` files.

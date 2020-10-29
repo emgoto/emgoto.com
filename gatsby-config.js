@@ -62,7 +62,7 @@ const config = {
               {
                 allMdx(
                   sort: { order: DESC, fields: [frontmatter___date] },
-                  filter: { fields: { collection: { eq: "posts" } } }
+                  filter: { fields: { collection: { in: ["books", "posts"] } } }
                 ) {
                   nodes {
                     excerpt
