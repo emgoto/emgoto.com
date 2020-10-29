@@ -23,7 +23,7 @@ const IndexPage = ({
         <p>
             I'm Emma, a front-end developer at Atlassian. I'm on a
             journey to improve myself as a developer and writer.
-            Welcome to my corner of the internet{' '}
+            Welcome to my corner of the internet!{' '}
             <span role="img" aria-label="sparkle emoji">
                 ✨
             </span>

@@ -12,7 +12,6 @@ const BookSummary = ({
     book: {
         slug,
         frontmatter: {
-            emoji,
             title: postTitle,
             bookInfo: { title, author, coverImage },
         },

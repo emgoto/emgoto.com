@@ -5,7 +5,8 @@ import Helmet from 'react-helmet';
 import SEO from './index';
 
 const siteTitle = 'Emma Goto';
-const siteDescription = 'Front-end development and side projects.';
+const siteDescription =
+    "I'm Emma, a front-end developer at Atlassian. I'm on a journey to improve myself as a developer and writer. Welcome to my corner of the internet!";
 const siteUrl = 'https://www.emgoto.com';
 
 describe('SEO component', () => {
