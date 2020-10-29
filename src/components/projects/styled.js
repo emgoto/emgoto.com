@@ -1,21 +1,11 @@
 import styled from 'styled-components';
 
 import colors from '../../common';
+import { Card } from '../../common/styled';
 
-export const Button = styled.div`
+export const Button = styled(Card)`
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
-
-    color: ${colors.white};
-    border-radius: 4px;
-    padding: 8px;
-
-    &:hover {
-        cursor: pointer;
-        opacity: 0.9;
-        background-color: ${colors.darkGrey};
-    }
 `;
 
 export const Text = styled.div`

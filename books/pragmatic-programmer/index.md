@@ -1,9 +1,13 @@
 ---
 title: "My 5 key takeaways from reading the Pragmatic Programmer"
 date: 2020-02-07
-tags: ["books"]
+tags: ["books", "career"]
 emoji: 📖
 coverImage: ''
+bookInfo:
+    title: The Pragmatic Programmer
+    author: Andy Hunt and Dave Thomas
+    coverImage: ./pragmatic-programmer.jpg
 --- 
 Last month I finished reading [The Pragmatic Programmer](https://pragprog.com/book/tpp20/the-pragmatic-programmer-20th-anniversary-edition). I will admit I don’t necessarily *enjoy* reading software development books in my spare time, but I definitely got some good insights out of this book that I want to apply going forward.
 

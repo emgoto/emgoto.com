@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import colors from '../../common';
+import { Card } from '../../common/styled';
 
 export const Title = styled.div`
     margin-bottom: -4px;
@@ -8,25 +9,15 @@ export const Title = styled.div`
 
 export const Emoji = styled.div`
     margin: auto 0;
-    padding: 8px 16px;
+    padding: 0px 16px;
     font-size: 20px;
 `;
 
-export const Button = styled.div`
-    margin: 8px 0px;
-    padding: 8px 0;
+export const Button = styled(Card)`
+    padding-left: 8px;
     display: flex;
     align-items: center
-    height: 32px;
-    color: ${colors.white};
-    border-radius: 4px;
  
-	&:hover {
-        cursor: pointer;
-        opacity: 0.9;
-        background-color: ${colors.darkGrey};
-    }
-
     li {
         list-style: none;
     }

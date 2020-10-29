@@ -5,6 +5,10 @@ tags: ["books", "opensource"]
 emoji: 💻
 coverImage: 'https://images.unsplash.com/photo-1582322384982-92cf41ed4dbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80'
 devArticleId: 493818
+bookInfo:
+    title: 'Working in Public: The Making and Maintenance of Open Source Software'
+    author: Nadia Eghbal
+    coverImage: ./working-in-public.jpg
 ---
 
 [Nadia Eghbal](https://nadiaeghbal.com/)’s recent book _Working in Public: The Making and Maintenance of Open Source Software_, covers what the open source experience is like for maintainers today. 

@@ -1,9 +1,13 @@
 ---
 title: "How to take smart notes (as a developer)"
 date: 2020-03-17
-tags: ["books"]
+tags: ["books", "productivity"]
 emoji: 🗃️
 coverImage: 'https://images.unsplash.com/photo-1583521214690-73421a1829a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+bookInfo:
+    title: How to Take Smart Notes
+    author: Sönke Ahrens
+    coverImage: ./take-smart-notes.jpg
 ---
 
 I recently read the book [How to Take Smart Notes](https://www.goodreads.com/en/book/show/34507927) by Sönke Ahrens. It explores the note-taking method of a famous German sociologist Niklas Luhmann, who published a *huge* amount of work in his lifetime (70 books and 400+ articles) - and it was quite possibly due to the efficient way he took notes.

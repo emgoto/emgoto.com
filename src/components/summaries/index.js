@@ -7,22 +7,33 @@ export const CURRENT_YEAR = '2020';
 const renderDateWithoutCurrentYear = dateWithYear =>
     dateWithYear.split(` ${CURRENT_YEAR}`)[0];
 
-const Summary = ({ slug, frontmatter: { title, emoji, date } }) => (
+const Summary = ({
+    isCompact,
+    slug,
+    frontmatter: { title, emoji, date },
+}) => (
     <Link data-testid="summary" to={`/${slug}`}>
         <Button>
             <Emoji>{emoji}</Emoji>
             <div>
                 <Title>{title}</Title>
-                <Date>{renderDateWithoutCurrentYear(date)}</Date>
+                {!isCompact && (
+                    <Date>{renderDateWithoutCurrentYear(date)}</Date>
+                )}
             </div>
         </Button>
     </Link>
 );
 
-export default ({ posts }) =>
+export default ({ posts, isCompact }) =>
     posts.map((post, i) => {
         const { frontmatter, slug } = post;
         return (
-            <Summary slug={slug} key={i} frontmatter={frontmatter} />
+            <Summary
+                slug={slug}
+                key={i}
+                frontmatter={frontmatter}
+                isCompact={isCompact}
+            />
         );
     });

@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import Content from '../components/content';
 import Seo from '../components/seo';
 import PrevAndNext from '../components/prev-and-next';
+import ReadMore from '../components/read-more';
 
 export default ({
     data: {
@@ -13,7 +14,7 @@ export default ({
             excerpt,
         },
     },
-    pageContext: { prev, next },
+    pageContext: { prev, next, relatedPosts },
 }) => (
     <>
         <Seo title={title} slug={slug} description={excerpt} />
@@ -26,6 +27,7 @@ export default ({
             devArticleId={devArticleId}
         />
         <PrevAndNext prev={prev} next={next} />
+        <ReadMore tag={tags[0]} posts={relatedPosts} />
     </>
 );
 

@@ -24,19 +24,32 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
 };
 
+const getRelatedPosts = (postsByTag, post) => {
+    const tag = post.frontmatter.tags[0];
+
+    if (postsByTag[tag] && postsByTag[tag].length > 1) {
+        const postsForTag = postsByTag[tag];
+        return postsForTag.filter(p => p.slug !== post.slug);
+    }
+
+    return [];
+};
+
 exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
     return graphql(`
         {
             allMdx(
                 sort: { order: DESC, fields: [frontmatter___date] }
-                filter: { fields: { collection: { eq: "posts" } } }
+                filter: {
+                    fields: { collection: { in: ["books", "posts"] } }
+                }
                 limit: 2000
             ) {
                 nodes {
                     frontmatter {
                         tags
-                        date
+                        date(formatString: "DD MMMM YYYY")
                         title
                         emoji
                         coverImage
@@ -47,7 +60,31 @@ exports.createPages = ({ graphql, actions }) => {
         }
     `).then(result => {
         const posts = result.data.allMdx.nodes;
+
         let tags = [];
+        const postsByTag = {};
+        posts.forEach(node => {
+            if (node.frontmatter && node.frontmatter.tags) {
+                // Create list of all tags
+                node.frontmatter.tags.forEach(tag => {
+                    if (!tags.includes(tag)) {
+                        tags.push(tag);
+                    }
+                });
+
+                // Create a list of posts per tag (by most recent)
+                const tag = node.frontmatter.tags[0];
+
+                if (!postsByTag[tag]) {
+                    postsByTag[tag] = [];
+                }
+
+                if (postsByTag[tag].length < 4) {
+                    postsByTag[tag].push(node);
+                }
+            }
+        });
+
         posts.forEach((node, index) => {
             createPage({
                 path: node.slug,
@@ -56,24 +93,17 @@ exports.createPages = ({ graphql, actions }) => {
                 ),
                 context: {
                     slug: node.slug,
-                    prev:
-                        index === 0
-                            ? undefined
-                            : posts[index - 1].node,
+                    prev: index === 0 ? undefined : posts[index - 1],
                     next:
                         index === posts.length - 1
                             ? undefined
-                            : posts[index + 1].node,
+                            : posts[index + 1],
+                    relatedPosts: getRelatedPosts(
+                        postsByTag,
+                        posts[index],
+                    ),
                 },
             });
-
-            if (node.frontmatter && node.frontmatter.tags) {
-                node.frontmatter.tags.forEach(tag => {
-                    if (!tags.includes(tag)) {
-                        tags.push(tag);
-                    }
-                });
-            }
 
             // Create the cover image for the blogpost - to be used by script to take screenshot of
             if (
