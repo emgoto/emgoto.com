@@ -53,7 +53,7 @@ const Projects = ({ limit }) => (
             title="Streak - habit tracker"
         >
             Track your habits using Trello cards. Installed on{' '}
-            <b>12000+</b> Trello boards.
+            <b>21000+</b> Trello boards.
         </Project>
         {!limit && (
             <Project

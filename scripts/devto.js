@@ -57,9 +57,15 @@ const updateArticle = (devArticleId, content) => {
 
 const main = () => {
     const slug = process.argv[2];
-    const file = glob.sync(
-        join(process.cwd(), 'posts', slug, 'index.md'),
-    )[0];
+
+    const findFile = [
+        ...glob.sync(join(process.cwd(), 'posts', slug, 'index.md')),
+        ...glob.sync(join(process.cwd(), 'posts', slug, 'index.mdx')),
+        ...glob.sync(join(process.cwd(), 'books', slug, 'index.md')),
+        ...glob.sync(join(process.cwd(), 'books', slug, 'index.mdx')),
+    ];
+
+    const file = findFile[0];
 
     readFile(file, 'utf8', (err, content) => {
         if (err) {
@@ -92,6 +98,8 @@ const main = () => {
                             devArticleId,
                         );
                         updateArticle(devArticleId, content);
+                    } else {
+                        console.log('Titles did not match');
                     }
                 }
             })

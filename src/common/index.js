@@ -7,11 +7,10 @@ export const darkGreen = '#5FB3B3';
 export const blue = '#6699CC';
 export const purple = '#C594C5';
 export const white = '#D8DEE9';
-export const offWhite = '#b9cbf0';
-export const lightGrey = '#2c3947';
 
-// From https://cocopon.github.io/iceberg.vim/
-export const grey = '#26293A';
+export const lightGrey = '#A6ACC9';
+
+// https://cocopon.github.io/iceberg.vim/
 export const darkGrey = '#1F2233';
 export const black = '#161822';
 
@@ -22,9 +21,7 @@ export default {
     blue,
     purple,
     white,
-    offWhite,
     lightGrey,
-    grey,
     darkGrey,
     black,
 };
@@ -59,14 +56,6 @@ export const GlobalStyle = createGlobalStyle`
 
   h2 a:hover{
     color: inherit;
-  }
-
-  b, strong {
-    color:  ${purple};
-  }
-
-  i, em {
-    color: ${offWhite}
   }
 
   h1 {
@@ -111,7 +100,7 @@ export const GlobalStyle = createGlobalStyle`
   h2 {
     &:hover > .anchor.after > svg {
       visibility: visible;
-      fill: ${offWhite};
+      fill: ${lightGrey};
       margin-left: 8px;
     }
 
@@ -148,6 +137,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   hr {
-    color: ${lightGrey};
+    color: ${darkGrey};
+    margin: 24px 0;
   }
 `;

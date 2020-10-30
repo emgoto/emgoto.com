@@ -1,7 +1,7 @@
 ---
 title: "Redux vs Recoil: which should you use?"
 date: 2020-07-11
-tags: ["react"]
+tags: ["react", "redux", "recoil"]
 emoji: 🐍
 coverImage: 'https://images.unsplash.com/photo-1498855926480-d98e83099315?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 391961

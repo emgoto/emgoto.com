@@ -4,6 +4,7 @@ date: 2020-10-29
 tags: ["books", "mindfulness" ]
 emoji: 📅
 coverImage: 'https://images.unsplash.com/photo-1601173662818-95e6e19c4c50?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2380&q=80'
+devArticleId: 501543
 bookInfo:
     title: "The Power of Now: A Guide to Spiritual Enlightenment"
     author: Eckhart Tolle

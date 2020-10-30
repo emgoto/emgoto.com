@@ -1,7 +1,7 @@
 ---
 title: "Getting started with styled-components in React"
 date: 2020-03-13
-tags: ["react"]
+tags: ["react", "styled-components"]
 emoji: 💅
 coverImage: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
 devArticleId: 278354

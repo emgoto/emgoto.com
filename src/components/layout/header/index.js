@@ -2,6 +2,7 @@ import React from 'react';
 import IconTwitter from '../../../images/icon-twitter';
 import IconDev from '../../../images/icon-dev';
 import TerminalBar from '../../terminal-bar';
+
 import {
     StickyHeader,
     Container,

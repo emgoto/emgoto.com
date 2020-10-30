@@ -1,7 +1,7 @@
 ---
 title: "Getting started with state management using Redux"
 date: 2020-06-19
-tags: ["react"]
+tags: ["react", "redux"]
 emoji: 🦆
 coverImage: 'https://images.unsplash.com/photo-1525538182201-02cd1909effb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80'
 devArticleId: 358316

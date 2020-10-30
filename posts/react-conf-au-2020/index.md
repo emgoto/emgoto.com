@@ -1,7 +1,7 @@
 ---
 title: "Seven things I learned at ReactConf AU 2020"
 date: 2020-02-29
-tags: ["conference"]
+tags: ["react", "conference"]
 emoji: 🇦🇺
 coverImage: ''
 ---

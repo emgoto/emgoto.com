@@ -15,7 +15,7 @@ export const Text = styled.div`
 
 export const Description = styled.div`
     font-size: 14px;
-    color: ${colors.offWhite};
+    color: ${colors.lightGrey};
 `;
 
 export const MinWidth = styled.div`

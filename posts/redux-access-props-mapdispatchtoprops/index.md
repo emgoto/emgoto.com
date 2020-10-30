@@ -1,7 +1,7 @@
 ---
 title: "How to access props in mapDispatchToProps"
 date: 2020-01-29
-tags: ["redux"]
+tags: ["redux", "react"]
 emoji: 🗺️
 coverImage: ''
 --- 

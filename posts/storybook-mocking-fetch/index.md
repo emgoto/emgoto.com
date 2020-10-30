@@ -1,7 +1,7 @@
 ---
 title: "Mocking fetch requests in Storybook"
 date: 2020-06-01
-tags: ["storybook"]
+tags: ["storybook", "react"]
 emoji: 🐕
 coverImage: ''
 --- 
