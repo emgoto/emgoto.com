@@ -4,8 +4,7 @@ import { Container, SquareContainer, TextContainer } from './styled';
 import Header from './header';
 import Footer from './footer';
 import './theme.css';
-
-require('typeface-open-sans');
+import './fonts.css';
 
 const Layout = ({ children, pageContext }) => {
     if (pageContext.noLayout) {

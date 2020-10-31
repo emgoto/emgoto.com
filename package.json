@@ -47,8 +47,7 @@
         "react-test-renderer": "^16.13.1",
         "react-use-flexsearch": "^0.1.1",
         "react-youtube": "^7.11.2",
-        "styled-components": "^5.1.0",
-        "typeface-open-sans": "^0.0.75"
+        "styled-components": "^5.1.0"
     },
     "devDependencies": {
         "gatsby-plugin-testing": "^0.3.1",

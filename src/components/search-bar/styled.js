@@ -22,7 +22,6 @@ export const Input = styled.input`
     box-sizing: border-box;
     border: none;
     box-shadow: none;
-
     outline: 0;
 `;
 

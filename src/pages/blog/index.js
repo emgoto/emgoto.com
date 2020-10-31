@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { useFlexSearch } from 'react-use-flexsearch';
-import Summaries from '../../components/summaries';
 import Seo from '../../components/seo';
 import SearchBar from '../../components/search-bar';
+import PostsByTag from '../../components/posts-by-tag';
 
 // FlexSearch returns data in a "flat" state but we need to return it
 // in the shape expected by the summaries component
@@ -27,10 +27,10 @@ export default ({
 
     return (
         <>
-            <h1>Blog</h1>
             <Seo />
+            <h1>Blog</h1>
             <SearchBar onSearch={setQuery} />
-            <Summaries posts={posts} />
+            <PostsByTag posts={posts} />
         </>
     );
 };
