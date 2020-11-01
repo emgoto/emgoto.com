@@ -82,8 +82,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   blockquote {
-    border-left: 2px solid ${darkGreen};
-    padding-left: 8px;
+    border-left: 4px solid ${darkGreen};
+    background-color: ${darkGrey};
+    padding: 8px 16px;
+    border-radius: 0 8px 8px 0;
   }
 
   .gatsby-resp-image-image {

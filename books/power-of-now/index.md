@@ -17,7 +17,7 @@ The author holds some very strong beliefs which almost feel like his own religio
 
 He also makes some (to me, dubious) claims about his teachings. For example, that it will help you age slower, and strengthen your immune system. 
 
-> Although I was left feeling sceptical as I read his claims, I am open to acknowledging that his teachings could help lower your stress, which in turn probably helps you to stay healthy and live a little bit longer.
+(Although I was left feeling sceptical as I read his claims, I am open to acknowledging that his teachings could help lower your stress, which in turn probably helps you to stay healthy and live a little bit longer).
 
 Nonetheless, for all that I disliked about the book I still enjoyed it enough to write this blog post about it!
 
