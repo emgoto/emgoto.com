@@ -109,6 +109,12 @@ export const GlobalStyle = createGlobalStyle`
     .anchor.after > svg {
       visibility: hidden;
     }
+
+    .anchor {
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
   }
 
   .gatsby-remark-code-title {
@@ -132,6 +138,9 @@ export const GlobalStyle = createGlobalStyle`
   .gatsby-highlight-code-line {
     margin: 0 -14px;
     padding: 0 14px;
+    display: block;
+    background-color: rgb(51, 66, 76);
+    border-left: 4px solid ${darkGreen};
   }
 
   .gatsby-resp-image-background-image {

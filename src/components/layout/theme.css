@@ -157,8 +157,3 @@ pre > code.highlight {
   outline: 0.4em solid #c66;
   outline-offset: 0.4em;
 }
-
-.gatsby-highlight-code-line {
-  display: block;
-  background-color: rgb(51, 66, 76);
-}
