@@ -77,7 +77,7 @@ const config = {
               }
             `,
                         output: '/rss.xml',
-                        title: "Emma Goto's RSS feed",
+                        title: 'Emma Goto',
                     },
                 ],
             },

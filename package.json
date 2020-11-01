@@ -9,6 +9,7 @@
         "@mdx-js/react": "^1.6.0",
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.0.2",
+        "@testing-library/user-event": "^12.1.10",
         "babel-jest": "^26.3.0",
         "babel-preset-gatsby": "^0.5.9",
         "core-js": "^3.6.5",

@@ -1,15 +1,10 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
-import styled from 'styled-components';
+import { graphql } from 'gatsby';
 
 import Summaries from '../components/summaries';
 import Projects from '../components/projects';
 import Seo from '../components/seo';
-
-const ViewMore = styled.div`
-    padding: 8px;
-    font-size: 12px;
-`;
+import ViewAll from '../components/view-all';
 
 const IndexPage = ({
     data: {
@@ -30,24 +25,19 @@ const IndexPage = ({
         </p>
         <h2>Projects</h2>
         <Projects limit />
-
-        <Link to="projects">
-            <ViewMore>View all projects</ViewMore>
-        </Link>
+        <ViewAll slug={'projects/'}>View all projects</ViewAll>
 
         <h2>Posts</h2>
         <Summaries posts={postNodes} />
-
-        <Link to="blog">
-            <ViewMore>View all {totalCountPosts} posts</ViewMore>
-        </Link>
+        <ViewAll slug="blog/">
+            View all {totalCountPosts} posts
+        </ViewAll>
 
         <h2>Book Notes</h2>
         <Summaries posts={bookNodes} />
-
-        <Link to="books">
-            <ViewMore>View all {totalCountBooks} book notes</ViewMore>
-        </Link>
+        <ViewAll slug="books/">
+            View all {totalCountBooks} book notes
+        </ViewAll>
     </>
 );
 

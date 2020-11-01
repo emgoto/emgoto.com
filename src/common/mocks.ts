@@ -1,5 +1,14 @@
 import { Page } from './types';
 
+export const getMockBlogPost = (title, tags) => ({
+    ...mockBlogPost,
+    frontmatter: {
+        ...mockBlogPost.frontmatter,
+        title,
+        tags,
+    },
+});
+
 export const mockBlogPost: Page = {
     frontmatter: {
         coverImage: 'url',
