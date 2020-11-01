@@ -67,8 +67,8 @@ export const GlobalStyle = createGlobalStyle`
 
   h2 {
     font-weight: normal;
-    margin-top: calc(var(headerHeight) - 24px);
-    padding-top: var(headerHeight);
+    margin-top: calc(var(--headerHeight) * -1);
+    padding-top: var(--headerHeight);
     margin-bottom: 8px;
     color: ${green};
     letter-spacing: 1px;
