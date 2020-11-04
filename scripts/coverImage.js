@@ -56,11 +56,7 @@ const takeScreenshot = async (url, width, height, destination) => {
 
 const getArticleFiles = () => {
     return [
-        ...glob.sync(join(process.cwd(), 'posts', '**', '*.md')),
-        ...glob.sync(join(process.cwd(), 'posts', '**', '*.mdx')),
-        ...glob.sync(join(process.cwd(), 'posts', '**', 'index.md')),
         ...glob.sync(join(process.cwd(), 'posts', '**', 'index.mdx')),
-        ...glob.sync(join(process.cwd(), 'books', '**', 'index.md')),
         ...glob.sync(join(process.cwd(), 'books', '**', 'index.mdx')),
     ];
 };
@@ -75,10 +71,10 @@ const parseFile = async file => {
             const frontmatter = content.split('---')[1];
             const data = YAML.parse(frontmatter);
 
-            let slug = file.match(/\/([^\/]+).md/)[1];
+            let slug = file.match(/\/([^\/]+).mdx/)[1];
 
             if (slug === 'index') {
-                slug = file.match(/\/([^\/]+)\/index.md/)[1];
+                slug = file.match(/\/([^\/]+)\/index.mdx/)[1];
             }
 
             return resolve({

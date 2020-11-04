@@ -52,10 +52,10 @@ const ulysses = () => {
     rmdir(`${newFolder}/assets`, () => {});
     unlink(`${newFolder}/info.json`, () => {});
 
-    renameSync(`${newFolder}/text.md`, `${newFolder}/index.md`);
+    renameSync(`${newFolder}/text.md`, `${newFolder}/index.mdx`);
 
     const options = {
-        files: `${newFolder}/index.md`,
+        files: `${newFolder}/index.mdx`,
         from: [/\[\]\(assets/g, /^# .*/g],
         to: ['[](.', title => frontMatter(title)],
     };
