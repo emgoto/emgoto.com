@@ -59,9 +59,7 @@ const main = () => {
     const slug = process.argv[2];
 
     const findFile = [
-        ...glob.sync(join(process.cwd(), 'posts', slug, 'index.md')),
         ...glob.sync(join(process.cwd(), 'posts', slug, 'index.mdx')),
-        ...glob.sync(join(process.cwd(), 'books', slug, 'index.md')),
         ...glob.sync(join(process.cwd(), 'books', slug, 'index.mdx')),
     ];
 
