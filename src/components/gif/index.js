@@ -2,9 +2,9 @@ import React from 'react';
 import { Container } from './styled';
 
 // Gatsby doesn't render GIFs by default :(
-const Gif = ({ src }) => (
+const Gif = ({ src, alt }) => (
     <Container>
-        <img src={src} />
+        <img alt="alt" src={src} />
     </Container>
 );
 

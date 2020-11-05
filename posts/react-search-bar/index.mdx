@@ -1,7 +1,7 @@
 ---
 title: "How to build a search bar in React"
-date: 2020-11-04
-tags: ['react']
+date: 2020-11-06
+tags: ['react', 'accessibility']
 emoji: 🔎
 coverImage: 'https://images.unsplash.com/photo-1602110756773-f96dd83776af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 ---
@@ -11,9 +11,9 @@ A search bar is a great way to make content on your website discoverable. In thi
 
 The final product we’ll be building will look like this:
 
-<Gif src="/react-search-bar/example.gif"/>
+<Gif src="/react-search-bar/example.gif" alt="GIF of posts being filtered as user types query in search box"/>
 
-If you want to follow along with the code, the full source code is available over at [react-search-bar](https://github.com/emgoto/react-search-bar).
+> The source code for this tutorial is available at [react-search-bar](https://github.com/emgoto/react-search-bar).
 
 ## Render your search bar component in the app
 To get started, created a new file for your search component. I've called mine `search.js`:
@@ -39,8 +39,10 @@ const App = () => {
 export default App;
 ```
 
-> **Where did `import React from 'react'` go?**  
+>💡 **Where did `import React from 'react'` go?**
+>
 > You may notice that we no longer have an import statement at the top of every file. From the release of React 17, this is [no longer necessary](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html). (Yay!) If you happen to be on an older version, you may still need this import statement.
+
 
 ## Add your HTML elements
 Our search bar component will contain a couple of HTML elements. Add a label, input and button, and then wrap it all in a form element:
@@ -88,7 +90,7 @@ This keeps it visible to screen reader users, but invisible to everyone else.
 
 Now we have a functioning search bar! When you search, you will navigate to `/?s=<your_query_here>`.
 
-<Gif src="/react-search-bar/navigation.gif"/>
+<Gif src="/react-search-bar/navigation.gif" alt="GIF of User typing in search query, clicking search button and navigation occurring" />
 
 ## Add a list of posts
 Now that we can search, we’ll need a list of items to search from. I've created a list of fake posts:
@@ -164,7 +166,7 @@ const App = () => {
 }
 ```
 
-Now when you type in a query, you will be a able to filter your posts!
+Now when you type in a query, you will be able to filter your posts!
 
 ## Adding immediate search or “search as you type”
 Instead of pressing enter to submit your search, you may also want the list to filter as the user begins typing. This immediate response can be more pleasant from a user-experience perspective.
@@ -218,14 +220,73 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => ( //highlight-line
 ```
 Now, as soon as you start typing, your posts will begin filtering!
 
-<Gif src="/react-search-bar/example.gif"/>
+<Gif src="/react-search-bar/example.gif" alt="GIF of posts being filtered as user types query in search box"/>
 
-### “Search as you type” and accessibility
-In writing this post, I did try to find out if it was possible to have an accessible "search as you type" experience. However, I wasn't really able to find any clear answers on this
+## Adding SPA navigation with React Router
 
-To make sure your component is accessible, the best approach to take would be to cater for both use cases. Allow for filtering as users type, but also trigger a page navigation when users hit enter.
+Currently your search bar will do a full-page refresh when you press enter.
+If you're looking to build a single-page app (SPA), we'll probably want to use a routing library like [React Router](https://reactrouter.com/). 
 
-(Page navigation also comes with the added benefit of users being able to link to search queries!)
+You can install with the following command:
+
+```bash
+yarn add react-router-dom
+```
+
+After installing, wrap your app in React Router's `Router` component:
+
+```jsx:title=src/App.js
+import { BrowserRouter as Router } from "react-router-dom";
+
+const App = () => {
+    return <Router>
+        { /* ... */ }
+    </Router>
+}
+```
+
+Then, add the following to the top of your search component:
+```jsx:title=src/search.js
+import { useHistory } from 'react-router-dom';
+
+const SearchBar = ({ searchQuery, setSearchQuery }) => {
+    const history = useHistory();
+    const onSubmit = e => {
+        history.push(`?s=${searchQuery}`)
+        e.preventDefault()
+    };
+
+    return <form action="/" method="get" autoComplete="off" onSubmit={onSubmit}>
+```
+
+Now when a user presses enter, the app's URL will change without a full-page refresh.
+
+## “Search as you type”, SPA navigation and accessibility concerns
+Without a full-page refresh, screen reader users won't be notified if the items in the list change. 
+We can send these notificaitons using [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
+
+After some Googling, there are packages like [react-aria-live](https://github.com/AlmeroSteyn/react-aria-live) and [react-a11y-announcer](https://github.com/thinkcompany/react-a11y-announcer) that will help you do this. 
+Unfortunately, it seems like neither of these have been updated in over a year.
+
+Luckily, it is fairly simple to write your own announcer component:
+```jsx:title=src/announcer.js
+const Announcer = ({ message }) =>
+    <div role="region" aria-live="polite" className="visually-hidden">{message}</div>
+
+export default Announcer;
+```
+
+And then render this in your main app component:
+
+```jsx:title=src/App.js
+<Announcer message={`List has ${filteredPosts.length} posts`}/>
+```
+
+Now, as you filter on the list, screen reader users will receive a message letting them know how many posts are on the page.
+
+I don't think that this is a perfect solution, but I definitely think it's much better than having your items silently changing.
+
+> If you are on a Mac and testing its VoiceOver feature, make sure to use Safari! I find that other browsers don't work as well with screen readers.
 
 ## Testing your component with React Testing Library
 To wrap things up, we’ll be testing our component using React Testing Library.
@@ -272,6 +333,6 @@ test('should render one post when user searches for preact', () => {
 
 ```
 ## Conclusion
-After reading this post, you will be able to create an accessible search bar component for your React app. With unit tests!
+After reading this post, you will be able to create an accessible search bar component for your React app. With unit tests! You can see the full source code at [react-search-bar](https://github.com/emgoto/react-search-bar).
 
-If you're interested in viewing the full source code, I have made it available at [react-search-bar](https://github.com/emgoto/react-search-bar).
+If you know more about how to make search bars accessible, I would love to hear from you - feel free to reach out to me via Twitter at [@emma_goto](https://www.twitter.com/emma_goto).
