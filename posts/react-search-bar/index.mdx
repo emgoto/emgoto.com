@@ -312,7 +312,7 @@ test('should not have any accessibility violations', async () => {
 This is a super easy way to catch simple accessibility issues. For instance, if we removed our label component, our test will fail:
 ![](./axe-violation.png)
 
-We should also add a test for the functionality of your component. Let’s add one that tests that when you type “preact”, that it only shows one post:
+We should also add a test for the functionality of your component. Let’s add one that tests that when you type “preact”, it only shows one post:
 ```jsx:title=src/App.test.js
 test('should render one post when user searches for preact', () => {
     render(<App />);
