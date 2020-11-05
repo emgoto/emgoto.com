@@ -136,6 +136,7 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
     background-color: rgb(51, 66, 76);
     border-left: 4px solid ${darkGreen};
+    padding-left: calc(14px - 4px); // to offset the border
   }
 
   .gatsby-resp-image-background-image {

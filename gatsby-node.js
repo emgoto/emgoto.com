@@ -157,3 +157,12 @@ exports.createPages = ({ graphql, actions }) => {
         });
     });
 };
+
+// https://github.com/ChristopherBiscardi/gatsby-mdx/issues/176
+exports.onCreateWebpackConfig = ({ actions }) => {
+    actions.setWebpackConfig({
+        resolve: {
+            modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+        },
+    });
+};
