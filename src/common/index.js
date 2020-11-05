@@ -81,6 +81,10 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${darkGrey};
     padding: 8px 16px;
     border-radius: 0 8px 8px 0;
+
+    @media screen and (max-width: 499px) {
+      margin: 8px 4px;
+    }
   }
 
   .gatsby-resp-image-image {
@@ -144,7 +148,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   hr {
-    color: ${darkGrey};
-    margin: 24px 0;
+    border: none;
+    height: 1px;
+    background-color: #363B59;
   }
 `;

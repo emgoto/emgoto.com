@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import colors from '../../common';
 
 export const Container = styled.div`
+    font-size: 0.9rem;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
 `;
 
 export const TagContainer = styled.div`
@@ -21,14 +22,17 @@ export const TagContainer = styled.div`
 
 export const DateAndTags = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    font-size: 0.9rem;
     color: ${colors.darkGreen};
+    margin-right: 16px;
+    margin-bottom: 8px;
 `;
 
 export const Interpunct = styled.div`
     padding: 0 8px;
+`;
+
+export const Socials = styled.div`
+    display: flex;
 `;
 
 export const IconContainer = styled.div`

@@ -9,6 +9,7 @@ import {
     Interpunct,
     DateAndTags,
     IconContainer,
+    Socials,
 } from './styled';
 import Comments from './comments';
 
@@ -22,22 +23,19 @@ const Tag = ({ tag }) => (
 );
 
 const GithubLink = ({ slug }) => (
-    <>
-        <Interpunct>·</Interpunct>{' '}
-        <IconContainer>
-            <a
-                href={getGithubUrl(slug)}
-                aria-labelledby="Edit this post"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <div>
-                    <GithubIcon />
-                    <div>Edit this post</div>
-                </div>
-            </a>
-        </IconContainer>
-    </>
+    <IconContainer>
+        <a
+            href={getGithubUrl(slug)}
+            aria-labelledby="Edit this post"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <div>
+                <GithubIcon />
+                <div>Edit this post</div>
+            </div>
+        </a>
+    </IconContainer>
 );
 
 const Content = ({ title, date, tags, body, slug, devArticleId }) => (
@@ -50,9 +48,12 @@ const Content = ({ title, date, tags, body, slug, devArticleId }) => (
                 {tags.map(tag => (
                     <Tag tag={tag} key={tag} />
                 ))}
-                <GithubLink slug={slug} />
-                <Comments devArticleId={devArticleId} />
             </DateAndTags>
+            <Socials>
+                <GithubLink slug={slug} />
+                <Interpunct>·</Interpunct>{' '}
+                <Comments devArticleId={devArticleId} />
+            </Socials>
         </Container>
         <MDXRenderer>{body}</MDXRenderer>
     </div>
