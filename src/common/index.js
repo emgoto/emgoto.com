@@ -27,10 +27,6 @@ export default {
 };
 
 export const GlobalStyle = createGlobalStyle`
-  :root {
-    --headerHeight: 112px;
-  }
-
   body {
     background-color: ${darkGrey};
     color: ${white};
@@ -67,11 +63,10 @@ export const GlobalStyle = createGlobalStyle`
 
   h2 {
     font-weight: normal;
-    margin-top: calc(var(--headerHeight) * -1);
-    padding-top: var(--headerHeight);
     margin-bottom: 8px;
     color: ${green};
     letter-spacing: 1px;
+    scroll-margin-top: 112px;
   }
 
   h3 {
