@@ -51,7 +51,7 @@ const Content = ({ title, date, tags, body, slug, devArticleId }) => (
             </DateAndTags>
             <Socials>
                 <GithubLink slug={slug} />
-                <Interpunct>·</Interpunct>{' '}
+                {devArticleId && <Interpunct>·</Interpunct>}
                 <Comments devArticleId={devArticleId} />
             </Socials>
         </Container>
