@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import colors from '../../common';
 
 export const Container = styled.div`
+    margin-top: 16px;
     display: flex;
     justify-content: space-between;
 
