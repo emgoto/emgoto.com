@@ -25,17 +25,17 @@ const IndexPage = ({
         </p>
         <h2>Projects</h2>
         <Projects limit />
-        <ViewAll slug={'projects/'}>View all projects</ViewAll>
+        <ViewAll slug="/projects/">View all projects</ViewAll>
 
         <h2>Posts</h2>
         <Summaries posts={postNodes} />
-        <ViewAll slug="blog/">
+        <ViewAll slug="/blog/">
             View all {totalCountPosts} posts
         </ViewAll>
 
         <h2>Book Notes</h2>
         <Summaries posts={bookNodes} />
-        <ViewAll slug="books/">
+        <ViewAll slug="/books/">
             View all {totalCountBooks} book notes
         </ViewAll>
     </>

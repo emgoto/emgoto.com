@@ -18,7 +18,7 @@ const BookSummary = ({
     },
 }) => {
     return (
-        <Link url to={`/${slug}`}>
+        <Link to={`/${slug}`}>
             <BookContainer>
                 <ImageContainer>
                     <Img fixed={coverImage.childImageSharp.fixed} />

@@ -16,8 +16,9 @@ export const StickyHeader = styled.div`
     background-color: ${colors.darkGrey};
 `;
 
-export const LogoContainer = styled.h1`
-    padding: 0px;
+export const LogoContainer = styled.div`
+    font-size: 2em;
+    padding-bottom: 8px;
     color: ${colors.purple};
     letter-spacing: 2px;
     flex-grow: 1;
