@@ -1,0 +1,404 @@
+---
+title: "How to add search to your Gatsby site"
+date: 2020-11-13
+tags: ["gatsby", "react"]
+emoji: 🕵️‍♀️
+coverImage: 'https://images.unsplash.com/photo-1528522157586-1de75bf0c936?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+---
+import Gif from 'components/gif';
+
+A search bar is a great way to make content on your Gatsby site discoverable.
+In this tutorial, I'll be walking you through how to add search to Gatsby with [FlexSearch](https://www.github.com/nextapps-de/flexsearch).
+
+I'll be basing the code off Gatsby's official starter blog template, [gatsby-starter-blog](https://github.com/gatsbyjs/gatsby-starter-blog).
+We'll also be using a [React search bar component](https://emgoto.com/react-search-bar/) I built in a previous post.
+
+At the end of the tutorial, you will have a search bar that allows readers to search through your content:
+
+<Gif src="/gatsby-search/example.gif" height="395px" alt="GIF of posts being filtered as user types query in search box"/>
+
+## Choosing a search library for Gatsby
+
+Do you _need_ a search library? Not always. It is possible to write a filter that finds partial matches based off post titles. 
+But if you have a lot of posts, or you want to search off many fields, a search library may be for you.
+
+There are quite a few JavaScript search libraries out there that you can use.
+I chose [FlexSearch](https://www.github.com/nextapps-de/flexsearch) due to its ease of setup. It also claims to be the fastest search library. Sounds pretty good to me!
+
+## Add a search bar component to your Gatsby site
+We'll be putting our search bar on the home page.
+
+The home page uses a GraphQL page query to grab a list of all the posts, and then loops through and renders a link out to each post.
+
+```jsx:title=src/pages/index.js
+import React from 'react';
+import PostLink from '../components/post-link';
+
+export default ({
+    data: {
+        allMarkdownRemark: { nodes },
+    },
+}) => {
+    const posts = nodes;
+
+    return (
+        <div>
+            <h1>Blog</h1>
+            {posts.map(post =>
+                // PostLink will be a component that renders a summary of your post
+                // e.g. the title, date and an excerpt
+                <PostLink post={post} />
+            )}
+        </div>
+    );
+};
+
+export const pageQuery = graphql`
+  query {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+        }
+      }
+    }
+  }
+`
+```
+
+Create a separate `search.js` file to store your search bar component:
+```jsx:title=src/components/search.js
+import React from 'react';
+
+const SearchBar = ({ searchQuery, setSearchQuery }) => (
+    <form
+        action="/"
+        method="get"
+        autoComplete="off"
+    >
+        <label htmlFor="header-search">
+            <span className="visually-hidden">
+                Search blog posts
+            </span>
+        </label>
+        <input
+            value={searchQuery}
+            onInput={(e) => setSearchQuery(e.target.value)}
+            type="text"
+            id="header-search"
+            placeholder="Search blog posts"
+            name="s"
+        />
+        <button type="submit">Search</button>
+    </form>
+);
+```
+
+As well as some CSS to hide our screen reader-friendly label:
+```css:title=src/pages/index.css
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+```
+
+> I've written a separate post going into detail on how to create an [accessible search bar component](https://emgoto.com/react-search-bar/).
+
+Then on our home page we can add this new component:
+```jsx:title=src/pages/index.js
+import React from 'react';
+import Search from '../components/search'; // highlight-line
+import './index.css'; // highlight-line
+
+export default ({
+    data: {
+        allMarkdownRemark: { nodes },
+    },
+}) => {
+    /* highlight-range{1-3} */
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get('s')
+    const [searchQuery, setSearchQuery] = useState(query || '');
+
+    const posts = nodes;
+
+   return (
+        <div>
+            <h1>Blog</h1>
+            {/* highlight-range{1-4} */}
+            <SearchBar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
+            {posts.map(post => (
+                <PostLink post={post} />
+            ))}
+        </div>
+    );
+};
+```
+
+Now, you’ll have a search bar set up on your Gatsby site.
+
+<Gif src="/gatsby-search/search-setup.gif" height="318px" alt="" />
+
+## Install gatsby-plugin-local-search and FlexSearch
+
+Now that we have our search bar, we'll need to hook it up to a search library.
+
+The Gatsby ecosystem has plugins for every occassion - and search is no exception! 
+
+First, install [gatsby-plugin-local-search](https://www.gatsbyjs.com/plugins/gatsby-plugin-local-search/):
+```bash
+yarn add gatsby-plugin-local-search
+# or 
+npm install gatsby-plugin-local-search
+```
+
+This plugin handles integrating your Gatsby site with a search engine library. On top of this plugin, we’ll also need to install our search library, FlexSearch:
+```bash
+yarn add flexsearch react-use-flexsearch
+# or 
+npm install flexsearch react-use-flexsearch
+```
+We’re also installing a react-use-flexsearch hook, which will make it easier to use FlexSearch later.
+
+## Update your Gatsby config file
+
+As with all Gatsby plugins, once you have installed the plugin you will need to add it to your Gatsby config file.
+```js:title=gatsby-config.js
+plugins: [
+    {
+        resolve: 'gatsby-plugin-local-search',
+        options: {
+            name: 'pages',
+            engine: 'flexsearch',
+            query: /** TODO **/,
+            ref: /** TODO **/,
+            index: /** TODO **/,
+            store: /** TODO **/,
+            normalizer: /** TODO **/,
+        }
+    },
+```
+
+I’ve left most of the options blank, since these are going to be individual to your site. We’ll be covering them one-by-one below.
+
+### Adding the query value
+The first value we need to add to our plugin options is the `query`. This GraphQL query needs to grab the data for all your posts.
+This is the same query that we used earlier on the home page of our Gatsby site:
+```js
+query: `
+  query {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+        }
+      }
+    }
+  }
+`
+```
+
+### Choosing a ref value
+The `ref` is a value unique to each blog post. If your posts have unique slugs, you can use that.
+```js
+ref: 'slug'
+```
+
+> 💡 **What is a slug?**
+>
+> If you have a post living at the URL `website.com/foo-bar`, the slug is the `foo-bar` bit. A slug value is usually calculated in your `gatsby-node.js` file.
+
+If your site doesn’t have slugs, GraphQL provides an ID for each of your posts, so you can use that for your ref:
+
+```graphql
+query {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+        nodes {
+            id  // highlight-line
+```
+
+### Adding an index value
+Our next value is the `index`. This is the array of values that you want FlexSearch to search from. 
+The most likely thing you’ll be adding is the `title`, but you might also want users to search the post's excerpt or tags as well.
+
+```js
+index: ['title', 'excerpt']
+```
+
+### Adding a store value
+Next is the `store`. When FlexSearch returns search results, this is the data you want in those results.
+For example if you're going to render the date under every post, you'll want the date value.
+
+You’ll also need to include in the store your ref and index values as well.
+```js
+store: ['title', 'excerpt', 'date', 'slug']
+```
+
+### Adding a normalizer value
+The final step is the `normalizer`. 
+FlexSearch expects all the values that you listed above in the `store` to be returned in a flat shape like this:
+
+```js
+{
+    title: 'Foo',
+    excerpt: 'Blah blah salted duck eggs'
+	date: '2020-01-01',
+    slug: 'foo-bar'
+}
+```
+We need a function that will transform the data from our GraphQL query into the expected shape:
+
+```js
+normalizer: ({ data }) =>
+    data.allMarkdownRemark.nodes.map(node => ({
+        title: node.frontmatter.title,
+        excerpt: node.excerpt,
+        date: node.frontmatter.date,
+        slug: node.fields.slug,
+    })),
+```
+
+## Add your FlexSearch engine to your search bar
+
+Now that we’ve set up FlexSearch, we can finally start using it for our search bar.
+```jsx:title=src/pages/index.js
+import React, { useState } from 'react';
+import { graphql } from 'gatsby';
+import { useFlexSearch } from 'react-use-flexsearch'; // highlight-line
+
+export default ({
+    data: {
+        localSearchPages: { index, store }, // highlight-line
+        allMarkdownRemark: { nodes },
+    },
+}) => {
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get('s');
+    const [searchQuery, setSearchQuery] = useState(query || '');
+
+    const posts = nodes;
+    const results = useFlexSearch(searchQuery, index, store); // highlight-line
+
+    return (
+        <div>
+            <h1>Blog</h1>
+            <Search
+				searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+			/>
+            {posts.map(post => (
+                <LinkComponent post={post} />
+            ))}
+        </div>
+    );
+};
+
+export const pageQuery = graphql`
+  query {
+    /* highlight-range{1-4} */
+    localSearchPages {
+      index
+      store
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+        }
+      }
+    }
+  }
+`
+```
+
+### Make sure to un-normalize the data
+The `results` returned from the FlexSearch hook are going to be in a “flat” shape like this:
+```js
+{
+    title: 'Foo',
+    tags: ['tag'],
+	date: '2020-01-01',
+    slug: 'foo-bar'
+}
+```
+
+Our link component will be expecting the post to be the same shape as what our GraphQL query returns.
+So we can write a function to put this data back into its expected shape:
+```js
+export const unFlattenResults = results =>
+    results.map(post => {
+        const { date, slug, tags, title } = post;
+        return { slug, frontmatter: { title, date, tags } };
+    });
+```
+
+And now we can use our results value:
+```jsx
+const results = useFlexSearch(searchQuery, index, store);
+const posts = unflattenResults(results); // highlight-line
+
+return (
+    <>
+        <h1>Blog</h1>
+        <Search
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+        />
+        {posts.map(post => (
+            <LinkComponent post={post} />
+        ))}
+    </>
+);
+```
+### Accounting for an empty query
+The FlexSearch engine will return no results if you have an empty query. The behaviour that you want here instead is to show _all_ the results.
+
+When the search query is empty, we can fall back to using the original data we were getting from our GraphQL query.
+
+```jsx
+const results = useFlexSearch(searchQuery, index, store);
+// If a user has typed in a query, use the search results. Otherwise, use all posts
+const posts = searchQuery ? unflattenResults(results) : nodes; // highlight-line
+
+return (
+    <>
+        <h1>Blog</h1>
+        <Search
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+        />
+        {posts.map(post => (
+            <LinkComponent post={post} />
+        ))}
+    </>
+);
+```
+Now, you will have finished setting up the search bar set up on your Gatsby site!
+With search implemented, your readers can now look for the content that is most relevant to them. 
+
+<Gif src="/gatsby-search/example.gif" height="395px" alt="GIF of posts being filtered as user types query in search box"/>
+
+
