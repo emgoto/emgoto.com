@@ -11,9 +11,9 @@ A search bar is a great way to make content on your Gatsby site discoverable.
 In this tutorial, I'll be walking you through how to add search to Gatsby with [FlexSearch](https://www.github.com/nextapps-de/flexsearch).
 
 I'll be basing the code off Gatsby's official starter blog template, [gatsby-starter-blog](https://github.com/gatsbyjs/gatsby-starter-blog).
-We'll also be using a [React search bar component](https://emgoto.com/react-search-bar) I built in a previous post.
+We'll also be using a [React search bar component](https://emgoto.com/react-search-bar/) I built in a previous post.
 
-At the end of the tutorial, you will have a search bar that allows readers to search through your posts:
+At the end of the tutorial, you will have a search bar that allows readers to search through your content:
 
 <Gif src="/gatsby-search/example.gif" height="395px" alt="GIF of posts being filtered as user types query in search box"/>
 
@@ -22,7 +22,7 @@ At the end of the tutorial, you will have a search bar that allows readers to se
 Do you _need_ a search library? Not always. It is possible to write a filter that finds partial matches based off post titles. 
 But if you have a lot of posts, or you want to search off many fields, a search library may be for you.
 
-There are quite a few JavaScript search libraries out there that you can make use of.
+There are quite a few JavaScript search libraries out there that you can use.
 I chose [FlexSearch](https://www.github.com/nextapps-de/flexsearch) due to its ease of setup. It also claims to be the fastest search library. Sounds pretty good to me!
 
 ## Add a search bar component to your Gatsby site
@@ -112,9 +112,9 @@ As well as some CSS to hide our screen reader-friendly label:
 }
 ```
 
-> I've written a separate post going into detail on how to create an [accessible search bar component](https://emgoto.com/react-search-bar).
+> I've written a separate post going into detail on how to create an [accessible search bar component](https://emgoto.com/react-search-bar/).
 
-Then on our home page we can add this new search component:
+Then on our home page we can add this new component:
 ```jsx:title=src/pages/index.js
 import React from 'react';
 import Search from '../components/search'; // highlight-line
@@ -148,7 +148,7 @@ export default ({
 };
 ```
 
-Now you’ll have a search bar component set up on your Gatsby site.
+Now, you’ll have a search bar set up on your Gatsby site.
 
 <Gif src="/gatsby-search/search-setup.gif" height="318px" alt="" />
 
@@ -161,11 +161,15 @@ The Gatsby ecosystem has plugins for every occassion - and search is no exceptio
 First, install [gatsby-plugin-local-search](https://www.gatsbyjs.com/plugins/gatsby-plugin-local-search/):
 ```bash
 yarn add gatsby-plugin-local-search
+# or 
+npm install gatsby-plugin-local-search
 ```
 
-This plugin handles integrating your Gatsby blog with a search engine library. On top of this plugin, we’ll also need to install our search library, FlexSearch:
+This plugin handles integrating your Gatsby site with a search engine library. On top of this plugin, we’ll also need to install our search library, FlexSearch:
 ```bash
 yarn add flexsearch react-use-flexsearch
+# or 
+npm install flexsearch react-use-flexsearch
 ```
 We’re also installing a react-use-flexsearch hook, which will make it easier to use FlexSearch later.
 
@@ -188,10 +192,10 @@ plugins: [
     },
 ```
 
-I’ve left most of the options values blank, since these are going to be individual to your site. We’ll be covering them one-by-one below.
+I’ve left most of the options blank, since these are going to be individual to your site. We’ll be covering them one-by-one below.
 
 ### Adding the query value
-The first value we need to add to our plugin’s options is the `query`. This GraphQL query needs to grab the data for all your posts.
+The first value we need to add to our plugin options is the `query`. This GraphQL query needs to grab the data for all your posts.
 This is the same query that we used earlier on the home page of our Gatsby site:
 ```js
 query: `
@@ -341,7 +345,7 @@ The `results` returned from the FlexSearch hook are going to be in a “flat” 
 }
 ```
 
-Our link component will be expecting the post to be in the same shape as what our GraphQL query returns.
+Our link component will be expecting the post to be the same shape as what our GraphQL query returns.
 So we can write a function to put this data back into its expected shape:
 ```js
 export const unFlattenResults = results =>
@@ -351,7 +355,7 @@ export const unFlattenResults = results =>
     });
 ```
 
-And then pass in our results:
+And now we can use our results value:
 ```jsx
 const results = useFlexSearch(searchQuery, index, store);
 const posts = unflattenResults(results); // highlight-line
