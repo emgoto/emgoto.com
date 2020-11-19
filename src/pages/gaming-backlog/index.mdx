@@ -16,7 +16,7 @@ This side project turned out to be a lot harder than I thought it would be (don�
 
 I detailed some of the authentication gotchas in another post here:
 
-[Setting up Steam Authentication using OpenID](https://emgoto.com/steam-auth-and-openid).
+[Setting up Steam Authentication using OpenID](/steam-auth-and-openid/).
 
  One of my biggest surprises is that authenticating with Steam doesn’t really grant you _anything_. It returns you the user’s SteamID, but this ID is public information that you can get from a Steam user’s profile. The only benefit it really provides is a “smooth” way of getting a user’s ID, instead of making them jump through hoops to get it for you. Unfortunately that also means when you call the Steam API to grab a user’s games, their profile needs to be public. Luckily most people seem to leave their profiles public by default, so I'm hoping this isn’t too big of an issue.
 

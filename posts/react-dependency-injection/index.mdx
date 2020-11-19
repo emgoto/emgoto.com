@@ -93,7 +93,7 @@ const mockUseData = () => [mockData];
 
 One of the downsides of dependency injection is it does require you to add an extra prop to your component that you wouldn't otherwise have. If you don't want to use the dependency injection pattern there are some alternatives:
 
-* When testing with Jest, it is [possible to mock imports](/mocking-with-jest) and this includes hooks too
+* When testing with Jest, it is [possible to mock imports](/mocking-with-jest/) and this includes hooks too
 * You can mock endpoint calls using libraries like [fetch-mock](https://www.npmjs.com/package/fetch-mock) (which will also work with Storybook)
 * If you're looking to mock hooks with Storybook, there aren't any popular solutions out there (that I know of) but there is a [react-magnetic-di](https://github.com/albertogasparin/react-magnetic-di) library that may suit your needs, if you would like to give it a try
 

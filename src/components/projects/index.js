@@ -49,7 +49,7 @@ const Projects = ({ limit }) => (
         </Project>
         <Project
             image={CometImage}
-            slug="streak"
+            slug="/streak"
             title="Streak - habit tracker"
         >
             Track your habits using Trello cards. Installed on{' '}
@@ -58,7 +58,7 @@ const Projects = ({ limit }) => (
         {!limit && (
             <Project
                 image={HourglassImage}
-                slug="sla"
+                slug="/sla"
                 title="SLAs for Trello"
             >
                 See at a glance whether your Trello cards are meeting
@@ -68,7 +68,7 @@ const Projects = ({ limit }) => (
         {!limit && (
             <Project
                 image={GamingImage}
-                slug="gaming-backlog"
+                slug="/gaming-backlog"
                 title="Gaming Backlog"
             >
                 Integrate with Steam to add your games as cards to

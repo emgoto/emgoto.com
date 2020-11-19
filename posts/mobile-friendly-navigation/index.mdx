@@ -29,7 +29,7 @@ I decided against the sliding menu pattern since I didn't think that would be ne
 
 ## Getting started with your Preact component
 
-I’m using [Preact](preactjs.com/) for the frontend, which is a lightweight alternative to React. It doesn’t contain all the features that React does (you can take a look at their docs to learn more about [the differences to React](https://preactjs.com/guide/v10/differences-to-react)) but so far I haven't found any features that I'm missing from React. 
+I’m using [Preact](https://preactjs.com/) for the frontend, which is a lightweight alternative to React. It doesn’t contain all the features that React does (you can take a look at their docs to learn more about [the differences to React](https://preactjs.com/guide/v10/differences-to-react)) but so far I haven't found any features that I'm missing from React. 
 
 To structure our navigation component, we’re going to need a div that contains our navigation items, a div for our content, and a container div that lives around it:
 ```js
@@ -48,7 +48,7 @@ export default Navigation;
 
 ## Styling your component
 
-To style each of our divs, I’m going to use a CSS-in-JS library called [Emotion](https://emotion.sh/docs/introduction). If you’ve never had the chance to use CSS-in-JS before, I’ve created a guide to [getting started with styled-components](https://www.emgoto.com/react-styled-components/) which should give you a quick summary of how things work. Since Emotion lets you use the same `styled` API that styled-components has, swapping between the two libraries is very easy.
+To style each of our divs, I’m going to use a CSS-in-JS library called [Emotion](https://emotion.sh/docs/introduction). If you’ve never had the chance to use CSS-in-JS before, I’ve created a guide to [getting started with styled-components](/react-styled-components/) which should give you a quick summary of how things work. Since Emotion lets you use the same `styled` API that styled-components has, swapping between the two libraries is very easy.
 
 We'll be putting styles in a separate `styled.js` file. For our container div, we’ll need it to expand to the full width and height of the screen, and also to reverse the order in which the sidebar and the content are displayed when being viewed on a mobile:
 ```js
