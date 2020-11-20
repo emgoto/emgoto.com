@@ -38,12 +38,23 @@ const GithubLink = ({ slug }) => (
     </IconContainer>
 );
 
-const Content = ({ title, date, tags, body, slug, devArticleId }) => (
+const renderDate = (date, updated) =>
+    updated ? `Updated ${updated}` : date;
+
+const Content = ({
+    title,
+    date,
+    updated,
+    tags,
+    body,
+    slug,
+    devArticleId,
+}) => (
     <div>
         <h1>{title}</h1>
         <Container>
             <DateAndTags>
-                {date}
+                {renderDate(date, updated)}
                 <Interpunct>·</Interpunct>{' '}
                 {tags.map(tag => (
                     <Tag tag={tag} key={tag} />

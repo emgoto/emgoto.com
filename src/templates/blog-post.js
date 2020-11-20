@@ -8,7 +8,7 @@ import ReadMore from '../components/read-more';
 export default ({
     data: {
         mdx: {
-            frontmatter: { title, date, tags, devArticleId },
+            frontmatter: { title, date, updated, tags, devArticleId },
             slug,
             body,
             excerpt,
@@ -22,6 +22,7 @@ export default ({
             title={title}
             body={body}
             date={date}
+            updated={updated}
             tags={tags}
             slug={slug}
             devArticleId={devArticleId}
@@ -37,6 +38,7 @@ export const pageQuery = graphql`
             frontmatter {
                 tags
                 date(formatString: "DD MMMM YYYY")
+                updated(formatString: "DD MMMM YYYY")
                 title
                 emoji
                 devArticleId

@@ -127,7 +127,7 @@ const config = {
                         options: {
                             maxWidth: 800,
                             linkImagesToOriginal: false,
-                            showCaptions: true,
+                            showCaptions: false,
                             wrapperStyle: 'margin: 16px 0;',
                             quality: 70,
                         },
