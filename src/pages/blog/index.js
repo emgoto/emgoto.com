@@ -27,7 +27,10 @@ export default ({
 
     return (
         <>
-            <Seo />
+            <Seo
+                slug="blog"
+                description="All posts written by Emma Goto."
+            />
             <h1>Blog</h1>
             <SearchBar onSearch={setQuery} />
             <PostsByTag posts={posts} />

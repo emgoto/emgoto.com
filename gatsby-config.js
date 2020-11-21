@@ -2,7 +2,7 @@ const config = {
     siteMetadata: {
         title: `Emma Goto`,
         description:
-            "I'm Emma, a front-end developer at Atlassian. I'm on a journey to improve myself as a developer and writer. Welcome to my corner of the internet!",
+            "I'm Emma, a front-end developer. Welcome to my corner of the internet!",
         author: `Emma Goto`,
         siteUrl: `https://www.emgoto.com`,
     },

@@ -17,7 +17,7 @@ export default ({
     pageContext: { prev, next, relatedPosts },
 }) => (
     <>
-        <Seo title={title} slug={slug} description={excerpt} />
+        <Seo title={title} slug={slug} description={excerpt} isPost />
         <Content
             title={title}
             body={body}

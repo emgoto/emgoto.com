@@ -6,7 +6,11 @@ import SEO from '../../components/seo';
 const ProjectsPage = () => (
     <>
         <h1>Projects</h1>
-        <SEO title="Projects" />
+        <SEO
+            title="Projects"
+            slug="projects"
+            description="My side projects, including Trello Power-Ups and hackathon entries."
+        />
         <Projects />
     </>
 );

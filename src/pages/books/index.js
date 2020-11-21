@@ -11,7 +11,11 @@ const BooksPage = ({
     return (
         <>
             <h1>Book Notes</h1>
-            <Seo title="Book Notes" />
+            <Seo
+                title="Book Notes"
+                slug="books"
+                description="My summaries and notes about some of the books I've read."
+            />
             <BookSummaries books={nodes} />
         </>
     );

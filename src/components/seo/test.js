@@ -6,19 +6,11 @@ import SEO from './index';
 
 const siteTitle = 'Emma Goto';
 const siteDescription =
-    "I'm Emma, a front-end developer at Atlassian. I'm on a journey to improve myself as a developer and writer. Welcome to my corner of the internet!";
+    "I'm Emma, a front-end developer. Welcome to my corner of the internet!";
 const siteUrl = 'https://www.emgoto.com';
 
 describe('SEO component', () => {
     const nonBlogPostMetaTags = [
-        {
-            name: 'description',
-            content: siteDescription,
-        },
-        {
-            property: 'og:description',
-            content: siteDescription,
-        },
         {
             name: 'twitter:card',
             content: 'summary',
@@ -38,6 +30,14 @@ describe('SEO component', () => {
         expect(helmet.metaTags).toEqual(
             expect.arrayContaining([
                 {
+                    name: 'description',
+                    content: siteDescription,
+                },
+                {
+                    property: 'og:description',
+                    content: siteDescription,
+                },
+                {
                     property: 'og:title',
                     content: siteTitle,
                 },
@@ -48,33 +48,13 @@ describe('SEO component', () => {
 
     test('should render correct meta data for tags page', () => {
         const postTitle = 'Posts tagged #gatsby';
-
-        render(<SEO title={postTitle} />);
-        const helmet = Helmet.peek();
-
-        expect(helmet.title).toBe(`${postTitle} · ${siteTitle}`);
-
-        expect(helmet.metaTags).toEqual(
-            expect.arrayContaining([
-                {
-                    property: 'og:title',
-                    content: postTitle,
-                },
-                ...nonBlogPostMetaTags,
-            ]),
-        );
-    });
-
-    test('should render correct meta data for blog post', () => {
-        const postTitle = 'Post title';
-        const description = 'Beginning sentence of a blog post.';
-        const slug = 'post-slug/';
+        const description = `All posts written about Gatsby by Emma Goto.`;
 
         render(
             <SEO
                 title={postTitle}
-                description={description}
-                slug={slug}
+                slug={`tags/gatsby`}
+                description={`All posts written about Gatsby by Emma Goto.`}
             />,
         );
         const helmet = Helmet.peek();
@@ -94,6 +74,50 @@ describe('SEO component', () => {
                 {
                     property: 'og:description',
                     content: description,
+                },
+                {
+                    property: 'og:url',
+                    content: 'https://www.emgoto.com/tags/gatsby/',
+                },
+                ...nonBlogPostMetaTags,
+            ]),
+        );
+    });
+
+    test('should render correct meta data for blog post', () => {
+        const postTitle = 'Post title';
+        const description = 'Beginning sentence of a blog post.';
+        const slug = 'post-slug/';
+
+        render(
+            <SEO
+                title={postTitle}
+                description={description}
+                slug={slug}
+                isPost
+            />,
+        );
+        const helmet = Helmet.peek();
+
+        expect(helmet.title).toBe(`${postTitle} · ${siteTitle}`);
+
+        expect(helmet.metaTags).toEqual(
+            expect.arrayContaining([
+                {
+                    name: 'description',
+                    content: description,
+                },
+                {
+                    property: 'og:title',
+                    content: postTitle,
+                },
+                {
+                    property: 'og:description',
+                    content: description,
+                },
+                {
+                    property: 'og:url',
+                    content: 'https://www.emgoto.com/post-slug/',
                 },
                 {
                     name: 'twitter:card',

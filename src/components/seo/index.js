@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 import favicon from '../../images/favicon.png';
 
-const SEO = ({ description, title, slug }) => {
+const SEO = ({ description, title, slug, isPost = false }) => {
     const { site } = useStaticQuery(
         graphql`
             query {
@@ -20,15 +20,16 @@ const SEO = ({ description, title, slug }) => {
         `,
     );
 
-    const slugWithoutSlashes = () => slug.replace(/\//g, '');
+    const slugWithoutSlashes = () =>
+        isPost ? slug.replace(/\//g, '') : slug;
 
-    const socialCard = slug
+    const socialCard = isPost
         ? `${
               site.siteMetadata.siteUrl
           }/${slugWithoutSlashes()}-twitter.png`
         : `${site.siteMetadata.siteUrl}/square-social-card.png`;
 
-    const twitterCard = slug ? 'summary_large_image' : 'summary';
+    const twitterCard = isPost ? 'summary_large_image' : 'summary';
 
     return (
         <Helmet
@@ -52,6 +53,14 @@ const SEO = ({ description, title, slug }) => {
                     property: 'og:description',
                     content:
                         description || site.siteMetadata.description,
+                },
+                {
+                    property: 'og:url',
+                    content: slug
+                        ? `${
+                              site.siteMetadata.siteUrl
+                          }/${slugWithoutSlashes()}/`
+                        : site.siteMetadata.siteUrl,
                 },
                 {
                     name: 'twitter:card',
