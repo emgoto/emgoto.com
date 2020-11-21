@@ -1,23 +1,34 @@
 ---
 title: "Storing values with the useRef hook"
 date: 2020-02-20
+updated: 2020-11-22
 tags: ["react"]
 emoji: 💾
-coverImage: ''
+coverImage: 'https://images.unsplash.com/photo-1604542031658-5799ca5d7936?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 --- 
 
-By now you’ve all probably heard about [React hooks](https://reactjs.org/docs/hooks-intro.html). You may have heard about (or used) `useRef` too:
+React's `useRef` hook is used to store references to DOM elements. But did you know you can store and update values with `useRef`?
+
+## Storing element references with useRef
+
+As the name suggests, `useRef` can store a reference to a DOM element. To do this, create the ref, and then pass it into the element:
 
 ```jsx
 const Component = () => {
     const ref = useRef(null);
-    return <div ref={ref}>Hello world</div>;
+    return <div ref={ref}> Hello world </div>;
 };
 ```
 
-Its most common use-case is when you want to have a reference to a DOM element. With this reference, you can do lots of useful things like grabbing an element’s height and width, see whether a scrollbar is present, or `focus()` it at a certain point in time.
+With this reference, you can do lots of useful things like:
 
-Recently I learned you can also use `useRef` to store values, which you can then go on to reference and update in your code:
+* Grabbing an element's height and width
+* Seeing whether a scrollbar is present
+* Calling `focus()` on the element at a certain moment
+
+## Storing and updating values with useRef
+
+Another use-case for `useRef` allows us to store values, which you can later use and change:
 
 ```jsx
 const Component = () => {
@@ -32,7 +43,18 @@ const Component = () => {
 }
 ```
 
-## What’s the difference between useRef and just using a variable?
+To change the ref's value, you will need to change `ref.current` (and not `ref` itself!)
+
+## useRef vs useState: What's wrong with useState?
+
+The key difference between `useState` and `useRef` is that:
+
+* If you update the state, your component will re-render
+* If you update the value stored in your ref, nothing will happen
+
+If you don’t need the component to re-render (or you don't _want_ the component to re-render), `useRef` may be a good candidate.
+
+## What’s the difference between useRef and using a variable?
 
 If you tried initializing a variable like this: 
 
@@ -45,11 +67,13 @@ const Component = () => {
 }
 ```
 
-It would get end up getting re-initialized each time the component is rendered. But if you use a ref, the value you store in it will persist between renders of your component.
+It would get end up getting re-initialized each time the component renders. If you use a ref, the value you store in it will persist between renders of your component.
 
 ## What about if I define the variable outside of the component?
 
-If you initialize the value outside of your component, this value will be global to all instances of `Component` (if you happen to be rendering more than one). So if you change the value, it will affect the value for all the other `Component`s you have rendered on your page.
+If you initialize the value outside of your component, this value will be global to all instances of `Component`.
+
+So if you change the value, it will affect the value for all the other components you have rendered on your page.
 
 ```jsx
 let renderCount = 0;
@@ -62,13 +86,32 @@ const Component = () => {
 }
 ```
 
-## What about useState?
+## useRef vs createRef
 
-The key difference between storing a value using `useState` and `useRef` is that if you update the state, your component will re-render. If you update the value stored in your ref, nothing will happen. So if you don’t need the component to re-render after you change a value, you don’t need to store it in state.
+`createRef` is the API that React provided for refs before hooks came around:
 
-## What if I’m using class components?
+```jsx
+import { createRef } from 'react';
 
-If you’re using class components, you can achieve the same thing using a class variable:
+class Component extends React.Component() {
+    ref = createRef();
+
+    render() {
+        this.ref.renderCount += 1;
+        return <div>Hello world</div>;
+    }
+}
+```
+
+If you're using functional components I would recommend using `useRef` over `createRef`.
+
+## How to use useRef in class components
+
+As `useRef` is a hook, it will only work with functional components.
+
+With class components, you can use the `createRef()` example I showed above.
+
+You can also achieve the same thing using a class variable:
 
 ```jsx
 class Component extends React.Component() {
@@ -80,5 +123,3 @@ class Component extends React.Component() {
     }
 }
 ```
-
-I hope this has helped you to understand `useRef` a little bit more. Thanks for reading!

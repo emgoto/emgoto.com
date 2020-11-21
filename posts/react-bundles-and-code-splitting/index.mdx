@@ -1,9 +1,10 @@
 ---
-title: "Analyze your React app’s bundle size and cut it down using code-splitting"
+title: "Analyze your React app’s bundle size and reduce it using code-splitting"
 date: 2020-01-10
+updated: 2020-11-22
 tags: ["react"]
 emoji: ✂️
-coverImage: ''
+coverImage: 'https://images.unsplash.com/photo-1586685983389-612a65517b38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 --- 
 As your React app gets larger, you may have to start worrying about its **bundle size**. 
 
@@ -15,7 +16,7 @@ The bigger the bundle size is, the longer it will take before a user can view yo
 
 The easiest way to see your app’s bundle size is to open the network tab in your browser devtools, and load your app. You should see two JavaScript files being loaded:
 
-![](initial_network_tab.png)
+![A React app's bundle size in the network tab](initial_network_tab.png)
 
 The much smaller one contains actual code that we've written, while the larger one (which I've highlighted) contains the code for all the libraries living in our `node_modules` folder. 
 
@@ -35,7 +36,7 @@ However I think that the [webpack-bundle-analyzer](https://www.npmjs.com/package
 
 This is what the `webpack-bundle-analyzer` will create for a fresh `create-react-app`:
 
-![](initial_react_dom.png)
+![ccreate-react-app initial bundle size](initial_react_dom.png)
 
 From top to bottom - we can see the name of the bundle (which will match what you see in the network tab), and then the `node_modules` folder. Inside of that you can see that `react-dom` takes up the majority of the bundle size and then `react` takes up a much smaller amount on the right.
 
@@ -72,7 +73,7 @@ export default function App() {
 
 After adding [react-charts](https://www.npmjs.com/package/react-charts) to our app, this is what our bundle will look like: 
 
-![](adding_charts.png)
+![create-react-app bundle size with react-charts included](adding_charts.png)
 
 We can see that where `react-dom` used to take up most of the page, `react-charts` takes up just as much space (which makes sense since both libraries are about the same size).
 
@@ -119,11 +120,11 @@ return (
 
 Now when we open the bundle analyzer we can see that we have two separate bundles:
 
-![](splitting_charts.png)
+![React bundle split into two using code-splitting](splitting_charts.png)
 
 And to be doubly sure that these bundles are being downloaded separately, we can go back to our network tab, and see that the bundle containing the chart (on the third row) only gets downloaded after you click the button.
 
-![](splitting_network_tab.png)
+![Split bundle visible in the network tab](splitting_network_tab.png)
 
 ## One final thing - unused imports and tree-shaking
 
@@ -131,4 +132,4 @@ If you import a library but don’t use it, by default it will still be included
 
 ----------
 
-And there you have it! To learn more about code-splitting, the React docs provide [a great guide on it](https://reactjs.org/docs/code-splitting.html) which I’d recommend checking out. This is my first technical guide, so I'd love to hear your feedback if I've under-explained or over-explained anything. Thanks for reading!
+And there you have it! To learn more about code-splitting, the React docs provide [a great guide on it](https://reactjs.org/docs/code-splitting.html) which I’d recommend checking out.
