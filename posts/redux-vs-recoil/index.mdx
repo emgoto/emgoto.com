@@ -1,17 +1,20 @@
 ---
 title: "Redux vs Recoil: which should you use?"
 date: 2020-07-11
+updated: 2020-11-22
 tags: ["react", "redux", "recoil"]
 emoji: 🐍
 coverImage: 'https://images.unsplash.com/photo-1498855926480-d98e83099315?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
 devArticleId: 391961
 --- 
 
-Facebook recently announced a new state management library for React called [Recoil](https://github.com/facebookexperimental/Recoil). Even though it’s still at an early, experimental phase it has received a lot of hype with 8000+ stars on Github.
+import CodePen from 'components/codepen'
 
-With [Redux](https://github.com/reduxjs/react-redux) being the most popular state management library to use for React, it’s natural to want to make the comparison with Recoil - when does it make sense to use one over the other?
+[Recoil](https://github.com/facebookexperimental/Recoil), Facebook's experimental state management library for React, has been receiving a lot of hype. With [Redux](https://github.com/reduxjs/react-redux) being the most popular state management library, it's natural to ask the question - when does it make sense to use one over the other?
 
-## Stores vs Atoms
+Let's take a look at some API differences between the two, plus some potential performance wins for Recoil.
+
+## Redux Stores vs Recoil Atoms
 In Redux, we have the concept of a centralised **store** where all the data for our app lives. 
 
 In a simple to-do list example, your store would look something like this:
@@ -27,7 +30,7 @@ In a simple to-do list example, your store would look something like this:
 }
 ```
 
-Recoil instead splits your state into individual **atoms**. You would have one atom for `listName`, and another for `tasks`. Here’s how you would create the `atom` for your tasks (taken from [the Recoil docs](https://recoiljs.org/docs/basic-tutorial/atoms)):
+Recoil instead splits your state into individual **atoms**. You would have one atom for `listName`, and another for `tasks`. Here’s how you would create the atom for your tasks (from [the Recoil docs](https://recoiljs.org/docs/basic-tutorial/atoms)):
 
 ```js
 const todoListState = atom({
@@ -36,7 +39,7 @@ const todoListState = atom({
 });
 ```
 
-As I was watching this [ReactEurope video](https://youtu.be/_ISAA_Jt9kI), the creator of Recoil, Dave McCabe, also introduced the possibility of creating individual atoms for each of your items:
+At [ReactEurope](https://youtu.be/_ISAA_Jt9kI), the creator of Recoil, Dave McCabe, also introduced the possibility of creating individual atoms for each of your items:
 
 ```js
 export const itemWithId =
@@ -45,19 +48,21 @@ export const itemWithId =
         default: {...},
     }));
 ```
-In our case, that would involve creating individual atoms for each of our `tasks`.
 
-## What makes Recoil more performant?
+This means we could break it down further, and create an individual atom for each task.
 
-Dave McCabe mentioned [in a comment on HackerNews](https://news.ycombinator.com/item?id=23183177):
+## Redux vs Recoil: Performance
+
+McCabe mentioned [in a comment on HackerNews](https://news.ycombinator.com/item?id=23183177):
 
 > "Well, I know that on one tool we saw a 20x or so speedup compared to using Redux. This is because Redux is O(n) in that it has to ask each connected component whether it needs to re-render, whereas we can be O(1)."
 
-Recoil can be O(1) because when you edit the data stored in an **atom**, only components subscribed to that atom will need to re-render. 
+Recoil is O(1) because when you edit the data in an **atom**, only components subscribed to that atom will re-render. 
 
 In our to-do list example, if we had 20 separate tasks, we would have 20 separate atoms. If we edited the fifth task, only the fifth task would need to re-render.
 
 Redux _does_ allow you to achieve the same effect using selectors:
+
 ```js
 // selector
 const taskSelector = (id) => state.tasks[id];
@@ -66,16 +71,60 @@ const taskSelector = (id) => state.tasks[id];
 const task = useSelector(taskSelector(id));
 ```
 
-This way, the component will only need to re-render when the specific task re-renders.
+With Redux, the component will only need to re-render when the specific task re-renders - same as Recoil.
 
-The caveat here is that each time _any_ part of the state changes, our `taskSelector` would have to re-calculate itself. 
+The caveat here is that each time _any_ part of the state changes, our `taskSelector` would have to re-calculate. 
 
-> We can also use optimisations like `createSelector` to reduce expensive calculations, but it will still need to check whether it _needs_ to re-calculate to begin with.
+> We can use optimisations like `createSelector` to reduce expensive calculations. However it will still need to check whether it _needs_ to re-calculate.
 
-I think these performance optimisations mean that Recoil might make sense for huge apps that need to render a large amount of components on the page. Your regular app is probably going to perform just fine with Redux, and I don’t think it’s worth switching to Recoil just for the potential (probably nonexistent) performance benefits.
+With these performance optimisations, Recoil makes sense for huge apps that need to render a lot of components. A regular app is probably going to perform just fine with Redux. Idon’t think it’s worth switching to Recoil for the potential (maybe nonexistent) performance benefits.
 
-There may be other reasons you may want to switch to Recoil - maybe if you think the API makes more sense to you than Redux, or that it's simpler to use and understand. Since Recoil is still in its experimental phase, it will also be a matter of waiting to see if there are any other compelling reasons to make the switch from Redux to Recoil.
+## Redux vs Recoil vs Context
 
-I'd love to hear from you if you think there are any other good reasons to make the switch.
+You might also be wondering - what about React Context? Do you need a state management library at all?
 
-Thanks for reading!
+Using React Context does have some potential downsides when it comes to performance. Any changes to state will cause re-renders for components that are using that state.
+
+I have a separate post on [React Context](/react-state-management/#the-problem-with-react-context/) that explains this issue, and provides a workaround library you can use called React Tracked.
+
+## Redux vs Recoil: API
+
+So performance might not be the reason you need to switch to Recoil, but we can also compare the API of both libraries.
+
+I'll be comparing [Redux Toolkit](https://redux-toolkit.js.org/) with Recoil, to create a simple example that lets you change the value stored in a text box.
+
+> 💡 **What is Redux Toolkit?** 
+>
+> Redux Toolkit is a helper library aimed to help you simplify how you use Redux. If you're interested in learning more, I have a separate post on [Getting started with Redux Toolkit](/redux-toolkit/).
+
+### Redux state management example
+
+<CodePen id="wvWLxyy" />
+
+### Recoil state management example
+
+<CodePen id="wvWLxLx" />
+
+> I also have to-do list examples of both [Redux Toolkit](https://github.com/emgoto/react-state-comparison/tree/master/src/redux-toolkit) and [Recoil](https://github.com/emgoto/react-state-comparison/tree/master/src/recoil) and other libraries over at [react-state-comparison](https://github.com/emgoto/react-state-comparison).
+
+### Redux vs Recoil: API differences
+
+Comparing the differences in API between Redux and Recoil:
+
+* Both libraries need you to wrap the entire app in a provider component
+* Recoil lets you initialise a store using `atom()`. This also comes with a selector and dispatchable action built-in
+* Redux lets you create a store using `createSlice()` together with `configureStore()`. This comes with actions and a reducer. You'll need to define a selector separately
+* Redux also requires the `useDispatch` and `useSelector` hooks to be able to dispatch actions and use selectors
+
+Redux definitely does have some additional boilerplate to get started!
+
+## Conclusion
+To summarise some of the differences between Redux and Recoil: 
+
+* Even with Redux Toolkit, Redux is still more "boilerplatey" than Recoil
+* Recoil may provide performance benefits, but only if your app is complex enough
+* Recoil is still in an experimental phase, while Redux is an established library
+
+Another thing to point out is that Redux provides middleware functionality, while [Recoil does not yet support it](https://github.com/facebookexperimental/Recoil/issues/236).
+
+Recoil does have some nice-looking benefits - it is possibly more performant, and has slightly less boilerplate to get started. However, it is still worth keeping in mind that it is an experimental library. So there are some risks you will be taking on if you choose to use it for a large project.
