@@ -1,0 +1,46 @@
+---
+title: How to rename all md files to mdx
+date: 2020-11-27
+tags: ["script"]
+emoji: 🔧
+coverImage: 'https://images.unsplash.com/photo-1605123181115-37293f5dd78f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+---
+Recently I converted my Gatsby blog from Markdown to MDX, and I wanted to convert all my `.md` files over to `.mdx` for consistency’s sake.
+
+The folder structure of my repository looks something like this:
+```
+posts
+    post-slug-one
+        index.md
+    post-slug-two
+        index.md
+```
+
+Since I have over 50 posts, I didn’t want to do the renaming manually!
+
+If you’re using VSCode, there is a [Batch Rename](https://marketplace.visualstudio.com/items?itemName=JannisX11.batch-rename-extension) extension you can use. However, it doesn’t seem to work when all your files are located inside of their own folders (like mine are).
+
+I came across [this snippet](https://github.com/johno/johno.com/blob/master/content/notes/dev/rename-all-files-in-a-directory.mdx):
+
+```bash
+for file in *.md; do mv "$file" "${file%.md}.mdx"; done
+```
+
+This seems to do the trick for any files that live in the same folder.
+
+To get all files that live underneath the `posts` directory, this works:
+
+```bash
+find posts -type f -name "*.md"
+```
+
+## The solution
+Putting both of the above snippets together, I came up with this:
+
+```bash
+find posts -type f -name "*.md"|while read file;
+  do mv "$file" "${file%.md}.mdx";
+done
+```
+
+> Before running the script, I would recommend checking that the `find` command is finding all the files you expect it to. Also, make sure to stash any other changes on your repository so that you can easily reverse this operation if it goes wrong!

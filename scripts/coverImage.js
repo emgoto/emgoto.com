@@ -71,10 +71,10 @@ const parseFile = async file => {
             const frontmatter = content.split('---')[1];
             const data = YAML.parse(frontmatter);
 
-            let slug = file.match(/\/([^\/]+).mdx/)[1];
+            let slug = file.match(/\/([^\/]+).mdx$/)[1];
 
             if (slug === 'index') {
-                slug = file.match(/\/([^\/]+)\/index.mdx/)[1];
+                slug = file.match(/\/([^\/]+)\/index.mdx$/)[1];
             }
 
             return resolve({
