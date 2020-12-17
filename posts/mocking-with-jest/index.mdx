@@ -33,7 +33,7 @@ If you don’t ever need to change what the `Time` module returns, and you don�
 import getDayOfWeek from './Time';
 
 // test.js
-jest.mock('./Day', () => () => 'Monday');
+jest.mock('./Time', () => () => 'Monday');
 ```
 
 ### Mocking a named import
@@ -42,7 +42,7 @@ jest.mock('./Day', () => () => 'Monday');
 import { getTime } from './Time';
 
 // test.js
-jest.mock('./Day', () => ({
+jest.mock('./Time', () => ({
     getTime: () => '1:11PM',
 }));
 ```
@@ -54,7 +54,7 @@ If you want to mock default and named imports, you’ll need to remember to use 
 import getDayOfWeek, { getTime } from './Time';
 
 // test.js
-jest.mock('./Day', () => ({
+jest.mock('./Time', () => ({
     __esModule: true,
     getTime: () => '1:11PM',
     default: () => 'Thursday'
@@ -68,7 +68,7 @@ If we mock a module but leave out a specific import from that module, it will be
 import { getTime, isMorning } from './Time';
 
 // test.js
-jest.mock('./Day', () => ({
+jest.mock('./Time', () => ({
     ...jest.requireActual('./Day'), 
     getTime: () => '1:11PM',
     // isMorning will return its true value
