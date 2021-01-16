@@ -1,0 +1,172 @@
+---
+title: "Automate file renaming with Node.js scripts"
+date: 2021-01-17
+tags: ["nodejs"]
+emoji: ♻️
+coverImage: 'https://images.unsplash.com/photo-1610721578236-12a1a8de20b4?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60'
+---
+
+Node.js scripts can be a real time-saver when you want to automate common tasks. In this post, you'll learn how to write your own script to rename files using [fs](https://nodejs.org/api/fs.html).
+
+## Creating and running your script
+I have a couple of scripts that I use for my blog, which I keep inside of the `scripts` folder in the blog's repository.
+
+Here I've created a file named `renameFile.js`:
+
+```js:title=scripts/renameFile.js
+#!/usr/bin/env node
+
+const main = () => {
+    // code goes here
+}
+
+main();
+```
+
+The first line is known as a **shebang line** and makes sure that the script is executed with Node.js.
+
+I then add the script in my repository’s `package.json` file:
+
+```json:title=package.json
+"scripts": {
+    "rename": "./scripts/renameFile.js"
+},
+```
+
+Depending on whether you’re using Yarn or npm, you can run this script with one of these commands: 
+
+```bash
+yarn rename
+# or
+npm run rename
+```
+
+## Make sure to install dependencies
+In the sections below, we’ll be making use of a library called [fs](https://nodejs.org/api/fs.html). Make sure to install your dependencies before you run the script!
+
+```bash
+yarn add --dev fs
+# or
+npm install -D fs
+```
+
+## How to rename a file with fs rename
+fs provides a lot of useful functions for modifying your files.
+
+The `rename` function will **asynchronously** rename a file:
+
+```js
+const { rename } = require('fs');
+
+const callback = () => {};
+
+const oldFileName = '/Users/emma/src/emgoto.com/old.txt';
+const newFileName = '/Users/emma/src/emgoto.com/new.txt';
+
+rename(oldFileName, newFileName, callback);
+```
+
+The file name needs to contain the full path of the file. We can use `process.cwd()` to get the file path of the directory that the script was run from.
+
+So instead of this:
+
+```js
+'/Users/emma/src/emgoto.com/old.txt'
+```
+
+We can do this:
+
+```js
+`${process.cwd()}/old.txt`
+```
+
+You’ll also notice that we’re passing in a callback function as the third argument. This callback will get executed once the rename is successful.
+
+> Even if you don’t want a callback executed, this argument is not optional. You can pass in `() => {}` if you don’t want anything to happen.
+
+Alternatively, you can also synchronously rename a file using `renameSync`:
+
+```js
+const { renameSync } = require('fs');
+
+renameSync(oldFileName, newFileName);
+```
+
+This means while the file is being renamed, the rest of the script won't execute.
+
+## rename vs renameSync: which should I use?
+
+If you’re writing a complex script, you may be able to improve performance by using asynchronous methods. In my case, since the scripts I write are simple, it doesn’t make too much of a difference.
+
+The main thing to keep in mind is that, if you are renaming a file **asynchronously** and then directly after you try and modify the new file:
+
+```js
+rename(oldFileName, newFileName, callback); // <- async
+doStuff(newFileName);
+```
+
+You could end up in a situation where you're executing `doStuff` on a file that doesn't exist yet!
+
+In this scenario, make sure to either do it synchronously with `renameSync`:
+
+```js
+renameSync(oldFileName, newFileName);
+doStuff(newFileName);
+```
+
+Or, make sure you modify the new file inside of the callback:
+
+```js
+const callback = () => doStuff(newFileName);
+rename(oldFileName, newFileName, callback);
+```
+
+## How to rename a folder with fs rename
+You can also use `rename` and `renameSync` to rename folders.
+
+## How to find files with glob
+In the above example, we are renaming a specific file. In real-life, you'll probably want to find a list of files that match a certain pattern.
+
+Let’s say you were looking for any zip files inside of your app’s `src` folder:
+
+```js
+const { join } = require('path');
+const glob = require('glob');
+
+const files = glob.sync(
+    join(process.cwd(), 'src', '**', '*.zip'),
+);
+```
+
+Breaking down the code above:
+* `process.cwd()` gets the current directory (from where you ran the script)
+* `join()` will join all the strings you pass in with `/` to make a path
+* `glob.sync()` does a pattern-matching search to try and find any files that match the string you provided. (There is also an async version, `glob()`).
+
+This will return an array of files that end in `.zip`. If you were only expecting one file, you’ll be able to grab it from the 0th index of the array (`files[0]`).
+
+## How to pass in arguments to the script
+You might want to pass in an argument to your script, like the name of the file you wish to rename.
+
+You can pass in as many arguments as you like:
+
+```bash
+yarn rename argOne argTwo
+# or
+npm run rename argOne argTwo
+```
+
+And then you can get them out using the `process.argv` array: 
+
+```js
+process.argv[2] // argOne
+process.argv[3] // argTwo
+```
+
+(The 0th and 1st spots in the array will contain `node` and `rename` the name of your script).
+
+## Conclusion
+
+Automating the process of file renaming can speed up an otherwise tedious process. With this post, you should now feel comfortable to write your own Node.js scripts!
+
+I would encourage you to check out the [fs documentation](https://nodejs.org/api/fs.html) to see other useful methods for file deletion and modification.
