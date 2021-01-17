@@ -26,7 +26,13 @@ main();
 
 The first line is known as a **shebang line** and makes sure that the script is executed with Node.js.
 
-I then add the script in my repository’s `package.json` file:
+You can either run the script directly:
+
+```sh
+node ./scripts/renameFile.js
+```
+
+Or if you're storing it in your repository, you can add a shortcut to run it in your `package.json` file:
 
 ```json:title=package.json
 "scripts": {
@@ -34,21 +40,12 @@ I then add the script in my repository’s `package.json` file:
 },
 ```
 
-Depending on whether you’re using Yarn or npm, you can run this script with one of these commands: 
+Depending on whether you’re using Yarn or npm, you can then run this script with one of these commands: 
 
 ```bash
 yarn rename
 # or
 npm run rename
-```
-
-## Make sure to install dependencies
-In the sections below, we’ll be making use of a library called [fs](https://nodejs.org/api/fs.html). Make sure to install your dependencies before you run the script!
-
-```bash
-yarn add --dev fs
-# or
-npm install -D fs
 ```
 
 ## How to rename a file with fs rename

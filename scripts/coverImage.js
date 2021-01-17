@@ -88,6 +88,7 @@ const parseFile = async file => {
 };
 
 const main = async () => {
+    console.log('Running...');
     const files = await Promise.all(getArticleFiles().map(parseFile));
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
