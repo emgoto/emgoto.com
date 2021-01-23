@@ -1,0 +1,168 @@
+---
+title: "How to write to files with Node.js"
+date: 2021-01-23
+tags: [nodejs]
+emoji: 🖊️
+coverImage: 'https://images.unsplash.com/photo-1610439170878-f0c2d4bce64d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1867&q=80'
+---
+
+In this post we’ll be covering how you can use the [fs module](https://nodejs.dev/learn/the-nodejs-fs-module/) in Node.js to write to and modify files with `writeFile()` and `writeFileSync()`. We’ll also take a look at an alternative library we can use called [replace-in-file](https://www.npmjs.com/package/replace-in-file).
+
+This post assumes you have a general knowledge of JavaScript syntax, but doesn’t expect any Node.js-specific knowledge.
+
+> If you want to learn how to write and run a Node.js script, I have covered that in my previous post on [automating file renaming with Node.js](https://www.emgoto.com/nodejs-rename-file).
+
+## Using fs writeFile to write to files (asynchronous)
+Let's jump straight into things with an fs `writeFile()` example:
+
+```js
+const { writeFile } = require('fs');
+
+const content = 'Hello world';
+const file = '/Users/emma/src/emgoto.com/file.txt';
+
+const callback = (err) => {
+    // If there's an error, we can do something about it here.
+};
+
+writeFile(file, content, callback);
+```
+
+This will change the contents of the file to contain the string “Hello world”.
+
+The callback function will be executed once the file has been successfully written to, or it errors out.
+
+## Using fs writeFileSync to write to files
+
+If you want an synchronous version, you can use `writeFileSync`:
+
+```js
+const { writeFileSync } = require('fs');
+
+const content = 'Hello world';
+const file = '/Users/emma/src/emgoto.com/file.txt';
+
+writeFileSync(file, content);
+```
+
+## Using fs readFileSync to read from a file
+
+If you want to modify a file, rather than write over its contents, you'll first need to read it. We can use `readFileSync` here: 
+
+```js
+const { readFileSync } = require('fs');
+
+const contents = readFileSync(file, 'utf8');
+```
+
+Now you'll have a copy of the file's contents. You can use JavaScript’s replace function to modify it. For example, we could replace “Hello” with “Goodbye”:
+
+```js
+const newContent = content.replace('Hello', 'Goodbye');
+```
+
+Finally, you would need to call `writeFile` (or `writeFileSync`) to update the file with the new contents:
+
+```js
+writeFile(file, newContent);
+```
+
+## Using fs readFile to read from a file (asynchronous)
+The asynchronous version is `readFile`:
+
+```js
+const { readFile, writeFile } = require('fs');
+
+const callback = (err, data) => {
+	const newContent = data.replace('Hello', 'Goodbye');
+    writeFile(file, newContent);
+}
+
+readFile(file, 'utf8', callback);
+```
+
+The callback function we pass in as the third argument will be called once the file has been read (or errors out).
+
+## How to effectively use JavaScript’s replace function
+In the above example, you’ll notice we were passing strings into JavaScript’s replace function:
+
+```js
+content.replace('Hello', 'Goodbye');
+```
+
+This only replaces the first instance of "Hello" with "Goodbye". If you want to replace more than one instance, you’ll can make use of Regex:
+
+```js
+content.replace(/Hello/g, 'Goodbye');
+```
+
+If you're rusty on your Regex (or haven’t used it before):
+* Regex patterns live inside of `//`
+* The `g` on the end signifies that it is “global”, which means it will find all occurrences.
+* `/Hello/g` will find all instances of the string “Hello” 
+
+> Regex can do many more cool things, but I won’t be diving into that in this post! When writing your Regex patterns, I recommend testing it with a tool like [RegExr](https://regexr.com/).
+
+As well as strings and Regex, we can also pass in functions!
+
+```js
+const addSpacesBetweenLetters = (string) => 
+    string.split('').join(' ');
+
+content.replace(/Hello/g, addSpacesBetweenLetters);
+```
+
+This would convert all instances of “Hello” to “H e l l o”.
+
+## Using replace-in-file to write to files
+Instead of fs readFile and writeFile, there’s also a library we can use called [replace-in-file](https://www.npmjs.com/package/replace-in-file).
+
+To replace all instances of "Hello" with "Goodbye", you would do the following:
+
+```js
+const replace = require('replace-in-file');
+
+const options = {
+    files: fileName,
+    from: /Hello/g,
+    to: 'Goodbye',
+};
+
+replace(options);
+```
+
+The `from` and `to` variables accept strings, Regex patterns and functions.
+
+## fs writeFile vs replace-in-file
+For simple use cases, fs writeFile will get the job done. There are a couple of extra features that the `replace-in-file` library has which make it pretty useful.
+
+It can replace content in multiple files at once:
+
+```js
+const replace = require('replace-in-file');
+
+const options = {
+    files: [fileName, anotherFileName], // highlight-line
+    from: /Hello/g,
+    to: 'Goodbye',
+};
+
+replace(options);
+```
+
+It can also **replace things in bulk**:
+
+```js
+const options = {
+    files: [fileName, anotherFileName],
+    from: [/Hello/g, /Foo/g], // highlight-line
+    to: ['Goodbye', 'Bar'], // highlight-line
+}
+```
+
+When you're using arrays with `to` and `from`:
+
+* The `from` in the 0th position will convert to the `to` in the 0th position
+* The `from` in the 1st position will convert to the `to` in the 1st position
+
+And so on!
