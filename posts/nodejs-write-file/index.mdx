@@ -4,6 +4,7 @@ date: 2021-01-23
 tags: [nodejs]
 emoji: 🖊️
 coverImage: 'https://images.unsplash.com/photo-1610439170878-f0c2d4bce64d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1867&q=80'
+devArticleId: 579841
 ---
 
 In this post we’ll be covering how you can use the [fs module](https://nodejs.dev/learn/the-nodejs-fs-module/) in Node.js to write to and modify files with `writeFile()` and `writeFileSync()`. We’ll also take a look at an alternative library we can use called [replace-in-file](https://www.npmjs.com/package/replace-in-file).
@@ -64,11 +65,11 @@ const newContent = content.replace('Hello', 'Goodbye');
 Finally, you would need to call `writeFile` (or `writeFileSync`) to update the file with the new contents:
 
 ```js
-writeFile(file, newContent);
+writeFile(file, newContent, () => {});
 ```
 
 ## Using fs readFile to read from a file (asynchronous)
-The asynchronous version is `readFile`:
+The asynchronous version of `readFileSync` is `readFile`:
 
 ```js
 const { readFile, writeFile } = require('fs');
@@ -81,7 +82,7 @@ const callback = (err, data) => {
 readFile(file, 'utf8', callback);
 ```
 
-The callback function we pass in as the third argument will be called once the file has been read (or errors out).
+Here, when we successfully get the contents of the file (or it errors out), the callback function will be called. Then we can use `writeFile` to modify the contents of the file.
 
 ## How to effectively use JavaScript’s replace function
 In the above example, you’ll notice we were passing strings into JavaScript’s replace function:
@@ -115,7 +116,7 @@ content.replace(/Hello/g, addSpacesBetweenLetters);
 This would convert all instances of “Hello” to “H e l l o”.
 
 ## Using replace-in-file to write to files
-Instead of fs readFile and writeFile, there’s also a library we can use called [replace-in-file](https://www.npmjs.com/package/replace-in-file).
+Instead of fs readFile and writeFile, there’s also a handy library we can use called [replace-in-file](https://www.npmjs.com/package/replace-in-file).
 
 To replace all instances of "Hello" with "Goodbye", you would do the following:
 
@@ -130,6 +131,8 @@ const options = {
 
 replace(options);
 ```
+
+You'll notice that we no longer have to open the file and get its contents - `replace-in-file` will handle that for you.
 
 The `from` and `to` variables accept strings, Regex patterns and functions.
 
@@ -150,7 +153,7 @@ const options = {
 replace(options);
 ```
 
-It can also **replace things in bulk**:
+It can also replace things in bulk:
 
 ```js
 const options = {
