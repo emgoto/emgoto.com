@@ -1,6 +1,7 @@
 ---
 title: "How to write to files with Node.js"
 date: 2021-01-23
+updated: 2021-03-04
 tags: [nodejs]
 emoji: 🖊️
 coverImage: 'https://images.unsplash.com/photo-1610439170878-f0c2d4bce64d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1867&q=80'
@@ -13,7 +14,8 @@ This post assumes you have a general knowledge of JavaScript syntax, but doesn�
 
 > If you want to learn how to write and run a Node.js script, I have covered that in my previous post on [automating file renaming with Node.js](https://www.emgoto.com/nodejs-rename-file).
 
-## Using fs writeFile to write to files (asynchronous)
+## Overwrite a file with Node.js
+### Using fs writeFile to write to files (asynchronous)
 Let's jump straight into things with an fs `writeFile()` example:
 
 ```js
@@ -22,9 +24,7 @@ const { writeFile } = require('fs');
 const content = 'Hello world';
 const file = '/Users/emma/src/emgoto.com/file.txt';
 
-const callback = (err) => {
-    // If there's an error, we can do something about it here.
-};
+const callback = (err) => { /** Handle errors */ };
 
 writeFile(file, content, callback);
 ```
@@ -33,7 +33,7 @@ This will change the contents of the file to contain the string “Hello world�
 
 The callback function will be executed once the file has been successfully written to, or it errors out.
 
-## Using fs writeFileSync to write to files
+### Using fs writeFileSync to write to files (synchronous)
 
 If you want an synchronous version, you can use `writeFileSync`:
 
@@ -46,29 +46,23 @@ const file = '/Users/emma/src/emgoto.com/file.txt';
 writeFileSync(file, content);
 ```
 
-## Using fs readFileSync to read from a file
+## Read from a file, then modify part of it with Node.js
+### Using fs readFileSync to read from a file (synchronous)
 
 If you want to modify a file, rather than write over its contents, you'll first need to read it. We can use `readFileSync` here: 
 
 ```js
 const { readFileSync } = require('fs');
 
-const contents = readFileSync(file, 'utf8');
-```
-
-Now you'll have a copy of the file's contents. You can use JavaScript’s replace function to modify it. For example, we could replace “Hello” with “Goodbye”:
-
-```js
+const content = readFileSync(file, 'utf8');
 const newContent = content.replace('Hello', 'Goodbye');
-```
 
-Finally, you would need to call `writeFile` (or `writeFileSync`) to update the file with the new contents:
-
-```js
 writeFile(file, newContent, () => {});
 ```
 
-## Using fs readFile to read from a file (asynchronous)
+After we read the file, we will have a copy of the file's contents. We can then use JavaScript's `replace` function to modify it, before updating the file with the new contents. 
+
+### Using fs readFile to read from a file (asynchronous)
 The asynchronous version of `readFileSync` is `readFile`:
 
 ```js

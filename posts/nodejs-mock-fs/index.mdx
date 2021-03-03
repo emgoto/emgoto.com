@@ -1,0 +1,143 @@
+---
+title: "Unit testing Node.js fs with mock-fs"
+date: 2021-03-04
+tags: ["nodejs"]
+emoji: 🎭
+coverImage: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2226&q=80'
+---
+
+If you're using the [fs](https://nodejs.org/api/fs.html) module to do things like write to files, or modify file names, you might have wondered - how do I unit test this?
+
+In this post I'll be showing you how you can use [mock-fs](https://github.com/tschaub/mock-fs) to easily unit test your Node.js scripts.
+
+> If you want to learn more about Node.js, check out my posts on [automating file renaming with Node.js](https://www.emgoto.com/nodejs-rename-file) and [writing to files with Node.js](https://www.emgoto.com/nodejs-write-file). 
+
+## Set up your Node.js script to be tested
+To begin with, we'll be using an example Node.js script that uses fs to replace the string "Hello" with "Goodbye".
+
+This example is fully synchronous, and only uses fs `readFileSync` and `writeFileSync`:
+```js
+const { readFileSync, writeFileSync } = require('fs');
+
+const modifyFile = () => {
+    const file = `${process.cwd()}/folderName/index.md`
+
+    const content = readFileSync(file, 'utf8'); // highlight-line
+    const newContent = content.replace('Hello', 'Goodbye');
+
+    writeFileSync(file, newContent); // highlight-line
+};
+```
+
+If your script is fully synchronous, you'll have no problems and you can keep scrolling down to the mock-fs part below.
+
+However if you're using async functions like fs `readFile` or `writeFile`, you'll need to make sure that your script has finished _before_ beginning the unit tests.
+
+We can do this using the [fs Promises API](https://nodejs.org/dist/latest-v10.x/docs/api/fs.html#fs_fs_promises_api).
+
+### Using the fs Promises API
+
+Instead of using `readFile`, use `promises.readFile`, and you'll be returning a Promise:
+
+```js
+const { promises } = require('fs');
+
+const modifyFile = async () => {
+    const file = `${process.cwd()}/folderName/index.md`
+
+    return promises.readFile(file, 'utf8').then(content => {  // highlight-line
+        const newContent = content.replace('Hello', 'Goodbye')
+        return promises.writeFile(file, newContent);  // highlight-line
+    });
+};
+```
+
+This means that in your unit test, you can now use `await` and make sure your script has completed before testing it:
+
+```js
+test('should replace Hello with Goodbye', async () => {
+    await modifyFile();
+    // ...
+```
+
+Before we make any assertions though, we’ll also need to add some mocks.
+
+## Mock your files and folders using mock-fs
+
+We want to be able to mock out some files, because otherwise you would need to have dummy test files that live in your test folder, _and_ you would also need to reset them to their original state at the end of each unit test.
+
+With [mock-fs](https://github.com/tschaub/mock-fs), we can mock out folder structures and the content of files.
+
+Make sure you have it installed first:
+
+```bash
+npm i mock-fs -D 
+# or
+yarn add mock-fs -D
+```
+
+Then, add it to the `beforeAll` hook in your test:
+
+```js
+import mock from 'mock-fs';
+import { main } from './modifyFile';
+
+describe('modifyFile script', () => {
+    beforeAll(() => {
+        mock({
+            'folderName': {
+                'index.md': '# Hello world!',
+            },
+        });
+    });
+
+    afterAll(() => {
+        mock.restore();
+    });
+```
+
+These folder names are relative to the root of your repository. Here we’re mocking a folder/file structure like this:
+
+```js
+folderName
+    index.md // <- contains "# Hello world!"
+```
+
+## Write a unit test on file modification with mock-fs
+
+Now we can continue with our unit test. We can assert on the file's contents:
+
+```js
+test('should replace hello with goodbye', async () => {
+    const file = `${process.cwd()}/folderName/index.md`
+    const expectedResult = `# Goodbye world`;
+
+    await modifyFile();
+
+    const result = readFileSync(file, 'utf8');
+    expect(result).toEqual(expectedResult);
+});
+```
+
+When we call `modifyFile`, we'll be modifying the mocked file. We can then confirm that the file was successfully modified by using `readFileSync` to read it.
+
+## Write a unit test on file renaming with mock-fs
+In the case where we want to unit test that files were renamed, we can do the following:
+
+```js
+import glob from 'glob';
+
+test('should successfully move and rename files', async () => {
+    const expectedFiles = [
+        `${process.cwd()}/folderName/renamedFile.md`,
+    ];
+
+    await modifyFile();
+
+    const files = glob.sync(`${process.cwd()}/folderName/*.md`);
+
+    expect(files).toEqual(expectedFiles);
+});
+```
+
+Since we have used mock-fs, your script can also rename mocked files. Then we can use `glob` to verify that our files were renamed as expected.

@@ -7,7 +7,9 @@ coverImage: 'https://images.unsplash.com/photo-1610721578236-12a1a8de20b4?ixid=M
 devArticleId: 573723
 ---
 
-Node.js scripts can be a real time-saver when you want to automate common tasks. In this post, you'll learn how to write your own script to rename files using [fs](https://nodejs.org/api/fs.html).
+Node.js scripts can be a real time-saver when you want to automate common tasks. In this post, you'll learn how to write your own script to rename files using [fs](https://nodejs.org/api/fs.html) rename.
+
+This post assumes you have a general knowledge of JavaScript syntax, but doesn’t expect any Node.js-specific knowledge.
 
 ## Creating and running your script
 I have a couple of scripts that I use for my blog, which I keep inside of the `scripts` folder in the blog's repository.
@@ -48,10 +50,10 @@ yarn rename
 npm run rename
 ```
 
-## How to rename a file with fs rename
+## How to mass rename a file with fs rename
 fs provides a lot of useful functions for modifying your files.
 
-The `rename` function will **asynchronously** rename a file:
+The fs rename function will **asynchronously** rename a file:
 
 ```js
 const { rename } = require('fs');
@@ -92,7 +94,7 @@ renameSync(oldFileName, newFileName);
 
 This means while the file is being renamed, the rest of the script won't execute.
 
-## rename vs renameSync: which should I use?
+## fs rename vs renameSync: which should I use?
 
 If you’re writing a complex script, you may be able to improve performance by using asynchronous methods. In my case, since the scripts I write are simple, it doesn’t make too much of a difference.
 
