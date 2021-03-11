@@ -1,0 +1,153 @@
+---
+title: "Jest partial matching on objects, arrays and functions"
+date: 2021-03-12
+tags: ["jest"]
+emoji: 🃏
+coverImage: 'https://images.unsplash.com/photo-1607637508975-bf0090d7a0b4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+---
+
+Sometimes with Jest, you only need to test part of an object exists, or test on a subset of an array. We can do this using Jest’s **partial matchers**.
+
+In this post I will cover:
+* Using Jest’s `objectContaining` to match on certain key/value pairs in objects
+* Using Jest’s `arrayContaining` to match on certain values in arrays
+* How to use partial matching with Jest’s `toHaveBeenCalledWith`
+
+## Object partial matching with Jest’s objectContaining
+When you want to test the subset of an object, or a specific key/value pair, you can use the `objectContaining` matcher.
+
+```js
+test('should contain important value in object', () => {
+    const object = {
+        important: 'important', // highlight-line
+        ignore: 'ignore',
+    };
+        
+    expect(object).toEqual(expect.objectContaining({
+        important: 'important'
+    }));
+d});
+```
+
+This test will pass as long as the object contains `important: 'important'`.
+
+### Nested object partial matching
+If you are looking for a value in a nested object, you can also nest `objectContaining`.
+
+```js
+test('should contain important value in nested object', () => {
+    const nestedObject = {
+        ignore: 'ignore',
+        payload: {
+           important: 'important', // highlight-line
+           ignore: 'ignore',
+        },
+    };
+
+    expect(nestedObject).toEqual(
+        expect.objectContaining({
+            payload: expect.objectContaining({
+                important: 'important',
+            }),
+        })
+    );
+});
+```
+
+## Array partial matching with Jest’s arrayContaining
+As well as objects, you might only care about certain values in an array. In this case, you can use `arrayContaining` for partial matching on arrays.
+
+```js
+test('should contain important value in array', () => {
+    const array = [
+        'ignore', 
+        'important' // highlight-line
+    ];
+
+    expect(array).toEqual(expect.arrayContaining(['important']))
+});
+```
+
+This test will pass as long as the array contains the string `'important'`.
+### Match an array in any order (unordered array)
+The `arrayContaining` matcher will also work regardless of the order of your array.
+
+```js
+test('should contain important values in array, in any order', () => {
+    const array = [
+        'ignore', 
+        'important', // highlight-line
+        'alsoImportant', // highlight-line
+        'veryImportant', // highlight-line
+        'veryVeryImportant', // highlight-line
+    ];
+
+    expect(array).toEqual(expect.arrayContaining(
+        ['veryVeryImportant', 'veryImportant', 'alsoImportant', 'important']
+    ));
+});
+```
+
+If you wanted to make sure that the array contained values in any order, _but_ didn’t contain any other values, you could assert that the length of the array is as expected.
+
+```js
+test('should contain only the important values in array, in any order', () => {
+    const array = [
+        'important', // highlight-line
+        'alsoImportant', // highlight-line
+        'veryImportant', // highlight-line
+    ];
+
+    expect(array).toEqual(expect.arrayContaining(
+        ['veryImportant', 'alsoImportant', 'important']
+    ));
+	expect(array).toHaveLength(3);
+});
+```
+
+## Partial matching objects in an array
+With an array of objects, we can use a combination of Jest’s `arrayContaining` and `objectContaining`. This will let you assert on a specific object in an array (and even a specific value inside of that object).
+
+```js
+test('should contain important objects in array', () => {
+    const array = [
+        { 
+            important: 'important', // highlight-line
+            ignore: 'ignore'
+        },
+        {
+            ignore: 'ignore',
+        }
+    ];
+
+    expect(array).toEqual(expect.arrayContaining(
+        [expect.objectContaining({ important: 'important' })]
+    ));
+});
+```
+
+## Matching on arguments in function calls with Jest’s toHaveBeenCalledWith
+
+We use `toHaveBeenCalledWith` when we want to assert that a function was called with a specific set of arguments. If you only care about a specific argument in a function call, you can replace the other arguments with `expect.anything()`.
+
+```js
+test('should have been called with specific argument', () => {
+    const mockFunction = jest.fn();
+
+    mockFunction('ignore', 'ignore', 'important');
+
+    expect(mockFunction).toHaveBeenCalledWith(
+        expect.anything(), expect.anything(), 'important'
+    );
+});
+```
+
+If you want to be a bit more specific, you can also use `expect.any()` if you want to specify the type of the other arguments, such as a String or Object.
+
+```js
+mockFunction({ignore: 'ignore'}, 'ignore', 'important');
+
+expect(mockFunction).toHaveBeenCalledWith(
+    expect.any(Object), expect.any(String), 'important'
+);
+```
