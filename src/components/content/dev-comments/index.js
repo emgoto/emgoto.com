@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DevIcon from '../../../images/icon-dev';
-import { IconContainer } from '../styled';
+import { IconContainer, Interpunct } from '../styled';
 
 const useDevArticleComments = devArticleId => {
     const [loading, setLoading] = useState(!!devArticleId);
@@ -42,19 +42,22 @@ const Comments = ({ devArticleId }) => {
     const { loading, data } = useDevArticleComments(devArticleId);
 
     return devArticleId && !loading && data ? (
-        <IconContainer>
-            <a
-                href={`${data.url}#comments`}
-                className="comment-link"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <div>
-                    <DevIcon />
-                    <div>{getMessage(data.comments)}</div>
-                </div>
-            </a>
-        </IconContainer>
+        <>
+            <Interpunct>·</Interpunct>
+            <IconContainer>
+                <a
+                    href={`${data.url}#comments`}
+                    className="comment-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <div>
+                        <DevIcon />
+                        <div>{getMessage(data.comments)}</div>
+                    </div>
+                </a>
+            </IconContainer>
+        </>
     ) : null;
 };
 

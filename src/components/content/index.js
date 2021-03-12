@@ -11,7 +11,7 @@ import {
     IconContainer,
     Socials,
 } from './styled';
-import Comments from './comments';
+import DevComments from './dev-comments';
 
 const getGithubUrl = slug =>
     `https://github.com/emgoto/emgoto.com/tree/master/posts/${slug}index.mdx`;
@@ -62,8 +62,7 @@ const Content = ({
             </DateAndTags>
             <Socials>
                 <GithubLink slug={slug} />
-                {devArticleId && <Interpunct>·</Interpunct>}
-                <Comments devArticleId={devArticleId} />
+                <DevComments devArticleId={devArticleId} />
             </Socials>
         </Container>
         <MDXRenderer>{body}</MDXRenderer>

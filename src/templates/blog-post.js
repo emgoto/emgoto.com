@@ -4,6 +4,7 @@ import Content from '../components/content';
 import Seo from '../components/seo';
 import PrevAndNext from '../components/prev-and-next';
 import ReadMore from '../components/read-more';
+import Comments from '../components/comments';
 
 export default ({
     data: {
@@ -29,6 +30,7 @@ export default ({
         />
         <PrevAndNext prev={prev} next={next} />
         <ReadMore tag={tags[0]} posts={relatedPosts} />
+        <Comments />
     </>
 );
 

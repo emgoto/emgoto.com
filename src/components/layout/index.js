@@ -3,6 +3,7 @@ import { GlobalStyle } from '../../common';
 import { Container, SquareContainer, TextContainer } from './styled';
 import Header from './header';
 import Footer from './footer';
+import './styles.css';
 import './theme.css';
 import './fonts.css';
 
