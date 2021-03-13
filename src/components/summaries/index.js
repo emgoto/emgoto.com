@@ -4,7 +4,7 @@ import { Button, Emoji, Title, Date } from './styled';
 
 export const CURRENT_YEAR = '2020';
 
-const renderDateWithoutCurrentYear = dateWithYear =>
+const renderDateWithoutCurrentYear = (dateWithYear) =>
     dateWithYear.split(` ${CURRENT_YEAR}`)[0];
 
 const Summary = ({
@@ -25,7 +25,7 @@ const Summary = ({
     </Link>
 );
 
-export default ({ posts, isCompact }) =>
+const Summaries = ({ posts, isCompact }) =>
     posts.map((post, i) => {
         const { frontmatter, slug } = post;
         return (
@@ -37,3 +37,5 @@ export default ({ posts, isCompact }) =>
             />
         );
     });
+
+export default Summaries;

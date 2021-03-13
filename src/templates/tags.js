@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import Summaries from '../components/summaries';
 import Seo from '../components/seo';
 
-export default ({ pageContext, data }) => {
+const Tags = ({ pageContext, data }) => {
     const { tag } = pageContext || {};
     return (
         <>
@@ -38,3 +38,5 @@ export const pageQuery = graphql`
         }
     }
 `;
+
+export default Tags;

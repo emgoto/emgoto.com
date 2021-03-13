@@ -4,16 +4,9 @@ import { useFlexSearch } from 'react-use-flexsearch';
 import Seo from '../../components/seo';
 import SearchBar from '../../components/search-bar';
 import PostsByTag from '../../components/posts-by-tag';
+import { unFlattenData } from '../../common/utils';
 
-// FlexSearch returns data in a "flat" state but we need to return it
-// in the shape expected by the summaries component
-export const unFlattenData = data =>
-    data.map(post => {
-        const { date, emoji, slug, tags, title } = post;
-        return { slug, frontmatter: { title, emoji, date, tags } };
-    });
-
-export default ({
+const Blog = ({
     data: {
         localSearchPages: { index, store },
         allMdx: { nodes },
@@ -61,3 +54,5 @@ export const pageQuery = graphql`
         }
     }
 `;
+
+export default Blog;

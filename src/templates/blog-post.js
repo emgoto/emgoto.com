@@ -6,7 +6,7 @@ import PrevAndNext from '../components/prev-and-next';
 import ReadMore from '../components/read-more';
 import Comments from '../components/comments';
 
-export default ({
+const BlogPost = ({
     data: {
         mdx: {
             frontmatter: { title, date, updated, tags, devArticleId },
@@ -51,3 +51,5 @@ export const pageQuery = graphql`
         }
     }
 `;
+
+export default BlogPost;

@@ -14,7 +14,7 @@ export const lightGrey = '#A6ACC9';
 export const darkGrey = '#1F2233';
 export const black = '#161822';
 
-export default {
+const colors = {
     yellow,
     green,
     darkGreen,
@@ -25,6 +25,8 @@ export default {
     darkGrey,
     black,
 };
+
+export default colors;
 
 export const GlobalStyle = createGlobalStyle`
   body {

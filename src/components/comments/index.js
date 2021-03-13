@@ -12,12 +12,14 @@ const Comments = () => {
         script.setAttribute('crossorigin', 'anonymous');
         script.async = true;
 
-        document.getElementById(COMMENTS_ID).appendChild(script);
+        const comments = document.getElementById(COMMENTS_ID);
+        if (comments) comments.appendChild(script);
 
         // This function will get called when the component unmounts
         // To make sure we don't end up with multiple instances of the comments component
         return () => {
-            document.getElementById(COMMENTS_ID).innerHTML = '';
+            const comments = document.getElementById(COMMENTS_ID);
+            if (comments) comments.innerHTML = '';
         };
     }, []);
 

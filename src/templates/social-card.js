@@ -10,17 +10,17 @@ const DEV_HEIGHT = 420;
 const DEV_WIDTH = 1000;
 
 const Container = styled.div`
-    width: ${props =>
+    width: ${(props) =>
         props.isTwitter ? TWITTER_WIDTH : DEV_WIDTH}px;
-    height: ${props =>
+    height: ${(props) =>
         props.isTwitter ? TWITTER_HEIGHT : DEV_HEIGHT}px;
-    padding: 0 ${props => (props.isTwitter ? 48 : 148)}px;
+    padding: 0 ${(props) => (props.isTwitter ? 48 : 148)}px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    ${props =>
+    ${(props) =>
         props.image && `background-image: url(${props.image})`};
-    background-size: ${props =>
+    background-size: ${(props) =>
         props.isTwitter ? TWITTER_WIDTH : DEV_WIDTH}px;
     background-position: bottom;
 
@@ -37,7 +37,7 @@ const Container = styled.div`
     }
 `;
 
-export const SquareContainer = styled.div`
+const SquareContainer = styled.div`
     z-index: 1;
     box-sizing: border-box;
     background-color: ${colors.black};

@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getPageQueryData } from 'gatsby-plugin-testing';
-import BlogPage, { unFlattenData } from './index';
+import BlogPage from './index';
 
 describe('Index page', () => {
     let data;
@@ -52,22 +52,5 @@ describe('Index page', () => {
         expect(screen.getAllByTestId('summary').length).toEqual(
             totalPostsCount,
         );
-    });
-});
-
-describe('unFlattenData', () => {
-    test('should return list of posts in post format', () => {
-        const frontmatter = {
-            date: '15 Feb 2020',
-            emoji: '🐣',
-            tags: ['blog'],
-            title: 'Blog post title',
-        };
-        const searchResultPost = { slug: 'sluggy', ...frontmatter };
-        const post = { slug: 'sluggy', frontmatter };
-
-        expect(
-            unFlattenData([searchResultPost, searchResultPost]),
-        ).toEqual([post, post]);
     });
 });
