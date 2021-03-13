@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import {
     BookContainer,
     InfoContainer,
@@ -21,7 +21,12 @@ const BookSummary = ({
         <Link to={`/${slug}`}>
             <BookContainer>
                 <ImageContainer>
-                    <Img fixed={coverImage.childImageSharp.fixed} />
+                    <GatsbyImage
+                        image={
+                            coverImage.childImageSharp.gatsbyImageData
+                        }
+                        alt={title}
+                    />
                 </ImageContainer>
                 <InfoContainer>
                     <div>{postTitle} </div>
@@ -37,8 +42,8 @@ const BookSummary = ({
 const BookSummaries = ({ books }) => {
     return (
         <>
-            {books.map(book => (
-                <BookSummary book={book} />
+            {books.map((book) => (
+                <BookSummary book={book} key={book.slug} />
             ))}
         </>
     );

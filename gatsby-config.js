@@ -32,7 +32,7 @@ const config = {
                 feeds: [
                     {
                         serialize: ({ query: { site, allMdx } }) => {
-                            return allMdx.nodes.map(node => {
+                            return allMdx.nodes.map((node) => {
                                 return Object.assign(
                                     {},
                                     node.frontmatter,
@@ -156,6 +156,7 @@ const config = {
         'gatsby-plugin-styled-components',
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-testing',
+        `gatsby-plugin-image`,
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
@@ -205,7 +206,7 @@ const config = {
                 store: ['title', 'tags', 'emoji', 'date', 'slug'],
 
                 normalizer: ({ data }) =>
-                    data.allMdx.nodes.map(node => ({
+                    data.allMdx.nodes.map((node) => ({
                         slug: node.slug,
                         title: node.frontmatter.title,
                         tags: node.frontmatter.tags,

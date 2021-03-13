@@ -41,9 +41,7 @@ export const pageQuery = graphql`
                         author
                         coverImage {
                             childImageSharp {
-                                fixed(width: 96) {
-                                    ...GatsbyImageSharpFixed
-                                }
+                                gatsbyImageData(width: 96)
                             }
                         }
                     }
