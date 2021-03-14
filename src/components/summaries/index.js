@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { Button, Emoji, Title, Date } from './styled';
 
-export const CURRENT_YEAR = '2020';
+export const CURRENT_YEAR = '2021';
 
 const renderDateWithoutCurrentYear = (dateWithYear) =>
     dateWithYear.split(` ${CURRENT_YEAR}`)[0];
