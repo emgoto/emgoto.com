@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { mockBlogPost } from '../../common/mocks';
 import Summaries, { CURRENT_YEAR } from './index';
 
-const createPost = date => {
+const createPost = (date) => {
     const post = mockBlogPost;
     post.frontmatter.date = date;
     return post;

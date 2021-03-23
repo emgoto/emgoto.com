@@ -31,7 +31,7 @@ const PopularTags = ({
 }) => {
     return (
         <TagsContainer>
-            {popularTags.map(tag => (
+            {popularTags.map((tag) => (
                 <Tag
                     tag={tag}
                     setSelectedTag={setSelectedTag}
@@ -60,7 +60,7 @@ const PostsByTag = ({ posts }) => {
     useEffect(() => {
         if (
             selectedTag &&
-            !popularTags.map(tag => tag.name).includes(selectedTag)
+            !popularTags.map((tag) => tag.name).includes(selectedTag)
         ) {
             setSelectedTag(null);
         }

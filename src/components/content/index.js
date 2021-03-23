@@ -13,7 +13,7 @@ import {
 } from './styled';
 import DevComments from './dev-comments';
 
-const getGithubUrl = slug =>
+const getGithubUrl = (slug) =>
     `https://github.com/emgoto/emgoto.com/tree/master/posts/${slug}index.mdx`;
 
 const Tag = ({ tag }) => (
@@ -56,7 +56,7 @@ const Content = ({
             <DateAndTags>
                 {renderDate(date, updated)}
                 <Interpunct>·</Interpunct>{' '}
-                {tags.map(tag => (
+                {tags.map((tag) => (
                     <Tag tag={tag} key={tag} />
                 ))}
             </DateAndTags>

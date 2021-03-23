@@ -1,13 +1,13 @@
 export const MAX_TAGS = 5;
 
 export const filterPostsByTag = (posts, tag) =>
-    posts.filter(post => post.frontmatter.tags.includes(tag));
+    posts.filter((post) => post.frontmatter.tags.includes(tag));
 
-export const getMostPopularTags = nodes => {
+export const getMostPopularTags = (nodes) => {
     const tagCount = {};
-    nodes.forEach(node => {
+    nodes.forEach((node) => {
         const { tags } = node.frontmatter;
-        tags.forEach(tag => {
+        tags.forEach((tag) => {
             if (!tagCount[tag]) {
                 tagCount[tag] = 1;
             } else {
@@ -19,5 +19,5 @@ export const getMostPopularTags = nodes => {
     return Object.entries(tagCount)
         .sort(([, a], [, b]) => b - a)
         .slice(0, MAX_TAGS)
-        .map(tag => ({ name: tag[0], count: tag[1] }));
+        .map((tag) => ({ name: tag[0], count: tag[1] }));
 };

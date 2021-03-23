@@ -3,9 +3,9 @@ import colors from '../../common';
 
 export const TagButton = styled.button`
     border: 2px solid ${colors.darkGrey};
-    color: ${props =>
+    color: ${(props) =>
         props.isSelected ? `${colors.blue}` : `${colors.white}`};
-    background-color: ${props =>
+    background-color: ${(props) =>
         props.isSelected ? `${colors.darkGrey}` : 'transparent'};
     padding: 6px 8px 8px 8px;
     border-radius: 4px;

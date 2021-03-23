@@ -5,13 +5,13 @@ import { Form, Input, Icon } from './styled';
 import './index.css';
 
 const SearchBar = ({ onSearch }) => {
-    const onInput = e => onSearch(e.target.value);
+    const onInput = (e) => onSearch(e.target.value);
     return (
         <Form
             role="search"
             action=""
             method="get"
-            onSubmit={e => e.preventDefault()}
+            onSubmit={(e) => e.preventDefault()}
         >
             <Icon>
                 <SearchIcon />

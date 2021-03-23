@@ -76,6 +76,7 @@ export const GlobalStyle = createGlobalStyle`
     margin-bottom: 8px;
     letter-spacing: 1px;
     color: ${darkGreen};
+    scroll-margin-top: 112px;
   }
 
   blockquote {
@@ -100,7 +101,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 14px;
   }
 
-  h2 {
+  h2, h3 {
     &:hover > .anchor.after > svg {
       visibility: visible;
       fill: ${lightGrey};

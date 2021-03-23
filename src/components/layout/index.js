@@ -1,14 +1,35 @@
 import React from 'react';
 import { GlobalStyle } from '../../common';
-import { Container, SquareContainer, TextContainer } from './styled';
+import {
+    Container,
+    ContainerWithSidebar,
+    MainContent,
+    SquareContainer,
+    TextContainer,
+    Sidebar,
+} from './styled';
 import Header from './header';
 import Footer from './footer';
+import TableOfContents from '../../components/table-of-contents';
 import './styles.css';
 import './theme.css';
 import './fonts.css';
 
-const Layout = ({ children, pageContext }) => {
-    if (pageContext.noLayout) {
+const Main = ({ children }) => (
+    <>
+        <Header />
+        <SquareContainer>
+            <TextContainer>{children}</TextContainer>
+        </SquareContainer>
+        <Footer />
+    </>
+);
+
+const Layout = ({
+    children,
+    pageContext: { noLayout, tableOfContents },
+}) => {
+    if (noLayout) {
         return (
             <div>
                 <GlobalStyle />
@@ -17,15 +38,29 @@ const Layout = ({ children, pageContext }) => {
         );
     }
 
+    if (tableOfContents) {
+        return (
+            <>
+                <GlobalStyle />
+                <ContainerWithSidebar>
+                    <Sidebar>
+                        <TableOfContents
+                            tableOfContents={tableOfContents}
+                        />
+                    </Sidebar>
+                    <MainContent>
+                        <Main>{children}</Main>
+                    </MainContent>
+                </ContainerWithSidebar>
+            </>
+        );
+    }
+
     return (
         <>
             <GlobalStyle />
             <Container>
-                <Header />
-                <SquareContainer>
-                    <TextContainer>{children}</TextContainer>
-                </SquareContainer>
-                <Footer />
+                <Main>{children}</Main>
             </Container>
         </>
     );

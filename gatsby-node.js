@@ -29,7 +29,7 @@ const getRelatedPosts = (postsByTag, post) => {
 
     if (postsByTag[tag] && postsByTag[tag].length > 1) {
         const postsForTag = postsByTag[tag];
-        return postsForTag.filter(p => p.slug !== post.slug);
+        return postsForTag.filter((p) => p.slug !== post.slug);
     }
 
     return [];
@@ -53,20 +53,22 @@ exports.createPages = ({ graphql, actions }) => {
                         title
                         emoji
                         coverImage
+                        showTableOfContents
                     }
                     slug
+                    tableOfContents
                 }
             }
         }
-    `).then(result => {
+    `).then((result) => {
         const posts = result.data.allMdx.nodes;
 
         let tags = [];
         const postsByTag = {};
-        posts.forEach(node => {
+        posts.forEach((node) => {
             if (node.frontmatter && node.frontmatter.tags) {
                 // Create list of all tags
-                node.frontmatter.tags.forEach(tag => {
+                node.frontmatter.tags.forEach((tag) => {
                     if (!tags.includes(tag)) {
                         tags.push(tag);
                     }
@@ -102,6 +104,9 @@ exports.createPages = ({ graphql, actions }) => {
                         postsByTag,
                         posts[index],
                     ),
+                    ...(node.frontmatter.showTableOfContents
+                        ? { tableOfContents: node.tableOfContents }
+                        : {}),
                 },
             });
 
@@ -146,7 +151,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         tags = _.uniq(tags);
 
-        tags.forEach(tag => {
+        tags.forEach((tag) => {
             createPage({
                 path: `/tags/${_.kebabCase(tag)}/`,
                 component: path.resolve(`./src/templates/tags.js`),

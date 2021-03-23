@@ -5,7 +5,7 @@ export const Container = styled.div`
     margin-bottom: 8px;
 
     @media screen and (min-width: 520px) {
-        height: ${props => props.height};
+        height: ${(props) => props.height};
     }
 
     img {
