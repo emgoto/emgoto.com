@@ -6,7 +6,6 @@ import {
     MainContent,
     SquareContainer,
     TextContainer,
-    Sidebar,
 } from './styled';
 import Header from './header';
 import Footer from './footer';
@@ -43,11 +42,9 @@ const Layout = ({
             <>
                 <GlobalStyle />
                 <ContainerWithSidebar>
-                    <Sidebar>
-                        <TableOfContents
-                            tableOfContents={tableOfContents}
-                        />
-                    </Sidebar>
+                    <TableOfContents
+                        tableOfContents={tableOfContents}
+                    />
                     <MainContent>
                         <Main>{children}</Main>
                     </MainContent>

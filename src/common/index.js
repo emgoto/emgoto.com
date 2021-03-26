@@ -68,7 +68,8 @@ export const GlobalStyle = createGlobalStyle`
     margin-bottom: 8px;
     color: ${green};
     letter-spacing: 1px;
-    scroll-margin-top: 112px;
+    padding-top: 112px;
+    margin-top: -112px;
   }
 
   h3 {
@@ -76,7 +77,8 @@ export const GlobalStyle = createGlobalStyle`
     margin-bottom: 8px;
     letter-spacing: 1px;
     color: ${darkGreen};
-    scroll-margin-top: 112px;
+    padding-top: 112px;
+    margin-top: -112px;
   }
 
   blockquote {

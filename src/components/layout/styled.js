@@ -5,7 +5,7 @@ import colors from '../../common';
 const CONTENT_WIDTH = 800;
 const SIDEBAR_WIDTH = 400;
 
-const SIDEBAR_BREAKPOINT = 900;
+const SIDEBAR_BREAKPOINT = 1000;
 
 const containerStyles = css`
     margin: 0 auto;
@@ -44,14 +44,4 @@ export const SquareContainer = styled.div`
 
 export const TextContainer = styled.div`
     padding: 16px;
-`;
-
-export const Sidebar = styled.aside`
-    @media only screen and (max-width: ${SIDEBAR_BREAKPOINT}px) {
-        display: none;
-    }
-
-    width: ${SIDEBAR_WIDTH}px;
-    min-width: ${SIDEBAR_WIDTH}px;
-    margin-left: 16px;
 `;
