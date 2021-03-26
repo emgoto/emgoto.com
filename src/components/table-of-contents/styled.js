@@ -38,14 +38,6 @@ export const Container = styled.nav`
         padding: 8px 0;
     }
 
-    li > a {
-        color: colors.lightGrey;
-    }
-
-    li > a:hover {
-        color: ${colors.white};
-    }
-
     li li {
         margin-left: 16px;
     }
@@ -74,6 +66,10 @@ export const Item = styled.li`
     > div > a {
         color: ${(props) =>
             props.isActive ? colors.white : colors.lightGrey};
+    }
+
+    > div > a:hover {
+        color: ${colors.white};
     }
 
     > div {
