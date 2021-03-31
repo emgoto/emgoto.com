@@ -38,6 +38,10 @@ export const Container = styled.nav`
         padding: 8px 0;
     }
 
+    li li:last-child {
+        padding: 8px 0 0 0;
+    }
+
     li li {
         margin-left: 16px;
     }
