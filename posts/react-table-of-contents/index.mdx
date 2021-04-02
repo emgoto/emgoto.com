@@ -1,0 +1,616 @@
+---
+title: "How to build a table of contents in React"
+date: 2021-04-02
+tags: ["react", "gatsby"]
+emoji: 🕵️‍♀️
+coverImage: 'https://images.unsplash.com/photo-1528522157586-1de75bf0c936?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+showTableOfContents: true
+---
+
+import Gif from 'components/gif';
+
+A table of contents lets your readers see a high-level summary of your page. In this tutorial, we’ll be building a table of contents with React. This component will dynamically render a list of page headings and highlight which heading you are currently viewing.
+
+Here's our final product:
+
+<Gif src="/react-table-of-contents/toc.gif" height="340px" alt="GIF showing React table of contents functionality."/>
+
+If you are viewing this post on [my website](https://www.emgoto.com/react-table-of-contents/), you will be able to see it in action there as well.
+
+> Looking for a full code example? Check out the tutorial’s [Codepen](https://codepen.io/emgoto/pen/jOyORjZ).
+
+## Get started with a new component file
+
+To begin, let’s create a new `TableOfContents` file.
+
+```jsx:title=src/components/tableOfContents.js
+const TableOfContents = () => {
+    return (
+        <nav aria-label="Table of contents">
+            Hello world!
+        </nav>
+    );
+};
+
+export default TableOfContents;
+```
+
+> 💡 The `nav` HTML element indicates [parts of the page that provide navigation links](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav), like a table of contents. The `aria-label` identifies this nav element to screen reader users.
+
+Plop this component into where you want it to render. If you have a main `App.js` file, you could render it there alongside your main content:
+
+```jsx:title=src/App.js
+import TableOfContents from '../components/tableOfContents';
+
+const App = () => (
+    <Layout>
+        <MainContent />
+        {/* highlight-next-line */}
+        <TableOfContents />
+    </Layout>
+);
+
+export default App;
+```
+
+### Add some CSS to make it sticky
+There’s a couple of features that we want to add to our table of contents:
+* Keeping it sticky as the user scrolls down the page
+* Showing a scrollbar if it’s longer than the height of the page
+
+```css
+nav {
+  position: sticky;
+  position: -webkit-sticky; /* For Safari */
+  top: 24px; /* How far down the page you want your ToC to live */
+
+  /* Give table of contents a scrollbar */
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+}
+```
+
+Now, you’ll have a sticky component that will follow you up and down the page as you scroll.
+
+<Gif src="/react-table-of-contents/toc-sticky.gif" height="356px" alt="GIF showing sticky React table of contents following scroll up and down page"/>
+
+### Make sure all your headings have IDs
+For your headings to be link-able, they will need to have a unique `id` value:
+
+```html
+<h2 id="initial-header">Initial header</h2>
+```
+
+## Create a hook to find all headings on the page
+
+For this table of contents component, I'll be rendering all the `<h2>` and `<h3>` elements on the page. 
+
+We'll create a `useHeadingsData` hook, which will be responsible for getting our headings. We'll do this using `querySelectorAll`:
+
+```js
+const useHeadingsData = () => {
+  const [nestedHeadings, setNestedHeadings] = useState([]);
+
+  useEffect(() => {
+    const headingElements = Array.from(
+      document.querySelectorAll("h2, h3")
+    );
+
+    const newNestedHeadings = getNestedHeadings(headingElements);
+    setNestedHeadings(newNestedHeadings);
+  }, []);
+
+  return { nestedHeadings };
+};
+```
+
+You'll notice there's a `getNestedHeadings` function. Since the query selector returns a list of h2 and h3 elements, we have to determine the nesting ourselves.
+
+If our headings looked something like this:
+
+```html
+<h2>Initial header</h2>
+<h2>Second header</h2>
+<h3>Third header</h3>
+```
+
+We would want to nest the `"Third header"` underneath its parent:
+
+```
+Initial header
+Second header
+    Third header
+```
+
+To achieve this, we're going to store all h2 objects in a list. Each h2 will have a `items` array, where any children h3s will go:
+
+```js
+[
+    {
+        id: "initial-header",
+        title: "Initial header",
+        items: []
+    },
+    {
+        id: "second-header",
+        title: "Second header",
+        items: [{
+            id: "third-header",
+            title: "Third header",
+        }]
+    },
+]
+```
+
+In `getNestedHeadings`, we'll loop through the heading elements and add all h2s to the list. Any h3s will live inside the last known h2.
+
+```js
+const getNestedHeadings = (headingElements) => {
+  const nestedHeadings = [];
+
+  headingElements.forEach((heading, index) => {
+    const { innerText: title, id } = heading;
+
+    if (heading.nodeName === "H2") {
+      nestedHeadings.push({ id, title, items: [] });
+    } else if (heading.nodeName === "H3" && nestedHeadings.length > 0) {
+      nestedHeadings[nestedHeadings.length - 1].items.push({
+        id,
+        title,
+      });
+    }
+  });
+
+  return nestedHeadings;
+};
+```
+
+## Render your headings as a list of links
+Now that we have our `nestedHeadings` value, we can use it to render our table of contents!
+
+Let's keep things simple and start by rendering all the h2 elements. We'll create a new `Headings` component to take care of that.
+
+```jsx
+const Headings = ({ headings }) => (
+  <ul>
+    {headings.map((heading) => (
+      <li key={heading.id}>
+        <a href={`#${heading.id}`}>{heading.title}</a>
+      </li>
+    ))}
+  </ul>
+);
+
+const TableOfContents = () => {
+  const { nestedHeadings } = useHeadingsData(); // highlight-line
+
+  return (
+    <nav aria-label="Table of contents">
+      {/* highlight-next-line */} 
+      <Headings headings={nestedHeadings} />
+    </nav>
+  );
+};
+```
+
+### Add your nested headings
+We’ll then want to render our nested h3s. We’ll do this by creating a new sub-list underneath each h2:
+
+```jsx
+const Headings = ({ headings }) => (
+  <ul>
+    {headings.map((heading) => (
+      <li key={heading.id}>
+        <a href={`#${heading.id}`}>{heading.title}</a>
+        {/* highlight-range{1-9} */}
+        {heading.items.length > 0 && (
+          <ul>
+            {heading.items.map((child) => (
+              <li key={child.id}>
+                <a href={`#${child.id}`}>{child.title}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+);
+```
+
+## Make your browser smoothly scrolls to headings
+Right now if we click on a header link, it will immediately jump to the header.
+
+<Gif src="/react-table-of-contents/toc-not-sticky.gif" height="356px" alt="GIF showing clicking on table of contents links without smooth scrolling."/>
+
+With [scrollIntoView](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView), we can instead ensure that it smoothly scrolls into view.
+
+```jsx
+const Headings = ({ headings }) => (
+  <ul>
+    {headings.map((heading) => (
+      <li key={heading.id}>
+        <a
+          href={`#${heading.id}`}
+          {/* highlight-range{1-6} */}
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector(`#${heading.id}`).scrollIntoView({
+              behavior: "smooth"
+            });
+          }}
+        >
+          {heading.title}
+        </a>
+        {heading.items.length > 0 && (
+          <ul>
+            {heading.items.map((child) => (
+              <li key={child.id}>
+                <a
+                  href={`#${child.id}`}
+                  {/* highlight-range{1-6} */}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector(`#${child.id}`).scrollIntoView({
+                      behavior: "smooth"
+                    });
+                  }}
+                >
+                  {child.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+);
+```
+
+_(Unfortunately this is not supported on Safari!)_
+
+### Add an offset when you jump to a heading
+
+You might also notice that the heading is very close to the top of the page. We can create a bit of space between the heading and the top of the page when it is jumped to:
+
+```css
+h2, h3 {
+    scroll-margin-top: 16px;
+}
+```
+
+However `scroll-margin-top` doesn't work on Safari. Alternatively, you can do this:
+
+```css
+h2, h3 {
+    padding-top: 16px;
+    margin-top: -16px;
+}
+```
+
+Depending on the size of your offset, anything directly above the header won't be clickable (e.g. links). This won't be a problem if the offset is very small, but can cause problems if you have larger offsets (which you will need if you have a sticky header).
+
+In this case, the "best of both worlds" approach would be to use `scroll-margin-top` where we can, and fall back to the alternate approach for Safari users.
+
+```css
+h2, h3 {
+    scroll-margin-top: 16px;
+}
+
+/* Safari-only */
+@supports (-webkit-hyphens:none) {
+    h2, h3 {
+        padding-top: 16px;
+        margin-top: -16px;
+    }
+}
+```
+
+## Find the currently “active” heading
+The final step is to highlight the currently visible heading on the page in the table of contents. This acts as a progress bar of sorts, letting the user know where they are on the page. We’ll determine this with the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). This API lets you know when elements become visible on the page.
+
+### Instantiate your Intersection Observer
+
+Let's create an Intersection Observer. It takes in a callback function as its first argument, which we'll keep empty for now.
+
+You can also pass in a `rootMargin` value. This determines the zone for when an element is "visible". For instance on my site I have `-110px` on top and `-40%` on the bottom:
+
+```jsx
+const useIntersectionObserver = () => {
+  useEffect(() => {
+	const callback = () => {};
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: '-110px 0px -40% 0px',
+    });
+  }, []);
+};
+```
+
+The `-110px` is the height of my sticky nav at the top, so I don't want any content hidden under there to count as "visible".
+
+The `-40%` means that if a header is in the bottom 40% of the page, this doesn’t count as being "visible". If a heading is visible near the bottom of the page, you're probably not actually reading it yet.
+
+### Observe your headings to listen for when they scroll in and out of view
+After creating the observer, you need to call `observe()` on each of the elements we want to observe. In our case, this is all the `h2` and `h3` elements on the page. 
+
+You'll also want to call `disconnect()` when you unmount.
+
+```jsx
+const useIntersectionObserver = () => {
+  useEffect(() => {
+	const callback = () => {};
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "-110px 0px -40% 0px"
+    });
+
+    {/* highlight-range{1-2,4}*/}
+    const headingElements = Array.from(document.querySelectorAll("h2, h3"));
+    headingElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+};
+```
+
+### Store heading elements from callback function
+Next, we’ll need to write the code for our callback function. The observer will call this function each time elements scroll in or out of view.
+
+When you first render the page, it calls the callback with a list of all the elements on the page. As elements scroll in and out of view, it will call the callback with these elements.
+
+Since we want to keep track of the visibility of all the heading elements, we'll store these values in a `useRef` hook. You can learn more in my post about [storing values with useRef](https://www.emgoto.com/storing-values-with-useref/). 
+
+```jsx
+const useIntersectionObserver = () => {
+  const headingElementsRef = useRef({}); //highlight-line
+
+  useEffect(() => {
+    {/* highlight-range{1-7}*/}
+    const callback = (headings) => {
+      headingElementsRef.current = headings.reduce((map, headingElement) => {
+        map[headingElement.target.id] = headingElement;
+        return map;
+      }, headingElementsRef.current);
+    }
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "0px 0px -40% 0px"
+    });
+
+    const headingElements = Array.from(document.querySelectorAll("h2, h3"));
+
+    headingElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+};
+```
+
+
+### Calculate the index of the active heading
+Each heading element in our `headings` list has a `isIntersecting` (or “is visible”) value. It’s possible to have more than one visible heading on the page, so we’ll need to create a list of all visible headings.
+
+We’ll also create a `getIndexFromId` function. This will let us determine the position of a heading given its ID.
+
+```jsx
+const useIntersectionObserver = () => {
+  const headingElementsRef = useRef({});
+  useEffect(() => {
+    const callback = (headings) => {
+      headingElementsRef.current = headings.reduce((map, headingElement) => {
+        map[headingElement.target.id] = headingElement;
+        return map;
+      }, headingElementsRef.current);
+
+    {/* highlight-range{1-5,7-8}*/}
+      const visibleHeadings = [];
+      Object.keys(headingElementsRef.current).forEach((key) => {
+        const headingElement = headingElementsRef.current[key];
+        if (headingElement.isIntersecting) visibleHeadings.push(headingElement);
+      });
+
+      const getIndexFromId = (id) =>
+        headingElements.findIndex((heading) => heading.id === id);
+    }
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "0px 0px -40% 0px"
+    });
+
+    const headingElements = Array.from(document.querySelectorAll("h2, h3"));
+
+    headingElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+};
+```
+
+Finally, we'll choose the visible heading that is closer to the top of the page. We pass in a function called `setActiveId` that we'll call once we have found the value.
+
+If there are no visible headings, we'll do nothing, and keep the last visible heading as our “active” heading.
+
+```jsx
+const useIntersectionObserver = (setActiveId) => { // highlight-line
+  const headingElementsRef = useRef({});
+  useEffect(() => {
+    const callback = (headings) => {
+      headingElementsRef.current = headings.reduce((map, headingElement) => {
+        map[headingElement.target.id] = headingElement;
+        return map;
+      }, headingElementsRef.current);
+
+      const visibleHeadings = [];
+      Object.keys(headingElementsRef.current).forEach((key) => {
+        const headingElement = headingElementsRef.current[key];
+        if (headingElement.isIntersecting) visibleHeadings.push(headingElement);
+      });
+
+      const getIndexFromId = (id) =>
+        headingElements.findIndex((heading) => heading.id === id);
+
+      {/* highlight-range{1-9}*/}
+      if (visibleHeadings.length === 1) {
+        setActiveId(visibleHeadings[0].target.id);
+      } else if (visibleHeadings.length > 1) {
+        const sortedVisibleHeadings = visibleHeadings.sort(
+          (a, b) => getIndexFromId(a.target.id) > getIndexFromId(b.target.id)
+        );
+        setActiveId(sortedVisibleHeadings[0].target.id);
+      }
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "0px 0px -40% 0px"
+    });
+
+    const headingElements = Array.from(document.querySelectorAll("h2, h3"));
+
+    headingElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, [setActiveId]);
+};
+```
+
+
+## Highlight the currently active heading
+We'll create an `activeId` state variable to store the currently "active" heading. Then we can pass that information into our `Headings` component:
+
+```jsx
+const TableOfContents = () => {
+  const [activeId, setActiveId] = useState(); // highlight-line
+  const { nestedHeadings } = useHeadingsData();
+  useIntersectionObserver(setActiveId); // highlight-line
+
+  return (
+    <nav aria-label="Table of contents">
+      {/* highlight-next-line */}
+      <Headings headings={nestedHeadings} activeId={activeId} />
+    </nav>
+  );
+};
+```
+
+And then add an `active` class to the currently active heading:
+
+```jsx
+const Headings = ({ headings, activeId }) => (
+  <ul>
+    {headings.map((heading) => (
+      {/* highlight-next-line */}
+      <li key={heading.id} className={heading.id === activeId ? "active" : ""}>
+        <a
+          href={`#${heading.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector(`#${heading.id}`).scrollIntoView({
+              behavior: "smooth"
+            });
+          }}
+        >
+          {heading.title}
+        </a>
+        {heading.items.length > 0 && (
+          <ul>
+            {heading.items.map((child) => (
+              {/* highlight-next-line */}
+              <li key={child.id} className={child.id === activeId ? "active" : ""}>
+                <a
+                  href={`#${child.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector(`#${child.id}`).scrollIntoView({
+                      behavior: "smooth"
+                    });
+                  }}
+                >
+                  {child.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+);
+```
+
+Finally, you’ll need some CSS to go along with your `active` class name:
+
+```css
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+li.active > a {
+  color: white;
+}
+
+li > a:hover {
+  color: white;
+}
+```
+
+## Conclusion
+ 
+And you're done! 🎉 You'll now have a dynamically generated table of contents that will live alongside the contents of your posts.
+
+<Gif src="/react-table-of-contents/toc.gif" height="340px" alt="GIF showing React table of contents functionality."/>
+
+> Looking for the full code? Check out this tutorial’s [Codepen](https://codepen.io/emgoto/pen/jOyORjZ).
+
+## PS: Creating a table of contents with Gatsby
+If you’re using Gatsby, the methods we’re using above won’t work with server-side rendering (SSR). This means for a Gatsby blog your table of contents will be empty when the page first loads, before they render in. 
+
+Gatsby lets you grab the table of contents via GraphQL for both Markdown and MDX. This way you can render the table of contents on the initial server-side render.
+
+### Gatsby + Markdown
+With Markdown, you can add `tableOfContents` to your page's GraphQL query:
+```graphql
+query($slug: String!) {
+    markdownRemark(id: { eq: $id }) {
+      tableOfContents
+    }
+}
+```
+
+This will return you an HTML table of contents which you can directly render on the page:
+
+```html
+<ul>
+  <li><a href="/hello-world/#initial-header">Initial header</a></li>
+  <li>
+    <p><a href="/hello-world/#second-header">Second header</a></p>
+	<ul>
+      <li><a href="/hello-world/#third-header">Third header</a></li>
+	</ul>
+  </li>
+</ul>
+```
+
+### Gatsby + MDX
+Similarly with MDX you can add `tableOfContents` to your GraphQL query:
+```graphql
+query($slug: String!) {
+    mdx(slug: { eq: $slug }) {
+        tableOfContents
+    }
+}
+```
+
+This returns a list of top-level headings. Any child headings will live inside of the `items` array. This data follows a similar structure to `nestedHeadings` so it should be straightforward to re-use in your code. 
+
+```js
+[
+    {
+		url: '#initial-heading',
+        title: 'Initial heading', 
+		items: [],
+	}
+];
+```
