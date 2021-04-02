@@ -20,7 +20,7 @@ export const Container = styled.nav`
     max-height: calc(100vh - 144px);
     overflow: auto;
 
-    font-size: 16px;
+    font-size: 15px;
     padding: 16px;
 
     h2 {
@@ -74,5 +74,7 @@ export const Item = styled.li`
 
     > div {
         display: flex;
+        min-height: 28px;
+        line-height: 28px;
     }
 `;
