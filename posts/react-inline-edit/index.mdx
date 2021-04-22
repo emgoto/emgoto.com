@@ -1,0 +1,336 @@
+---
+title: "How to build an inline edit component in React"
+date: 2021-04-22
+tags: ["react"]
+emoji: 🐘
+coverImage: 'https://images.unsplash.com/photo-1593955808003-93f6151e6028?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+showTableOfContents: true
+---
+
+
+The inline edit UI pattern allows users to directly edit content without having to navigate to a separate edit screen. In this tutorial, we’ll be building an accessible inline edit component in React. Here’s the final product:
+
+\<INSERT FINAL PRODUCT HERE\>
+
+We’ll also be taking a look at how to write some unit tests with React Testing Library. Let’s get started!
+
+> This tutorial assumes a basic understanding of React, including hooks.
+> 
+> If you want to jump straight to the full code example, check it out on Codepen.
+
+## Inline editing and accessibility
+When creating any React component, you should be keeping accessibility in mind. For example, your component should:
+* Work with only a keyboard
+* Use the correct HTML elements and other attributes to provide the most context to users
+
+One way to approach writing an inline edit component is to have two separate components. One for a “view mode” and one for a “edit mode”:
+
+```jsx
+// View mode
+<div onClick={startEditing}>Text value</div>
+
+// Edit mode
+<input value="Text value" />
+```
+
+When a user clicks on the view mode component, it will disappear and the edit mode will appear.
+
+The alternative approach is to always use an input element. We can use CSS to make it _look_ as though it has begun editing when a user focuses on it.
+
+```jsx
+// View and edit mode
+<input value="Text value" />
+```
+
+By always using an input element, we get behaviours like tabbing and focusing for free. It also makes more explicit what the purpose of the component is.
+
+## Create your inline edit React component
+Let’s get started by creating an `InlineEdit` component:
+
+```jsx
+const InlineEdit = ({ value, setValue }) => {
+
+  const onChange = (event) => setValue(event.target.value);
+
+  return (
+    <input
+      type="text"
+      aria-label="Field name"
+      value={value}
+      onChange={onChange}
+    />
+  )
+}
+```
+
+The `aria-label` tells screen reader users the purpose of the input. For instance, if it was the name of a list, you could use "List name".
+
+We’re also passing in `value` and `setValue` props. In a real-world app, you’ll be getting and setting values using an endpoint. For this example, we’ll use a `useState` hook to store and set our value:
+
+```jsx
+const App = () => {
+  const [value, setValue] = useState();
+  return <InlineEdit value={value} setValue={setValue} />;
+}
+```
+
+## Add CSS to create a “view” mode
+We’ll add some CSS to remove the input styling, and make the component look as though it is in a “view” state.
+
+```css
+input {
+  background-color: transparent;
+  border: 0;
+  padding: 8px;
+}
+```
+
+We’ll also add some styling to show that the component is editable when a user hovers over it:
+
+```css
+input:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
+```
+
+## Allow users to save when they press Enter or Escape
+If a user clicks away from the input, it will lose focus and return to “view” mode. To keep things keyboard-friendly, we’ll want the escape and enter keys to achieve the same affect.
+
+```jsx
+const InlineEdit = ({ value, setValue }) => {
+  const onChange = (event) => setValue(event.target.value);
+
+  /* highlight-range{1-5} */
+  const onKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === "Escape") {
+      event.target.blur();
+    }
+  }
+
+/* highlight-range{7} */
+  return (
+    <input
+      type="text"
+      aria-label="Field name"
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+    />
+  )
+}
+```
+
+Currently we call the `setValue` prop on each key press. We’ll want to prevent this from happening until a user exits the input. 
+
+Let’s create a local state variable called `editingValue`. This is where we’ll store the value of the input when it is in a “editing” phase.
+
+The `onBlur` handler is called when a user exits the input. So we can use this to call `setValue`.
+
+```jsx
+const InlineEdit = ({ value, setValue }) => {
+  const [editingValue, setEditingValue] = useState(value); // highlight-line
+
+  const onChange = (event) => setEditingValue(event.target.value); // highlight-line
+
+  const onKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === "Escape") {
+      event.target.blur();
+    }
+  }
+
+  /* highlight-range{1-3} */
+  const onBlur = (event) => {
+    setValue(event.target.value)
+  }
+
+/* highlight-range{5,8} */
+  return (
+    <input
+      type="text"
+      aria-label="List name"
+      value={editingValue}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      onBlur={onBlur}
+    />
+  )
+}
+```
+
+## Adding validation on empty strings
+
+Finally, you don’t want users to be able to save an empty string or spaces as a value. In that case, we’ll cancel the edit and use the original value.
+
+```jsx
+const onBlur = (event) => {
+  if (event.target.value.trim() === "") {
+    setValue(value);
+  } else {
+      setValue(event.target.value)
+  }
+}
+```
+
+And that's it! You'll now have a single-line inline edit component.
+
+TODO: insert finished product here
+
+## Creating a multiline inline edit
+
+If you want your inline edit component to be multiline, we can use the `textarea` element instead:
+
+```jsx
+<textarea
+  rows={1}
+  aria-label="Field name"
+  value={editingValue}
+  onBlur={onBlur}
+  onChange={onChange}
+  onKeyDown={onKeyDown}
+/>
+```
+
+The one difference with textarea to input is that you pass in a `rows` value. This specifies the height of your textarea.
+
+By default, textareas aren't dynamic. Luckily, over on StackOverflow I found a [solution](https://stackoverflow.com/questions/17772260/textarea-auto-height) to this problem.
+
+If you add the following CSS to your text area:
+
+```css
+textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 30px;
+  max-height: 100px;
+}
+```
+
+And then pass in an `onInput` handler, you’ll be able to achieve a “dynamic” look.
+
+```jsx
+const onInput = (event) => {
+  if (event.target.scrollHeight > 31) { 
+    event.target.style.height = "5px";
+    event.target.style.height = (event.target.scrollHeight + 6) + "px";
+  }
+}
+
+Note, you may need to fiddle around with the height values depending on the size of your textarea.
+
+/* highlight-range{9}*/
+return (
+  <textarea
+   rows={1}
+   aria-label="Name"
+   value={editingValue}
+   onBlur={onBlur}
+   onChange={onChange}
+   onKeyDown={onKeyDown}
+   onInput={onInput}
+  />
+)
+```
+
+The one other thing you’ll need to add is a focus ring - the blue outline around a focused element. We can do this with some CSS:
+
+```css
+textarea:focus {
+  outline: 5px auto Highlight; /* Firefox */
+  outline: 5px auto -webkit-focus-ring-color; /* Chrome, Safari */
+}
+```
+
+And you’re done!
+
+TODO: INSERT FINAL PRODUCT HERE
+
+## Unit test your inline edit component
+Before we finish, let’s write a couple of unit tests to ensure the functionality of our component. We’ll be using React Testing Library:
+
+```bash
+npm install --save-dev @testing-library/react @testing-library/user-event
+# or
+yarn add -D @testing-library/react @testing-library/user-event
+```
+
+We can ensure that pressing enter causes the input to lose focus:
+
+```jsx
+import { useState } from 'react';
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import InlineEdit from "./Inline-Edit";
+
+const originalName = "originalName"
+const newName = "newName"
+
+const TestComponent = () => {
+  const [value, setValue] = useState(originalName);
+  return <InlineEdit value={value} setValue={setValue} />;
+}
+
+describe("Inline Edit component", () => {
+  test("should save input and lose focus when user presses enter", () => {
+    render(<TestComponent />)
+    const input = screen.getByRole("textbox");
+    userEvent.type(input, `{selectall}${newName}{enter}`);
+    // RTL doesn't properly trigger component's onBlur()
+    fireEvent.blur(input); 
+
+    expect(input).not.toHaveFocus();
+    expect(input).toHaveValue(newName);
+  });
+});
+```
+
+If you haven’t used React Testing Library before, let’s break this test down:
+* The `render` function will render your component into a container. You can access it using the `screen` variable
+* We search for the input component via its aria [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles), `"textbox"`
+* We can use the `userEvent.type()` function to simulate a user typing. If you want to type special keys like space or enter, you can do it with curly braces around it (e.g `{space}` and `{enter}`)
+
+Similarly, we can write two more unit tests:
+
+```js
+test("should focus when tabbed to", () => {
+  render(<TestComponent />);
+  const input = screen.getByRole("textbox");
+
+  expect(document.body).toHaveFocus();
+  userEvent.tab();
+
+  expect(input).toHaveFocus();
+});
+
+test("should reset to last-saved value if input is empty", () => {
+  render(<TestComponent />);
+  const input = screen.getByRole("textbox");
+
+  userEvent.type(input, "{selectall}{space}{enter}");
+  fireEvent.blur(input);
+
+  expect(input).toHaveValue(originalName)
+});
+```
+
+And finally, we can use a cool library called [jest-axe](https://github.com/nickcolley/jest-axe). You can use it to assert that your component doesn’t have any accessibility violations:
+
+```js
+import { axe, toHaveNoViolations } from "jest-axe"
+
+expect.extend(toHaveNoViolations)
+
+test("should not have any accessibility violations", async () => {
+  const { container } = render(<TestComponent />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+If we had forgotten to include an `aria-label`, for instance, then this test would have failed. 
+
+## Conclusion
+
+This tutorial has shown how you can create inline-editable components for your React app, complete with unit tests! You can check out the full source code below:
+
+TODO: insert code pen
