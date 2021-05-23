@@ -193,6 +193,7 @@ const config = {
                                 tags
                                 emoji
                                 date(formatString: "DD MMMM YYYY")
+                                coverImage
                             }
                             slug
                         }
@@ -231,6 +232,7 @@ const config = {
                         suffix: '-dev',
                     },
                 ],
+                // cardLimit: 0,
             },
         },
         {

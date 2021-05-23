@@ -7299,10 +7299,10 @@ gatsby-plugin-react-helmet@^4.0.0:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-gatsby-plugin-react-social-cards@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-social-cards/-/gatsby-plugin-react-social-cards-0.1.0.tgz#546dd55b9bc30d45b0221f7df8d630c565fc80a3"
-  integrity sha512-UgsSLLAsPzKngfJMSiF770smA2cdp30PmliDhHNtHW4mypgNlSAztw+ynmqM6raiX32xFfiI86lmq/uIRWGwJA==
+gatsby-plugin-react-social-cards@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-social-cards/-/gatsby-plugin-react-social-cards-1.0.0.tgz#d80bc7e665a3cc841cfb4408be098bb603b65f64"
+  integrity sha512-4krQWsrZP/WxeM6863OqPJpM1vKaHObhcftr1zfrDGyqcHQ2GjjGhPAYOi72QLQqyFDX449ZJBxC3jrxGqzrRw==
   dependencies:
     puppeteer "^9.1.1"
 

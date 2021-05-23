@@ -16,7 +16,7 @@ const Container = styled.div`
     background-position: bottom;
 
     &:before {
-        background: rgba(32, 41, 51, 0.8);
+        background: rgba(32, 41, 51, 0.7);
         position: absolute;
         content: '';
         width: 1000px;
