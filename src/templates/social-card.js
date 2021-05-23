@@ -3,25 +3,16 @@ import styled from 'styled-components';
 import colors from '../common';
 import TerminalBar from '../components/terminal-bar';
 
-const TWITTER_HEIGHT = 418;
-const TWITTER_WIDTH = 800;
-
-const DEV_HEIGHT = 420;
-const DEV_WIDTH = 1000;
-
 const Container = styled.div`
-    width: ${(props) =>
-        props.isTwitter ? TWITTER_WIDTH : DEV_WIDTH}px;
-    height: ${(props) =>
-        props.isTwitter ? TWITTER_HEIGHT : DEV_HEIGHT}px;
-    padding: 0 ${(props) => (props.isTwitter ? 48 : 148)}px;
+    width: ${(props) => props.width}px;
+    height: ${(props) => props.height}px;
+    padding: 0 ${(props) => (props.width === 800 ? 48 : 148)}px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     ${(props) =>
         props.image && `background-image: url(${props.image})`};
-    background-size: ${(props) =>
-        props.isTwitter ? TWITTER_WIDTH : DEV_WIDTH}px;
+    background-size: ${(props) => props.width}px;
     background-position: bottom;
 
     &:before {
@@ -70,9 +61,9 @@ const Grow = styled.div`
 `;
 
 const SocialCard = ({
-    pageContext: { isTwitter, title, emoji, coverImage },
+    pageContext: { title, emoji, coverImage, width, height },
 }) => (
-    <Container isTwitter={isTwitter} image={coverImage}>
+    <Container width={width} height={height} image={coverImage}>
         <Grow />
         <SquareContainer>
             <TerminalBar scale={1.5} />

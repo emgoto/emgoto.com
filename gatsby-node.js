@@ -109,44 +109,6 @@ exports.createPages = ({ graphql, actions }) => {
                         : {}),
                 },
             });
-
-            // Create the cover image for the blogpost - to be used by script to take screenshot of
-            if (
-                process.env.gatsby_executing_command.includes(
-                    'develop',
-                )
-            ) {
-                const { title, emoji, coverImage } = node.frontmatter;
-                createPage({
-                    path: `${node.slug}image_tw`,
-                    component: require.resolve(
-                        './src/templates/social-card.js',
-                    ),
-                    context: {
-                        slug: node.slug,
-                        isTwitter: true,
-                        title,
-                        emoji,
-                        coverImage,
-                        noLayout: true,
-                    },
-                });
-
-                createPage({
-                    path: `${node.slug}image_dev`,
-                    component: require.resolve(
-                        './src/templates/social-card.js',
-                    ),
-                    context: {
-                        slug: node.slug,
-                        isTwitter: false,
-                        title,
-                        emoji,
-                        coverImage,
-                        noLayout: true,
-                    },
-                });
-            }
         });
 
         tags = _.uniq(tags);

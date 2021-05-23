@@ -178,6 +178,62 @@ const config = {
             },
         },
         {
+            resolve: 'gatsby-plugin-react-social-cards',
+            options: {
+                query: `
+                {
+                    allMdx(
+                        limit: 2000
+                        sort: { fields: [frontmatter___date], order: DESC }
+                        filter: { fields: { collection: { eq: "posts" } } }
+                    ) {
+                        nodes {
+                            frontmatter {
+                                title
+                                tags
+                                emoji
+                                date(formatString: "DD MMMM YYYY")
+                            }
+                            slug
+                        }
+                    }
+                }`,
+                queryToPages: (result) =>
+                    result.data.allMdx.nodes.map((node) => {
+                        const slugWithoutSlashes = node.slug.replace(
+                            /\//g,
+                            '',
+                        );
+                        return {
+                            slug: `/${slugWithoutSlashes}`,
+                            pageContext: {
+                                title: node.frontmatter.title,
+                                coverImage:
+                                    node.frontmatter.coverImage,
+                                emoji: node.frontmatter.emoji,
+                                slug: node.slug,
+                                noLayout: true,
+                            },
+                        };
+                    }),
+                component: require.resolve(
+                    './src/templates/social-card.js',
+                ),
+                dimensions: [
+                    {
+                        width: 800,
+                        height: 418,
+                        suffix: '-twitter',
+                    },
+                    {
+                        width: 1000,
+                        height: 420,
+                        suffix: '-dev',
+                    },
+                ],
+            },
+        },
+        {
             resolve: 'gatsby-plugin-local-search',
             options: {
                 name: 'pages',
