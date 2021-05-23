@@ -6,7 +6,7 @@ const Comments = () => {
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://utteranc.es/client.js';
-        script.setAttribute('repo', 'emgoto/emgoto-comments');
+        script.setAttribute('repo', process.env.GATSBY_COMMENTS_REPO);
         script.setAttribute('issue-term', 'pathname');
         script.setAttribute('theme', 'dark-blue');
         script.setAttribute('crossorigin', 'anonymous');
