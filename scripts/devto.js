@@ -81,6 +81,11 @@ const main = () => {
             `![](https://raw.githubusercontent.com/emgoto/emgoto.com/master/posts/${slug}/`,
         );
 
+        console.log('content');
+        console.log('content', content);
+
+        return;
+
         fetch('https://dev.to/api/articles/me/unpublished', {
             headers: { 'api-key': process.env.DEV_API_KEY },
         })

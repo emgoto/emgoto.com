@@ -25,9 +25,9 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-const frontMatter = title =>
+const frontMatter = (title) =>
     `---
-title: "${title.replace('# ', '').trim()}"
+title: "${title}"
 date: ${formatDate(new Date())}
 tags: []
 emoji:
@@ -36,28 +36,45 @@ coverImage: ''
 `;
 
 const ulysses = () => {
+    // Get file and move it to posts folder
     const file = glob.sync(
         join(process.cwd(), 'scripts', '**', '*.textbundle'),
     )[0];
     const slug = file.match(/\/([^\/]+).textbundle/)[1];
-    const extractToDirectory = join(process.cwd(), 'posts');
-    const newFolder = `${extractToDirectory}/${slug}`;
+    const postsDirectory = join(process.cwd(), 'posts');
+
+    let newFolder = `${postsDirectory}/${slug}`;
     renameSync(file, newFolder);
+
+    // Move all the image files from the assets folder to the same folder
     const images = glob.sync(join(newFolder, 'assets', '*'));
-    images.forEach(image => {
+    images.forEach((image) => {
         let imageName = image.match(/assets\/([^\/]+)/)[1];
+        newFolder = `${postsDirectory}/${slug}`;
+
+        if (imageName.endsWith('.gif')) {
+            // Gifs don't work in markdown, so I move them to static folder
+            const staticDirectory = join(process.cwd(), 'static');
+            newFolder = `${staticDirectory}/${slug}`;
+        }
+
         rename(image, `${newFolder}/${imageName}`, () => {});
     });
 
+    // Remove redundant folder and files, rename markdown file to MDX
     rmdir(`${newFolder}/assets`, () => {});
     unlink(`${newFolder}/info.json`, () => {});
-
     renameSync(`${newFolder}/text.md`, `${newFolder}/index.mdx`);
+
+    // Rename files
 
     const options = {
         files: `${newFolder}/index.mdx`,
         from: [/\[\]\(assets/g, /^# .*/g],
-        to: ['[](.', title => frontMatter(title)],
+        to: [
+            '[](.',
+            (title) => frontMatter(title.replace('# ', '').trim()),
+        ],
     };
 
     replace.sync(options);
