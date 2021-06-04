@@ -167,7 +167,7 @@ const onBlur = (event) => {
   if (event.target.value.trim() === "") {
     setValue(value);
   } else {
-      setValue(event.target.value)
+    setValue(event.target.value)
   }
 }
 ```
@@ -191,7 +191,7 @@ If you want your inline edit component to be multiline, we can use the `textarea
 />
 ```
 
-The one difference with textarea to input is that you pass in a `rows` value. This specifies the height of your textarea.
+The one difference with textarea is that you pass in a `rows` value. This specifies the height of your textarea.
 
 By default, textareas aren't dynamic. Luckily, over on StackOverflow I found a [solution](https://stackoverflow.com/questions/17772260/textarea-auto-height) to this problem.
 
@@ -216,7 +216,7 @@ const onInput = (event) => {
   }
 }
 
-Note, you may need to fiddle around with the height values depending on the size of your textarea.
+Note you may need to fiddle around with the height values depending on the size of your textarea.
 
 /* highlight-range{9}*/
 return (
