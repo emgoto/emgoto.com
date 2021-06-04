@@ -44,13 +44,13 @@ const updateArticle = (devArticleId, content) => {
             },
         }),
     })
-        .then(response => response.json())
-        .then(response => {
+        .then((response) => response.json())
+        .then((response) => {
             response.error
                 ? console.log('Did not suceed', response)
                 : console.log('Update succeeded.', response.url);
         })
-        .catch(error => {
+        .catch((error) => {
             console.log('Failed to update article');
         });
 };
@@ -84,8 +84,15 @@ const main = () => {
         fetch('https://dev.to/api/articles/me/unpublished', {
             headers: { 'api-key': process.env.DEV_API_KEY },
         })
-            .then(response => response.json())
-            .then(response => {
+            .then((response) => response.json())
+            .then((response) => {
+                if (response.error) {
+                    console.log(
+                        'Error occurred:',
+                        process.env.DEV_API_KEY,
+                        response.error,
+                    );
+                }
                 if (response.length > 0) {
                     const draftTitle = response[0].title;
                     console.log('Got unpublished title:', draftTitle);
@@ -99,9 +106,11 @@ const main = () => {
                     } else {
                         console.log('Titles did not match');
                     }
+                } else {
+                    console.log('No results found');
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log('Failed to fetch unpublished articles');
             });
     });
