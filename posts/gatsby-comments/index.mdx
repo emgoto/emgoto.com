@@ -86,9 +86,12 @@ You can just copy-paste the code above, but make sure to change the `repo` line 
 After that, you can drop your new component into wherever you render your blog posts. I have a template file that is rendered on each blog post page, so I put mine at the bottom of that file:
 
 ```jsx:title=src/templates/blog-post.js
+import React from 'react';
+import Comments from '../components/comments.js'
+
 const BlogPost = () => (
     <>
-        // Code to render blog post content
+        // Code to render your blog post content
         <Comments />
     </>
 );

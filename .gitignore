@@ -34,5 +34,6 @@ public/
 
 .env
 .env.production
+.env.*
 
 .testing-static-queries.json
